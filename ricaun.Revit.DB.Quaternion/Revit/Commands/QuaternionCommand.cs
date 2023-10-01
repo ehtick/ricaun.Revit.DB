@@ -6,7 +6,7 @@ using ricaun.Revit.DB.Quaternion;
 using ricaun.Revit.DB.Quaternion.Extensions;
 using System;
 
-namespace ricaun.Revit.Debug.Revit.Commands
+namespace ricaun.Revit.DB.Quaternion.Revit.Commands
 {
     [Transaction(TransactionMode.Manual)]
     public class QuaternionCommand : IExternalCommand

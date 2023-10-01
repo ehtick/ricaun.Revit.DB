@@ -167,4 +167,11 @@
     <PackageReference Include="Revit_All_Main_Versions_API_x64" Version="$(RevitVersion).*" IncludeAssets="build; compile" PrivateAssets="All" />
   </ItemGroup>
 
+  <ItemGroup Condition="!$(Configuration.Contains('Debug'))">
+    <Compile Remove="Revit\**" />
+    <EmbeddedResource Remove="Revit\**" />
+    <None Remove="Revit\**" />
+    <Page Remove="Revit\**" />
+  </ItemGroup>
+
 </Project>
