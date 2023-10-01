@@ -12,7 +12,7 @@ namespace ricaun.Revit.DB.Revit
         public Result OnStartup(UIControlledApplication application)
         {
             ribbonPanel = application.CreatePanel("ricaun.Revit.DB");
-            ribbonPanel.CreatePushButton<Commands.Command>()
+            ribbonPanel.CreatePushButton<Commands.QuaternionCommand>("Quaternion\rView")
                 .SetLargeImage("/UIFrameworkRes;component/ribbon/images/revit.ico");
             return Result.Succeeded;
         }

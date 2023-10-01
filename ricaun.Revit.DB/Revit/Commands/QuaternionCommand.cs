@@ -9,7 +9,7 @@ using System;
 namespace ricaun.Revit.DB.Revit.Commands
 {
     [Transaction(TransactionMode.Manual)]
-    public class Command : IExternalCommand
+    public class QuaternionCommand : IExternalCommand
     {
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elementSet)
         {
