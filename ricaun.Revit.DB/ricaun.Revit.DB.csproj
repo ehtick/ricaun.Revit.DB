@@ -8,6 +8,11 @@
     <LangVersion>latest</LangVersion>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+
+    <SuppressDependenciesWhenPacking>false</SuppressDependenciesWhenPacking>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <NoWarn>$(NoWarn);NU5128</NoWarn>
+    
     <Configurations>
       Debug; Release;
     </Configurations>
@@ -76,7 +81,7 @@
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\$(RevitVersion)</OutputPath>
     <DefineConstants>REVIT$(RevitVersion)</DefineConstants>
-    <NoWarn>MSB3052</NoWarn>
+    <NoWarn>$(NoWarn);MSB3052</NoWarn>
     <DebugType>None</DebugType>
   </PropertyGroup>
 
@@ -97,7 +102,7 @@
 
   <PropertyGroup>
     <PackageId>ricaun.Revit.DB</PackageId>
-    <Version>1.0.0</Version>
+    <Version Condition="'$(Version)' == ''">1.0.0</Version>
     <ProjectGuid>{4571A534-33B8-4771-8071-A967DE651909}</ProjectGuid>
   </PropertyGroup>
 

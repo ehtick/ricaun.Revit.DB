@@ -10,13 +10,14 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution", "Solution", "{447658EE-A583-4B95-AC5F-C1F84D13990B}"
 	ProjectSection(SolutionItems) = preProject
 		CHANGELOG.md = CHANGELOG.md
+		Directory.Build.props = Directory.Build.props
 		LICENSE = LICENSE
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ricaun.Revit.DB.Quaternion", "ricaun.Revit.DB.Quaternion\ricaun.Revit.DB.Quaternion.csproj", "{6E339E58-9530-4B16-8177-2C834A4171BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ricaun.Revit.DB.Quaternion", "ricaun.Revit.DB.Quaternion\ricaun.Revit.DB.Quaternion.csproj", "{6E339E58-9530-4B16-8177-2C834A4171BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ricaun.Revit.DB.Quaternion.Tests", "ricaun.Revit.DB.Quaternion.Tests\ricaun.Revit.DB.Quaternion.Tests.csproj", "{F8A54707-7E9C-4A8D-8B6B-01F9D78B1B3F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ricaun.Revit.DB.Quaternion.Tests", "ricaun.Revit.DB.Quaternion.Tests\ricaun.Revit.DB.Quaternion.Tests.csproj", "{F8A54707-7E9C-4A8D-8B6B-01F9D78B1B3F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

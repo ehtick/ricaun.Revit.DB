@@ -6,7 +6,7 @@ using ricaun.Revit.DB.Quaternion;
 using ricaun.Revit.DB.Quaternion.Extensions;
 using System;
 
-namespace ricaun.Revit.DB.Revit.Commands
+namespace ricaun.Revit.Debug.Revit.Commands
 {
     [Transaction(TransactionMode.Manual)]
     public class QuaternionCommand : IExternalCommand
@@ -22,7 +22,7 @@ namespace ricaun.Revit.DB.Revit.Commands
 
             var tranform = view.CropBox.Transform;
 
-            var quaternion = tranform.GetQuaternion();
+            Quaternion quaternion = tranform.GetQuaternion();
 
             Console.WriteLine(quaternion.AsString());
 

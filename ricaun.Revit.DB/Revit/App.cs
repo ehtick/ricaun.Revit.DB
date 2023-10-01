@@ -3,7 +3,7 @@ using Autodesk.Revit.UI;
 using ricaun.Revit.UI;
 using System;
 
-namespace ricaun.Revit.DB.Revit
+namespace ricaun.Revit.Debug.Revit
 {
     [AppLoader]
     public class App : IExternalApplication
