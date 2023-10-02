@@ -37,6 +37,7 @@ public interface IBuildPackages : IHazMainProject, IHazExample, IRelease, ISign,
                         {
                             Serilog.Log.Information($"Copy nupkg: {file} to {releaseDirectory}");
                             FileSystemTasks.CopyFileToDirectory(file, releaseDirectory, FileExistsPolicy.OverwriteIfNewer);
+                            FileSystemTasks.CopyFileToDirectory(file, ContentDirectory, FileExistsPolicy.OverwriteIfNewer);
                         });
 
                 });
