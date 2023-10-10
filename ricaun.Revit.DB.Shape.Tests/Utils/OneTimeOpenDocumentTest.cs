@@ -12,7 +12,7 @@ namespace ricaun.Revit.DB.Shape.Tests.Utils
     {
         protected Document document;
         protected Application application;
-        protected virtual string FileName => "";
+        protected virtual string FileName => null;
 
         [OneTimeSetUp]
         public void NewProjectDocument(Application application)

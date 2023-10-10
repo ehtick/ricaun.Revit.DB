@@ -1,30 +1,44 @@
 ﻿using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.DB;
 using NUnit.Framework;
+using ricaun.Revit.DB.Shape.Tests.Utils;
 using System;
-using System.Runtime.InteropServices;
 
 namespace ricaun.Revit.DB.Shape.Tests
 {
-    public class MaterialCreate_Tests : Utils.OneTimeOpenDocumentTest
+    public class MaterialCreate_Tests : OneTimeOpenDocumentTransactionTest
     {
-        #region Transaction
-        Transaction transaction;
-        [SetUp]
-        public void Setup()
+        [Test]
+        public void CreateMaterial()
         {
-            transaction?.Dispose();
-            transaction = new Transaction(document);
-            transaction.Start("MaterialCreate_Tests");
+            var material = MaterialUtils.CreateMaterial(document, 0, 1, 2);
+            Assert.IsNotNull(material);
         }
-        [TearDown]
-        public void TearDown()
+
+        [Test]
+        public void CreateMaterial_WithAlpha()
         {
-            transaction.Commit();
-            transaction.Dispose();
-            transaction = null;
+            var material = MaterialUtils.CreateMaterial(document, 0, 1, 2, 3);
+            Assert.IsNotNull(material);
         }
-        #endregion
+
+        [Test]
+        public void CreateMaterial_Color()
+        {
+            var color = new Color(3, 4, 5);
+            var material = MaterialUtils.CreateMaterial(document, color);
+            Assert.IsNotNull(material);
+            Assert.IsTrue(material.Color.ColorEquals(color));
+        }
+
+        [Test]
+        public void CreateMaterial_ColorWithTransparency()
+        {
+            var color = new ColorWithTransparency(3, 4, 5, 6);
+            var material = MaterialUtils.CreateMaterial(document, color);
+            Assert.IsNotNull(material);
+            Assert.IsTrue(material.Color.ColorEquals(color));
+        }
 
         [Test]
         public void CreateMaterialWhite()
