@@ -88,6 +88,10 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>Full</DebugType>
   </PropertyGroup>
+  
+  <ItemGroup>
+    <None Include="RevitTests.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="NUnit" Version="3.13.3" />
@@ -111,7 +115,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ricaun.Revit.DB.Quaternion\ricaun.Revit.DB.Quaternion.csproj" />
+    <ProjectReference Include="..\ricaun.Revit.DB.Shape\ricaun.Revit.DB.Shape.csproj" />
   </ItemGroup>
 
 </Project>

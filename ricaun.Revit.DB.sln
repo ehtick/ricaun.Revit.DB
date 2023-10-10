@@ -19,7 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ricaun.Revit.DB.Quaternion"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ricaun.Revit.DB.Quaternion.Tests", "ricaun.Revit.DB.Quaternion.Tests\ricaun.Revit.DB.Quaternion.Tests.csproj", "{F8A54707-7E9C-4A8D-8B6B-01F9D78B1B3F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ricaun.Revit.DB.Shape", "ricaun.Revit.DB.Shape\ricaun.Revit.DB.Shape.csproj", "{C07967B5-D31B-4E76-AC52-1F837695D875}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ricaun.Revit.DB.Shape", "ricaun.Revit.DB.Shape\ricaun.Revit.DB.Shape.csproj", "{C07967B5-D31B-4E76-AC52-1F837695D875}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ricaun.Revit.DB.Shape.Tests", "ricaun.Revit.DB.Shape.Tests\ricaun.Revit.DB.Shape.Tests.csproj", "{B10FD6B6-DA3A-4547-A370-CB62367B30AB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{C07967B5-D31B-4E76-AC52-1F837695D875}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C07967B5-D31B-4E76-AC52-1F837695D875}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C07967B5-D31B-4E76-AC52-1F837695D875}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B10FD6B6-DA3A-4547-A370-CB62367B30AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B10FD6B6-DA3A-4547-A370-CB62367B30AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B10FD6B6-DA3A-4547-A370-CB62367B30AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B10FD6B6-DA3A-4547-A370-CB62367B30AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

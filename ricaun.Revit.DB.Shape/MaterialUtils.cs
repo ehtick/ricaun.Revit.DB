@@ -16,13 +16,34 @@ namespace ricaun.Revit.DB.Shape
         /// <param name="green"></param>
         /// <param name="blue"></param>
         /// <param name="alpha"></param>
-        /// <returns></returns>
+        /// <returns>Color {alpha}{red}{blue}{green} in hexa</returns>
         public static string MaterialColorName(byte red, byte green, byte blue, byte alpha = byte.MaxValue)
         {
             if (alpha == byte.MaxValue)
                 return string.Format("Color {0:X2}{1:X2}{2:X2}", red, green, blue);
 
             return string.Format("Color {0:X2}{1:X2}{2:X2}{3:X2}", alpha, red, green, blue);
+        }
+
+        /// <summary>
+        /// MaterialColorName
+        /// </summary>
+        /// <param name="color"></param>
+        /// <param name="alpha"></param>
+        /// <returns></returns>
+        public static string MaterialColorName(Color color, byte alpha = byte.MaxValue)
+        {
+            return MaterialColorName(color.Red, color.Green, color.Blue, alpha);
+        }
+
+        /// <summary>
+        /// MaterialColorName
+        /// </summary>
+        /// <param name="color"></param>
+        /// <returns></returns>
+        public static string MaterialColorName(ColorWithTransparency color)
+        {
+            return MaterialColorName((byte)color.GetRed(), (byte)color.GetGreen(), (byte)color.GetBlue(), (byte)color.GetTransparency());
         }
 
         /// <summary>
@@ -165,5 +186,22 @@ namespace ricaun.Revit.DB.Shape
             return FindMaterial(document)
                 .FirstOrDefault(m => m.Name.Equals(name, System.StringComparison.InvariantCultureIgnoreCase));
         }
+
+        /// <summary>
+        /// FindMaterial
+        /// </summary>
+        /// <param name="document"></param>
+        /// <param name="color"></param>
+        /// <returns></returns>
+        public static Material FindMaterial(Document document, Color color)
+        {
+            return FindMaterial(document, MaterialColorName(color));
+        }
+
+        public static Material FindMaterial(Document document, ColorWithTransparency color)
+        {
+            return FindMaterial(document, MaterialColorName(color));
+        }
+
     }
 }
