@@ -9,6 +9,7 @@ namespace ricaun.Revit.DB.Shape
     public static class TransformUtils
     {
         const double Tolerance = 1e-9;
+        private const double SCALE = 1.0;
 
         /// <summary>
         /// Create Transform to point to <paramref name="axisZ"/> in <see cref="Autodesk.Revit.DB.Transform.BasisZ"/> direction.
@@ -16,7 +17,7 @@ namespace ricaun.Revit.DB.Shape
         /// <param name="axisZ"></param>
         /// <param name="scale"></param>
         /// <returns></returns>
-        public static Transform CreateRotation(XYZ axisZ, double scale = 1.0)
+        public static Transform CreateRotation(XYZ axisZ, double scale = SCALE)
         {
             if (axisZ.IsZeroLength()) axisZ = XYZ.BasisZ;
             axisZ = axisZ.Normalize();
@@ -42,10 +43,10 @@ namespace ricaun.Revit.DB.Shape
         /// <param name="axisX"></param>
         /// <param name="scale"></param>
         /// <returns></returns>
-        public static Transform CreateRotationX(XYZ axisZ, XYZ axisX, double scale = 1.0)
+        public static Transform CreateRotationX(XYZ axisZ, XYZ axisX, double scale = SCALE)
         {
             if (axisX.IsZeroLength()) axisX = XYZ.BasisX;
-            if (axisZ.IsZeroLength()) axisZ = XYZ.BasisX;
+            if (axisZ.IsZeroLength()) axisZ = XYZ.BasisZ;
             axisX = axisX.Normalize();
             axisZ = axisZ.Normalize();
 
@@ -64,7 +65,6 @@ namespace ricaun.Revit.DB.Shape
 
             var transformXNegative = Transform.CreateRotation(axisZ, -angle);
             result = transformXNegative * transform;
-
             return result;
         }
 
@@ -75,10 +75,10 @@ namespace ricaun.Revit.DB.Shape
         /// <param name="axisY"></param>
         /// <param name="scale"></param>
         /// <returns></returns>
-        public static Transform CreateRotationY(XYZ axisZ, XYZ axisY, double scale = 1.0)
+        public static Transform CreateRotationY(XYZ axisZ, XYZ axisY, double scale = SCALE)
         {
-            if (axisY.IsZeroLength()) axisY = XYZ.BasisX;
-            if (axisZ.IsZeroLength()) axisZ = XYZ.BasisX;
+            if (axisY.IsZeroLength()) axisY = XYZ.BasisY;
+            if (axisZ.IsZeroLength()) axisZ = XYZ.BasisZ;
             axisY = axisY.Normalize();
             axisZ = axisZ.Normalize();
 
