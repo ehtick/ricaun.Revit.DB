@@ -30,6 +30,14 @@ namespace ricaun.Revit.DB.Shape.Tests
         }
 
         [Test]
+        public void ShapeCreator_CreateSolid()
+        {
+            var expected = Solid12;
+            var union = ShapeCreator.CreateSolid(Solid1, Solid2);
+            AssertUtils.Solid(union, expected);
+        }
+
+        [Test]
         public void Solid_Intersect()
         {
             var expected = Solid1;

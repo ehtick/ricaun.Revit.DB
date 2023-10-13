@@ -46,9 +46,9 @@ namespace ricaun.Revit.DB.Shape.Tests
             return true;
         }
 
-        public static bool AlmostEqual(this double value, double other)
+        public static bool AlmostEqual(this double value, double other, double tolerance = Tolerance)
         {
-            return Math.Abs(value - other) < Tolerance;
+            return Math.Abs(value - other) < tolerance;
         }
     }
 }

@@ -103,6 +103,7 @@
   </ItemGroup>
 
   <!-- Release -->
+  <!--
   <ItemGroup Condition="!$(Configuration.Contains('Debug'))">
     <AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute">
       <_Parameter1>NUnit.Open</_Parameter1>
@@ -113,6 +114,7 @@
       <_Parameter2>true</_Parameter2>
     </AssemblyAttribute>
   </ItemGroup>
+  -->
 
   <ItemGroup>
     <ProjectReference Include="..\ricaun.Revit.DB.Shape\ricaun.Revit.DB.Shape.csproj" />

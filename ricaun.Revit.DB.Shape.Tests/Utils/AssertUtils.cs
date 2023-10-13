@@ -30,5 +30,50 @@ namespace ricaun.Revit.DB.Shape.Tests.Utils
 
             Assert.IsTrue(solid.AlmostEqual(other), $"Solid {solid} is not almost equal {other}");
         }
+
+        public static void Solid(Solid solid, int edges, int faces, double volume, double area, double tolerance)
+        {
+            Assert.AreEqual(edges, solid.Edges.Size, $"Edges: {solid.Edges.Size}");
+            Assert.AreEqual(faces, solid.Faces.Size, $"Faces: {solid.Faces.Size}");
+
+            Assert.True(volume.AlmostEqual(solid.Volume, tolerance), $"Solid Volume {solid.Volume} is not {volume}");
+            Assert.True(area.AlmostEqual(solid.SurfaceArea, tolerance), $"Solid Area {solid.SurfaceArea} is not {area}");
+        }
+
+        public static void Sphere(Solid solid, double radius)
+        {
+            var volume = 4.0 / 3.0 * System.Math.PI * System.Math.Pow(radius, 3);
+            var area = 4.0 * System.Math.PI * System.Math.Pow(radius, 2);
+
+            AssertUtils.Solid(solid, 2, 2, volume, area, 1e-2);
+        }
+
+        public static void Cylinder(Solid solid, double radius, double height = 0)
+        {
+            if (height == 0)
+                height = 2 * radius;
+
+            var volume = System.Math.PI * System.Math.Pow(radius, 2) * height;
+            var area = 2 * System.Math.PI * radius * height + 2 * System.Math.PI * System.Math.Pow(radius, 2);
+
+            // Tolerance is bad with big radius
+            var tolerance = 1e-0;
+
+            AssertUtils.Solid(solid, 10, 6, volume, area, tolerance);
+        }
+
+        public static void Pointer(Solid solid, double radius, double height = 0)
+        {
+            if (height == 0)
+                height = 2 * radius;
+
+            var volume = System.Math.PI * System.Math.Pow(radius, 2) * height / 3;
+            var area = System.Math.PI * radius * System.Math.Sqrt(System.Math.Pow(radius, 2) + System.Math.Pow(height, 2)) + System.Math.PI * System.Math.Pow(radius, 2);
+
+            // Tolerance is bad with big radius
+            var tolerance = 1e-0;
+
+            AssertUtils.Solid(solid, 6, 4, volume, area, tolerance);
+        }
     }
 }
