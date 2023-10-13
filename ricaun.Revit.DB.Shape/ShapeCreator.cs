@@ -30,6 +30,7 @@ namespace ricaun.Revit.DB.Shape
         /// <param name="min">The minimum point of the box. This point defines the lower corner of the box.</param>
         /// <param name="max">The maximum point of the box. This point defines the upper corner of the box.</param>
         /// <returns>An array of lines representing the edges of the 3D box.</returns>
+        /// <remarks>Ignore Lines with distance too short.</remarks>
         public static Line[] CreateBoxLines(XYZ min, XYZ max)
         {
             // Create an array to store the lines

@@ -69,92 +69,92 @@ namespace ricaun.Revit.DB.Shape.Extensions
         /// <returns></returns>
         public static Solid ScaleCentroid(this Solid solid, double scale)
         {
-            var center = solid.GetOrigin();
-            return solid.Scale(scale, center);
+            var origin = solid.GetOrigin();
+            return solid.Scale(scale, origin);
         }
 
         /// <summary>
-        /// Creates a new Solid which is the scaled of the input Solid. (Center.X, Center.Y, Min.Z)
+        /// Creates a new Solid which is the scaled of the input Solid. (Origin.X, Origin.Y, Min.Z)
         /// </summary>
         /// <param name="solid">The solid to be scaled.</param>
         /// <param name="scale">The scale value.</param>
         /// <returns></returns>
         public static Solid ScaleBotton(this Solid solid, double scale)
         {
-            var center = solid.GetOrigin();
+            var origin = solid.GetOrigin();
             var box = solid.GetBoundingBox();
-            center = new XYZ(center.X, center.Y, box.Min.Z);
-            return solid.Scale(scale, center);
+            origin = new XYZ(origin.X, origin.Y, box.Min.Z);
+            return solid.Scale(scale, origin);
         }
 
         /// <summary>
-        /// Creates a new Solid which is the scaled of the input Solid. (Center.X, Center.Y, Max.Z)
+        /// Creates a new Solid which is the scaled of the input Solid. (Origin.X, Origin.Y, Max.Z)
         /// </summary>
         /// <param name="solid">The solid to be scaled.</param>
         /// <param name="scale">The scale value.</param>
         /// <returns></returns>
         public static Solid ScaleTop(this Solid solid, double scale)
         {
-            var center = solid.GetOrigin();
+            var origin = solid.GetOrigin();
             var box = solid.GetBoundingBox();
-            center = new XYZ(center.X, center.Y, box.Max.Z);
-            return solid.Scale(scale, center);
+            origin = new XYZ(origin.X, origin.Y, box.Max.Z);
+            return solid.Scale(scale, origin);
         }
 
         /// <summary>
-        /// Creates a new Solid which is the scaled of the input Solid. (Min.X, Center.Y, Center.Z)
+        /// Creates a new Solid which is the scaled of the input Solid. (Min.X, Origin.Y, Origin.Z)
         /// </summary>
         /// <param name="solid">The solid to be scaled.</param>
         /// <param name="scale">The scale value.</param>
         /// <returns></returns>
         public static Solid ScaleLeft(this Solid solid, double scale)
         {
-            var center = solid.GetOrigin();
+            var origin = solid.GetOrigin();
             var box = solid.GetBoundingBox();
-            center = new XYZ(box.Min.X, center.Y, center.Z);
-            return solid.Scale(scale, center);
+            origin = new XYZ(box.Min.X, origin.Y, origin.Z);
+            return solid.Scale(scale, origin);
         }
 
         /// <summary>
-        /// Creates a new Solid which is the scaled of the input Solid. (Max.X, Center.Y, Center.Z)
+        /// Creates a new Solid which is the scaled of the input Solid. (Max.X, Origin.Y, Origin.Z)
         /// </summary>
         /// <param name="solid">The solid to be scaled.</param>
         /// <param name="scale">The scale value.</param>
         /// <returns></returns>
         public static Solid ScaleRight(this Solid solid, double scale)
         {
-            var center = solid.GetOrigin();
+            var origin = solid.GetOrigin();
             var box = solid.GetBoundingBox();
-            center = new XYZ(box.Max.X, center.Y, center.Z);
-            return solid.Scale(scale, center);
+            origin = new XYZ(box.Max.X, origin.Y, origin.Z);
+            return solid.Scale(scale, origin);
         }
 
         /// <summary>
-        /// Creates a new Solid which is the scaled of the input Solid. (Center.X, Min.Y, Center.Z)
+        /// Creates a new Solid which is the scaled of the input Solid. (Origin.X, Min.Y, Origin.Z)
         /// </summary>
         /// <param name="solid">The solid to be scaled.</param>
         /// <param name="scale">The scale value.</param>
         /// <returns></returns>
         public static Solid ScaleFront(this Solid solid, double scale)
         {
-            var center = solid.GetOrigin();
+            var origin = solid.GetOrigin();
             var box = solid.GetBoundingBox();
-            center = new XYZ(center.X, box.Min.Y, center.Z);
-            return solid.Scale(scale, center);
+            origin = new XYZ(origin.X, box.Min.Y, origin.Z);
+            return solid.Scale(scale, origin);
         }
 
         /// <summary>
-        /// Creates a new Solid which is the scaled of the input Solid. (Center.X, Max.Y, Center.Z)
+        /// Creates a new Solid which is the scaled of the input Solid. (Origin.X, Max.Y, Origin.Z)
         /// </summary>
         /// <param name="solid">The solid to be scaled.</param>
         /// <param name="scale">The scale value.</param>
         /// <returns></returns>
         public static Solid ScaleBack(this Solid solid, double scale)
         {
-            var center = solid.GetOrigin();
+            var origin = solid.GetOrigin();
             var box = solid.GetBoundingBox();
-            center = new XYZ(center.X, box.Max.Y, center.Z);
-            return solid.Scale(scale, center);
+            origin = new XYZ(origin.X, box.Max.Y, origin.Z);
+            return solid.Scale(scale, origin);
         }
 
         /// <summary>
