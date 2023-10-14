@@ -8,29 +8,29 @@ namespace ricaun.Revit.DB.Shape.Tests
         [Test]
         public void CreateLineColorWhite()
         {
-            var material = GraphicsStyleUtils.CreateLineColorWhite(document);
-            Assert.IsNotNull(material);
+            var graphicsStyle = GraphicsStyleUtils.CreateLineColorWhite(document);
+            Assert.IsNotNull(graphicsStyle);
         }
 
         [Test]
         public void CreateLineColorRed()
         {
-            var material = GraphicsStyleUtils.CreateLineColorRed(document);
-            Assert.IsNotNull(material);
+            var graphicsStyle = GraphicsStyleUtils.CreateLineColorRed(document);
+            Assert.IsNotNull(graphicsStyle);
         }
 
         [Test]
         public void CreateLineColorGreen()
         {
-            var material = GraphicsStyleUtils.CreateLineColorGreen(document);
-            Assert.IsNotNull(material);
+            var graphicsStyle = GraphicsStyleUtils.CreateLineColorGreen(document);
+            Assert.IsNotNull(graphicsStyle);
         }
 
         [Test]
         public void CreateLineColorBlue()
         {
-            var material = GraphicsStyleUtils.CreateLineColorBlue(document);
-            Assert.IsNotNull(material);
+            var graphicsStyle = GraphicsStyleUtils.CreateLineColorBlue(document);
+            Assert.IsNotNull(graphicsStyle);
         }
 
         [Test]

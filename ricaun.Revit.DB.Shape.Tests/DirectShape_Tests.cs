@@ -8,6 +8,7 @@ using System.Linq;
 
 namespace ricaun.Revit.DB.Shape.Tests
 {
+
     public class DirectShape_Tests : OneTimeOpenDocumentTransactionTest
     {
         [Test]

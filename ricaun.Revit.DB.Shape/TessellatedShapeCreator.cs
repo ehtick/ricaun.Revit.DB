@@ -1,4 +1,5 @@
 ﻿using Autodesk.Revit.DB;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,6 +10,25 @@ namespace ricaun.Revit.DB.Shape
     /// </summary>
     public static class TessellatedShapeCreator
     {
+        /// <summary>
+        /// Create <see cref="Autodesk.Revit.DB.TessellatedShapeBuilder"/> using <paramref name="actionBuilder"/>.
+        /// </summary>
+        /// <param name="actionBuilder"></param>
+        /// <returns>The result of the TessellatedShapeBuilder</returns>
+        /// <remarks>The Target equal to <see cref="Autodesk.Revit.DB.TessellatedShapeBuilderTarget.AnyGeometry"/> and Fallback equals to  <see cref="Autodesk.Revit.DB.TessellatedShapeBuilderFallback.Mesh"/></remarks>
+        public static TessellatedShapeBuilderResult Create(Action<TessellatedShapeBuilder> actionBuilder)
+        {
+            TessellatedShapeBuilder builder = new TessellatedShapeBuilder();
+            builder.Target = TessellatedShapeBuilderTarget.AnyGeometry;
+            builder.Fallback = TessellatedShapeBuilderFallback.Mesh;
+            builder.OpenConnectedFaceSet(false);
+            actionBuilder?.Invoke(builder);
+            builder.CloseConnectedFaceSet();
+            builder.Build();
+            TessellatedShapeBuilderResult result = builder.GetBuildResult();
+            return result;
+        }
+
         /// <summary>
         /// Create Mesh or Solid from vertices and indexes.
         /// </summary>
@@ -23,7 +43,7 @@ namespace ricaun.Revit.DB.Shape
             ElementId[] materialIds = null,
             ElementId graphicsStyleId = null)
         {
-            var result = TessellatedShapeCreatorUtils.Create(builder =>
+            var result = TessellatedShapeCreator.Create(builder =>
             {
                 if (graphicsStyleId is ElementId) builder.GraphicsStyleId = graphicsStyleId;
                 if (indexes is null) indexes = Enumerable.Range(0, vertices.Length).ToArray();
@@ -69,7 +89,6 @@ namespace ricaun.Revit.DB.Shape
             {
                 return result.GetGeometricalObjects().OfType<TResult>();
             }
-
             return Enumerable.Empty<TResult>();
         }
     }

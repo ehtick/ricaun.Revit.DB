@@ -40,6 +40,28 @@ namespace ricaun.Revit.DB.Shape.Tests.Utils
             return geometrys;
         }
 
+        public static void Material(Solid solid, ElementId materialElementId, ElementId graphicsStyleId)
+        {
+            foreach (Face face in solid.Faces)
+            {
+                Assert.True(face.MaterialElementId == materialElementId, $"Face Material {face.MaterialElementId} is not equal {materialElementId}");
+                Assert.True(face.GraphicsStyleId == graphicsStyleId, $"Face GraphicsStyle {face.GraphicsStyleId} is not equal {graphicsStyleId}");
+            }
+        }
+
+        public static void Material(Solid solid, ElementId[] materialElementIds, ElementId graphicsStyleId)
+        {
+            foreach (Face face in solid.Faces)
+            {
+                var materialElementId = ElementId.InvalidElementId;
+                if (materialElementIds.Contains(face.MaterialElementId))
+                    materialElementId = face.MaterialElementId;
+
+                Assert.True(face.MaterialElementId == materialElementId, $"Face Material {face.MaterialElementId} is not equal {materialElementId}");
+                Assert.True(face.GraphicsStyleId == graphicsStyleId, $"Face GraphicsStyle {face.GraphicsStyleId} is not equal {graphicsStyleId}");
+            }
+        }
+
         public static void Box(Solid solid, XYZ center, double scale = 1.0)
         {
             Assert.AreEqual(12, solid.Edges.Size);
