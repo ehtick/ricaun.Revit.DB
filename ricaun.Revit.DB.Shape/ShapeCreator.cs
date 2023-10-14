@@ -118,7 +118,7 @@ namespace ricaun.Revit.DB.Shape
             double extrusionDist = max.Z - min.Z;
 
             // Set material and graphicsStyle
-            SolidOptions solidOptions = new SolidOptions(materialId ?? ElementId.InvalidElementId, graphicsStyleId ?? ElementId.InvalidElementId);
+            SolidOptions solidOptions = CreateSolidOptions(materialId, graphicsStyleId);
 
             // Create the solid box
             Solid solid = GeometryCreationUtilities.CreateExtrusionGeometry(profileLoops, extrusionDir, extrusionDist, solidOptions);
