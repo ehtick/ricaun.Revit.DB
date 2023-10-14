@@ -22,6 +22,14 @@ namespace ricaun.Revit.DB.Shape.Tests
         }
 
         [Test]
+        public void Solid_Clone()
+        {
+            var expected = Solid12;
+            var clone = Solid12.Clone();
+            AssertUtils.Solid(clone, expected);
+        }
+
+        [Test]
         public void Solid_Union()
         {
             var expected = Solid12;

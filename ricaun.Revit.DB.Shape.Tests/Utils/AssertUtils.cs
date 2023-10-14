@@ -1,10 +1,45 @@
 ﻿using Autodesk.Revit.DB;
 using NUnit.Framework;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ricaun.Revit.DB.Shape.Tests.Utils
 {
     public static class AssertUtils
     {
+        public static void Geometry<T>(Element element, int expected) where T : GeometryObject
+        {
+            var count = element.GetInstanceGeometry<T>().Count;
+            Assert.AreEqual(expected, count, $"Geometry {typeof(T).Name} {count} is expected {expected}");
+        }
+
+        public static List<T> GetInstanceGeometry<T>(this Element element) where T : GeometryObject
+        {
+            var geometrys = new List<T>();
+
+            var options = new Options() { DetailLevel = ViewDetailLevel.Fine };
+            var geos = element.get_Geometry(options);
+            if (geos is null)
+            {
+                // Force document to generate Geometry.
+                element.Document.Regenerate();
+                geos = element.get_Geometry(options);
+                if (geos is null)
+                {
+                    return geometrys;
+                }
+            }
+
+            var instances = geos
+                .OfType<GeometryInstance>()
+                .SelectMany(e => e.GetInstanceGeometry());
+
+            geometrys.AddRange(instances.OfType<T>());
+            geometrys.AddRange(geos.OfType<T>());
+
+            return geometrys;
+        }
+
         public static void Box(Solid solid, XYZ center, double scale = 1.0)
         {
             Assert.AreEqual(12, solid.Edges.Size);
