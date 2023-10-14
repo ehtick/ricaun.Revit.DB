@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Create Project `ricaun.Revit.DB.Shape`
 - Update `SolidExtension` - `GetOrigin`
 - Add `GraphicsStyleUtils` to create LineColor
+- Add `VerticesExtension` for vertices
 ### Shape.Tests
 - Create Project `ricaun.Revit.DB.Shape.Tests`
 - Tests for `MaterialUtils`
@@ -17,6 +18,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Tests for `ShapeCreator` (Box, BoxLine, Cylinder, Pointer, Sphere, Arrow, Gizmo)
 - Tests for `DirectShapeUtils`
 - Tests for `TessellatedShapeCreator`
+- Tests for `Vertices`
 
 ## [0.1.0] / 2023-10-01
 ### Quaternion

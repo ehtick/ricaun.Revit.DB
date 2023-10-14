@@ -9,6 +9,85 @@ namespace ricaun.Revit.DB.Shape.Extensions
     /// </summary>
     public static class VerticesExtension
     {
+        #region Solid
+        internal static IEnumerable<Face> GetFaces(this Solid solid) => solid.Faces.OfType<Face>();
+        /// <summary>
+        /// GetVertices from Solid faces
+        /// </summary>
+        /// <param name="solid"></param>
+        /// <returns></returns>
+        public static IList<XYZ> GetVertices(this Solid solid)
+        {
+            return solid.GetFaces()
+                .SelectMany(e => e.GetVertices())
+                .ToList();
+        }
+        /// <summary>
+        /// GetIndexes from Solid faces
+        /// </summary>
+        /// <param name="solid"></param>
+        /// <returns></returns>
+        public static IList<int> GetIndexes(this Solid solid)
+        {
+            var count = 0;
+            var indexes = new List<int>();
+            foreach (var face in solid.GetFaces())
+            {
+                var i = face.GetIndexes()
+                    .Select(e => e + count);
+                indexes.AddRange(i);
+                count += face.GetVertices().Count;
+            }
+            return indexes;
+        }
+        /// <summary>
+        /// GetTriangleVertices from Solid faces
+        /// </summary>
+        /// <param name="solid"></param>
+        /// <returns></returns>
+        public static IList<XYZ> GetTriangleVertices(this Solid solid)
+        {
+            var vertices = solid.GetVertices();
+            var triangleVertices = solid.GetIndexes()
+                .Select(e => vertices[e])
+                .ToList();
+
+            return triangleVertices;
+        }
+        #endregion
+        #region Face
+        /// <summary>
+        /// GetVertices
+        /// </summary>
+        /// <param name="face"></param>
+        /// <returns></returns>
+        public static IList<XYZ> GetVertices(this Face face)
+        {
+            return face.Triangulate().GetVertices();
+        }
+
+        /// <summary>
+        /// GetIndexes
+        /// </summary>
+        /// <param name="face"></param>
+        /// <returns></returns>
+        public static IList<int> GetIndexes(this Face face)
+        {
+            return face.Triangulate().GetIndexes();
+        }
+
+        /// <summary>
+        /// GetTriangleVertices
+        /// </summary>
+        /// <param name="face"></param>
+        /// <returns></returns>
+        public static IList<XYZ> GetTriangleVertices(this Face face)
+        {
+            return face.Triangulate().GetTriangleVertices();
+        }
+        #endregion
+
+        #region Mesh
         /// <summary>
         /// Get of Vertices in a list for each Triangles
         /// </summary>
@@ -64,5 +143,6 @@ namespace ricaun.Revit.DB.Shape.Extensions
             }
             return indexes;
         }
+        #endregion
     }
 }
