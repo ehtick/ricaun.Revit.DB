@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Update `SolidExtension` - `GetOrigin`
 - Add `GraphicsStyleUtils` to create LineColor
 - Add `VerticesExtension` for vertices
+- Update `TessellatedShapeCreator`
+- Add `XYZUtils`
 ### Shape.Tests
 - Create Project `ricaun.Revit.DB.Shape.Tests`
 - Tests for `MaterialUtils`

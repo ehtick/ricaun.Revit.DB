@@ -22,7 +22,7 @@ namespace ricaun.Revit.DB.Shape.Tests
         }
 
         [Test]
-        public void CreateMesh_Vertices()
+        public void CreateMesh_Vertices_ShouldBe_CreateBox()
         {
             var shape = ShapeCreator.CreateBox(XYZ.Zero, 1);
             var tessellatedShape = TessellatedShapeCreator.CreateMesh(
@@ -32,14 +32,12 @@ namespace ricaun.Revit.DB.Shape.Tests
             Assert.AreEqual(1, solids.Count());
 
             var solid = solids.FirstOrDefault();
-            //AssertUtils.Solid(solid, shape);
-            Assert.IsTrue(solid.Volume.AlmostEqual(shape.Volume));
-            Assert.IsTrue(solid.SurfaceArea.AlmostEqual(shape.SurfaceArea));
+            AssertUtils.Solid(solid, shape);
         }
 
 
         [Test]
-        public void CreateMesh_TriangleVertices()
+        public void CreateMesh_TriangleVertices_ShouldBe_CreateBox()
         {
             var shape = ShapeCreator.CreateBox(XYZ.Zero, 1);
             var tessellatedShape = TessellatedShapeCreator.CreateMesh(
@@ -48,9 +46,25 @@ namespace ricaun.Revit.DB.Shape.Tests
             Assert.AreEqual(1, solids.Count());
 
             var solid = solids.FirstOrDefault();
-            //AssertUtils.Solid(solid, shape);
-            Assert.IsTrue(solid.Volume.AlmostEqual(shape.Volume));
-            Assert.IsTrue(solid.SurfaceArea.AlmostEqual(shape.SurfaceArea));
+            AssertUtils.Solid(solid, shape);
+        }
+
+
+        [Test]
+        public void CreateMesh_TriangleVertices_ShouldBe_CreateSphere()
+        {
+            var shape = ShapeCreator.CreateSphere(XYZ.Zero, 10);
+            var tessellatedShape = TessellatedShapeCreator.CreateMesh(
+                shape.GetTriangleVertices().ToArray());
+            var meshs = tessellatedShape.OfType<Mesh>();
+            Assert.AreEqual(1, meshs.Count());
+
+            var mesh = meshs.FirstOrDefault();
+            System.Console.WriteLine(mesh.GetTriangleVertices().Count);
+            var solid = TessellatedShapeCreator.CreateMesh(mesh.GetTriangleVertices().ToArray())
+                .OfType<Solid>()
+                .FirstOrDefault();
+            System.Console.WriteLine(solid.GetTriangleVertices().Count);
         }
     }
 }

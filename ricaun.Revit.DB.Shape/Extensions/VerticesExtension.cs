@@ -101,17 +101,6 @@ namespace ricaun.Revit.DB.Shape.Extensions
                 .ToList();
 
             return triangleVertices;
-            //var triangleVertices = new List<XYZ>();
-            //for (int i = 0; i < mesh.NumTriangles; i++)
-            //{
-            //    MeshTriangle triangle = mesh.get_Triangle(i);
-            //    for (int j = 0; j < 3; j++)
-            //    {
-            //        var vertex = triangle.get_Vertex(j);
-            //        triangleVertices.Add(vertex);
-            //    }
-            //}
-            //return triangleVertices;
         }
 
         /// <summary>
