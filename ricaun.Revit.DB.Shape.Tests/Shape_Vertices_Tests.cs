@@ -50,6 +50,33 @@ namespace ricaun.Revit.DB.Shape.Tests
             AssertUtils.Solid(solid, shape);
         }
 
+        [Test]
+        public void CreateMesh_TriangleVertices_ShouldBe_Two_CreateBox()
+        {
+            var shape1 = ShapeCreator.CreateBox(XYZ.Zero, 1);
+            var shape2 = ShapeCreator.CreateBox(XYZ.Zero, 1)
+                .CreateTransformed(Transform.CreateTranslation(10 * XYZ.BasisX));
+
+            var tessellatedShape = TessellatedShapeCreator.CreateMesh(
+                shape1.GetTriangleVertices().Concat(shape2.GetTriangleVertices()).ToArray());
+            var solids = tessellatedShape.OfType<Solid>();
+            Assert.AreEqual(1, solids.Count());
+
+            var solid = solids.FirstOrDefault();
+            Assert.AreEqual(shape1.Faces.Size + shape2.Faces.Size, solid.Faces.Size);
+            Assert.AreEqual(shape1.Edges.Size + shape2.Edges.Size, solid.Edges.Size);
+            Assert.IsTrue(solid.Volume.AlmostEqual(shape1.Volume + shape2.Volume));
+            Assert.IsTrue(solid.SurfaceArea.AlmostEqual(shape1.SurfaceArea + shape2.SurfaceArea));
+
+            var splitVolumes = SolidUtils.SplitVolumes(solid);
+            Assert.AreEqual(2, splitVolumes.Count());
+            var solid1 = splitVolumes.FirstOrDefault();
+            var solid2 = splitVolumes.LastOrDefault();
+
+            AssertUtils.Solid(solid1, shape1);
+            AssertUtils.Solid(solid2, shape2);
+        }
+
 
         [Test]
         public void CreateMesh_TriangleVertices_ShouldBe_CreateSphere()

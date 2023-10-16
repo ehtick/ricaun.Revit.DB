@@ -6,6 +6,38 @@ using System.Linq;
 
 namespace ricaun.Revit.DB.Shape.Revit.Commands
 {
+
+    [Transaction(TransactionMode.Manual)]
+    public class TessellatedShapeTwoBoxCommand : IExternalCommand
+    {
+        public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elementSet)
+        {
+            UIApplication uiapp = commandData.Application;
+
+            Document document = uiapp.ActiveUIDocument.Document;
+
+            using (Transaction transaction = new Transaction(document))
+            {
+                transaction.Start("Tessellated Sphere");
+
+                document.DeleteDirectShape();
+
+                var shape1 = ShapeCreator.CreateBox(XYZ.Zero, 1);
+                var shape2 = ShapeCreator.CreateBox(XYZ.Zero, 1)
+                    .CreateTransformed(Transform.CreateTranslation(10 * XYZ.BasisX));
+
+                var tessellatedShape = TessellatedShapeCreator.CreateMesh(
+                    shape1.GetTriangleVertices().Concat(shape2.GetTriangleVertices()).ToArray());
+
+                document.CreateDirectShape(tessellatedShape.GetGeometricalObjects());
+
+                transaction.Commit();
+            }
+            return Result.Succeeded;
+        }
+    }
+
+
     [Transaction(TransactionMode.Manual)]
     public class TessellatedShapeSphereCommand : IExternalCommand
     {

@@ -2,6 +2,6 @@
 	<PropertyGroup>
 		<Version>0.2.0-alpha</Version>
     <RevitVersionTests>2021</RevitVersionTests>
-    <RevitForceOpenClose>false</RevitForceOpenClose>
+    <RevitForceOpenClose>true</RevitForceOpenClose>
 	</PropertyGroup>
 </Project>
