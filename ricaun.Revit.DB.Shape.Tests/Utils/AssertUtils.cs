@@ -79,6 +79,20 @@ namespace ricaun.Revit.DB.Shape.Tests.Utils
         {
             Assert.AreEqual(mesh.Vertices.Count, other.Vertices.Count);
             Assert.AreEqual(mesh.NumTriangles, other.NumTriangles);
+            var containsOtherOutline = GetOutline(mesh).ContainsOtherOutline(GetOutline(other), 1e-9);
+            Assert.IsTrue(containsOtherOutline);
+        }
+
+        public static Outline GetOutline(Mesh mesh)
+        {
+            var vertices = mesh.Vertices;
+            var first = vertices.First();
+            Outline outline = new Outline(first, first);
+            foreach (var vertice in mesh.Vertices)
+            {
+                outline.AddPoint(vertice);
+            }
+            return outline;
         }
 
         public static void Solid(Solid solid, Solid other)
