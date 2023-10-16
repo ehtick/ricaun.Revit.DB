@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ricaun.Revit.DB.Shape.Extensions
+namespace ricaun.Revit.DB.Shape
 {
     /// <summary>
     /// XYZUtils
@@ -44,45 +44,6 @@ namespace ricaun.Revit.DB.Shape.Extensions
 
             return normal;
         }
-
-        //internal static bool UpdateLoopWithTriangle(List<XYZ> loop, XYZ p1, XYZ p2, XYZ p3)
-        //{
-        //    return UpdateLoopWithTriangle(loop, new List<XYZ> { p1, p2, p3 });
-        //}
-
-        //internal static bool UpdateLoopWithTriangle(List<XYZ> loop, List<XYZ> values)
-        //{
-        //    XYZAlmostEqualComparer comparer = new XYZAlmostEqualComparer();
-        //    var valuesCopy = values.ToList();
-        //    foreach (var value in values)
-        //    {
-        //        if (loop.Contains(value, comparer))
-        //        {
-        //            valuesCopy.Remove(value);
-        //        }
-        //    }
-
-        //    if (valuesCopy.Count == 1)
-        //    {
-        //        var value = valuesCopy[0];
-        //        var count = loop.Count;
-        //        for (int i = 0; i < count + 1; i++)
-        //        {
-        //            var p1 = loop[(i + 0) % count];
-        //            var p2 = loop[(i + 1) % count];
-        //            if (values.Contains(p1, comparer))
-        //            {
-        //                if (values.Contains(p2, comparer))
-        //                {
-        //                    var index = (i + 1) % count;
-        //                    loop.Insert(index, value);
-        //                    break;
-        //                }
-        //            }
-        //        }
-        //    }
-        //    return valuesCopy.Count == 1;
-        //}
 
         internal static bool UpdateLoopWithTriangle(List<XYZ> loop, params XYZ[] values)
         {

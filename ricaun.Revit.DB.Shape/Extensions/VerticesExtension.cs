@@ -33,8 +33,7 @@ namespace ricaun.Revit.DB.Shape.Extensions
             var indexes = new List<int>();
             foreach (var face in solid.GetFaces())
             {
-                var i = face.GetIndexes()
-                    .Select(e => e + count);
+                var i = face.GetIndexes().Select(e => e + count);
                 indexes.AddRange(i);
                 count += face.GetVertices().Count;
             }

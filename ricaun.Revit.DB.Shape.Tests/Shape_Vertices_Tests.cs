@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using ricaun.Revit.DB.Shape.Extensions;
 using ricaun.Revit.DB.Shape.Tests.Utils;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace ricaun.Revit.DB.Shape.Tests
@@ -53,18 +54,33 @@ namespace ricaun.Revit.DB.Shape.Tests
         [Test]
         public void CreateMesh_TriangleVertices_ShouldBe_CreateSphere()
         {
-            var shape = ShapeCreator.CreateSphere(XYZ.Zero, 10);
-            var tessellatedShape = TessellatedShapeCreator.CreateMesh(
-                shape.GetTriangleVertices().ToArray());
-            var meshs = tessellatedShape.OfType<Mesh>();
-            Assert.AreEqual(1, meshs.Count());
+            var shape = ShapeCreator.CreateSphere(XYZ.Zero, 1);
 
-            var mesh = meshs.FirstOrDefault();
-            System.Console.WriteLine(mesh.GetTriangleVertices().Count);
-            var solid = TessellatedShapeCreator.CreateMesh(mesh.GetTriangleVertices().ToArray())
-                .OfType<Solid>()
-                .FirstOrDefault();
-            System.Console.WriteLine(solid.GetTriangleVertices().Count);
+            var mesh1 = TessellatedShapeCreator.CreateMesh(shape.GetTriangleVertices().ToArray())
+                .OfType<Mesh>().FirstOrDefault();
+            var mesh2 = TessellatedShapeCreator.CreateMesh(shape.GetVertices().ToArray(), shape.GetIndexes().ToArray())
+                .OfType<Mesh>().FirstOrDefault();
+
+            Assert.IsNotNull(mesh1);
+            Assert.IsNotNull(mesh2);
+
+            AssertUtils.Mesh(mesh1, mesh2);
+        }
+
+        [Test]
+        public void CreateMesh_TriangleVertices_ShouldBe_CreateCylinder()
+        {
+            var shape = ShapeCreator.CreateCylinder(XYZ.Zero, 1);
+
+            var solid1 = TessellatedShapeCreator.CreateMesh(shape.GetTriangleVertices().ToArray())
+                .OfType<Solid>().FirstOrDefault();
+            var solid2 = TessellatedShapeCreator.CreateMesh(shape.GetVertices().ToArray(), shape.GetIndexes().ToArray())
+                .OfType<Solid>().FirstOrDefault();
+
+            Assert.IsNotNull(solid1);
+            Assert.IsNotNull(solid2);
+
+            AssertUtils.Solid(solid1, solid2);
         }
     }
 }

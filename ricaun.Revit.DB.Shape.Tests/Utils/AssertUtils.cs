@@ -75,6 +75,12 @@ namespace ricaun.Revit.DB.Shape.Tests.Utils
             Assert.IsTrue(solid.SurfaceArea.AlmostEqual(surfaceAreaExpected), $"SurfaceArea {solid.SurfaceArea} is not {surfaceAreaExpected}");
         }
 
+        public static void Mesh(Mesh mesh, Mesh other)
+        {
+            Assert.AreEqual(mesh.Vertices.Count, other.Vertices.Count);
+            Assert.AreEqual(mesh.NumTriangles, other.NumTriangles);
+        }
+
         public static void Solid(Solid solid, Solid other)
         {
             Assert.AreEqual(solid.Edges.Size, other.Edges.Size);
