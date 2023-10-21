@@ -45,9 +45,6 @@
         "MainName": {
           "type": "string"
         },
-        "Name": {
-          "type": "string"
-        },
         "NoLogo": {
           "type": "boolean",
           "description": "Disables displaying the NUKE logo"
@@ -78,6 +75,9 @@
         "ReleaseExample": {
           "type": "boolean"
         },
+        "ReleaseFolder": {
+          "type": "string"
+        },
         "ReleaseNameVersion": {
           "type": "boolean"
         },
@@ -100,13 +100,14 @@
             "type": "string",
             "enum": [
               "Build",
-              "BuildPackages",
               "Clean",
               "Compile",
+              "CompileExample",
               "GitRelease",
               "Pack",
               "Release",
-              "Sign"
+              "Sign",
+              "TestLocal"
             ]
           }
         },
@@ -121,15 +122,25 @@
             "type": "string",
             "enum": [
               "Build",
-              "BuildPackages",
               "Clean",
               "Compile",
+              "CompileExample",
               "GitRelease",
               "Pack",
               "Release",
-              "Sign"
+              "Sign",
+              "TestLocal"
             ]
           }
+        },
+        "TestLocalBuildStopWhenFailed": {
+          "type": "boolean"
+        },
+        "TestLocalProjectName": {
+          "type": "string"
+        },
+        "TestLocalResults": {
+          "type": "boolean"
         },
         "Verbosity": {
           "type": "string",

@@ -42,7 +42,5 @@ public interface IBuildPackages : IHazMainProject, IHazExample, IRelease, ISign,
 
                 });
             }
-
-
         });
 }

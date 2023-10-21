@@ -1,5 +1,7 @@
 <Project>
 	<PropertyGroup>
 		<Version>0.2.0</Version>
+    <RevitVersionTests>2021</RevitVersionTests>
+    <RevitForceOpenClose>true</RevitForceOpenClose>
 	</PropertyGroup>
 </Project>

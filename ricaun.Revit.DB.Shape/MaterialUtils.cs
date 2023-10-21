@@ -16,7 +16,7 @@ namespace ricaun.Revit.DB.Shape
         /// <param name="green"></param>
         /// <param name="blue"></param>
         /// <param name="alpha"></param>
-        /// <returns></returns>
+        /// <returns>Color {alpha}{red}{blue}{green} in hexa</returns>
         public static string MaterialColorName(byte red, byte green, byte blue, byte alpha = byte.MaxValue)
         {
             if (alpha == byte.MaxValue)
@@ -26,16 +26,24 @@ namespace ricaun.Revit.DB.Shape
         }
 
         /// <summary>
-        /// CreateMaterial
+        /// MaterialColorName
         /// </summary>
-        /// <param name="document"></param>
-        /// <param name="red"></param>
-        /// <param name="green"></param>
-        /// <param name="blue"></param>
+        /// <param name="color"></param>
+        /// <param name="alpha"></param>
         /// <returns></returns>
-        public static Material CreateMaterial(Document document, byte red, byte green, byte blue)
+        public static string MaterialColorName(Color color, byte alpha = byte.MaxValue)
         {
-            return CreateMaterial(document, red, green, blue, byte.MaxValue);
+            return MaterialColorName(color.Red, color.Green, color.Blue, alpha);
+        }
+
+        /// <summary>
+        /// MaterialColorName
+        /// </summary>
+        /// <param name="color"></param>
+        /// <returns></returns>
+        public static string MaterialColorName(ColorWithTransparency color)
+        {
+            return MaterialColorName((byte)color.GetRed(), (byte)color.GetGreen(), (byte)color.GetBlue(), (byte)color.GetTransparency());
         }
 
         /// <summary>
@@ -47,7 +55,7 @@ namespace ricaun.Revit.DB.Shape
         /// <param name="blue"></param>
         /// <param name="alpha"></param>
         /// <returns></returns>
-        public static Material CreateMaterial(Document document, byte red, byte green, byte blue, byte alpha)
+        public static Material CreateMaterial(Document document, byte red, byte green, byte blue, byte alpha = byte.MaxValue)
         {
             var materialName = MaterialColorName(red, green, blue, alpha);
             var material = FindMaterial(document, materialName);
@@ -66,25 +74,10 @@ namespace ricaun.Revit.DB.Shape
         /// </summary>
         /// <param name="document"></param>
         /// <param name="color"></param>
-        /// <returns></returns>
-        public static Material CreateMaterial(Document document, Color color = null)
-        {
-            if (color is null)
-                color = new Color(128, 128, 128);
-            return CreateMaterial(document, color.Red, color.Green, color.Blue);
-        }
-
-        /// <summary>
-        /// CreateMaterial
-        /// </summary>
-        /// <param name="document"></param>
-        /// <param name="color"></param>
         /// <param name="alpha"></param>
         /// <returns></returns>
-        public static Material CreateMaterial(Document document, Color color, byte alpha)
+        public static Material CreateMaterial(Document document, Color color, byte alpha = byte.MaxValue)
         {
-            if (color is null)
-                color = new Color(128, 128, 128);
             return CreateMaterial(document, color.Red, color.Green, color.Blue, alpha);
         }
 
@@ -144,7 +137,7 @@ namespace ricaun.Revit.DB.Shape
         /// </summary>
         /// <param name="document"></param>
         /// <returns></returns>
-        public static IEnumerable<Material> FindMaterial(Document document)
+        internal static IEnumerable<Material> FindMaterial(Document document)
         {
             // Find materials
             var materials = new FilteredElementCollector(document)
@@ -165,5 +158,28 @@ namespace ricaun.Revit.DB.Shape
             return FindMaterial(document)
                 .FirstOrDefault(m => m.Name.Equals(name, System.StringComparison.InvariantCultureIgnoreCase));
         }
+
+        /// <summary>
+        /// FindMaterial
+        /// </summary>
+        /// <param name="document"></param>
+        /// <param name="color"></param>
+        /// <returns></returns>
+        public static Material FindMaterial(Document document, Color color)
+        {
+            return FindMaterial(document, MaterialColorName(color));
+        }
+
+        /// <summary>
+        /// FindMaterial
+        /// </summary>
+        /// <param name="document"></param>
+        /// <param name="color"></param>
+        /// <returns></returns>
+        public static Material FindMaterial(Document document, ColorWithTransparency color)
+        {
+            return FindMaterial(document, MaterialColorName(color));
+        }
+
     }
 }

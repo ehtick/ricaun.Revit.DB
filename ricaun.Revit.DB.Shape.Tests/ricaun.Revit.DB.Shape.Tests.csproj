@@ -111,7 +111,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ricaun.Revit.DB.Quaternion\ricaun.Revit.DB.Quaternion.csproj" />
+    <ProjectReference Include="..\ricaun.Revit.DB.Shape\ricaun.Revit.DB.Shape.csproj" />
   </ItemGroup>
 
 </Project>
