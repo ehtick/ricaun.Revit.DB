@@ -23,21 +23,21 @@ namespace ricaun.Revit.DB.Shape.Extensions
                 .ToList();
         }
         /// <summary>
-        /// GetIndexes from Solid faces
+        /// GetIndices from Solid faces
         /// </summary>
         /// <param name="solid"></param>
         /// <returns></returns>
-        public static IList<int> GetIndexes(this Solid solid)
+        public static IList<int> GetIndices(this Solid solid)
         {
             var count = 0;
-            var indexes = new List<int>();
+            var indices = new List<int>();
             foreach (var face in solid.GetFaces())
             {
-                var i = face.GetIndexes().Select(e => e + count);
-                indexes.AddRange(i);
+                var i = face.GetIndices().Select(e => e + count);
+                indices.AddRange(i);
                 count += face.GetVertices().Count;
             }
-            return indexes;
+            return indices;
         }
         /// <summary>
         /// GetTriangleVertices from Solid faces
@@ -47,7 +47,7 @@ namespace ricaun.Revit.DB.Shape.Extensions
         public static IList<XYZ> GetTriangleVertices(this Solid solid)
         {
             var vertices = solid.GetVertices();
-            var triangleVertices = solid.GetIndexes()
+            var triangleVertices = solid.GetIndices()
                 .Select(e => vertices[e])
                 .ToList();
 
@@ -66,13 +66,13 @@ namespace ricaun.Revit.DB.Shape.Extensions
         }
 
         /// <summary>
-        /// GetIndexes
+        /// GetIndices
         /// </summary>
         /// <param name="face"></param>
         /// <returns></returns>
-        public static IList<int> GetIndexes(this Face face)
+        public static IList<int> GetIndices(this Face face)
         {
-            return face.Triangulate().GetIndexes();
+            return face.Triangulate().GetIndices();
         }
 
         /// <summary>
@@ -95,7 +95,7 @@ namespace ricaun.Revit.DB.Shape.Extensions
         public static IList<XYZ> GetTriangleVertices(this Mesh mesh)
         {
             var vertices = mesh.GetVertices();
-            var triangleVertices = mesh.GetIndexes()
+            var triangleVertices = mesh.GetIndices()
                 .Select(e => vertices[e])
                 .ToList();
 
@@ -113,23 +113,23 @@ namespace ricaun.Revit.DB.Shape.Extensions
         }
 
         /// <summary>
-        /// Get indexes for the <see cref="Mesh.Vertices"/>
+        /// Get indices for the <see cref="Mesh.Vertices"/>
         /// </summary>
         /// <param name="mesh"></param>
         /// <returns></returns>
-        public static IList<int> GetIndexes(this Mesh mesh)
+        public static IList<int> GetIndices(this Mesh mesh)
         {
-            var indexes = new List<int>();
+            var indices = new List<int>();
             for (int i = 0; i < mesh.NumTriangles; i++)
             {
                 MeshTriangle triangle = mesh.get_Triangle(i);
                 for (int j = 0; j < 3; j++)
                 {
                     var index = triangle.get_Index(j);
-                    indexes.Add((int)index);
+                    indices.Add((int)index);
                 }
             }
-            return indexes;
+            return indices;
         }
         #endregion
     }

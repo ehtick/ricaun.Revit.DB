@@ -14,12 +14,12 @@ namespace ricaun.Revit.DB.Shape.Tests
         {
             Solid solid = ShapeCreator.CreateBox(XYZ.Zero, 1);
             var vertices = solid.GetVertices();
-            var indexes = solid.GetIndexes();
+            var indices = solid.GetIndices();
             Assert.AreEqual(24, vertices.Count);
-            Assert.AreEqual(36, indexes.Count);
+            Assert.AreEqual(36, indices.Count);
 
             var triangleVertices = solid.GetTriangleVertices();
-            Assert.AreEqual(indexes.Count, triangleVertices.Count);
+            Assert.AreEqual(indices.Count, triangleVertices.Count);
         }
 
         [Test]
@@ -28,7 +28,7 @@ namespace ricaun.Revit.DB.Shape.Tests
             var shape = ShapeCreator.CreateBox(XYZ.Zero, 1);
             var tessellatedShape = TessellatedShapeCreator.CreateMesh(
                 shape.GetVertices().ToArray(),
-                shape.GetIndexes().ToArray());
+                shape.GetIndices().ToArray());
             var solids = tessellatedShape.OfType<Solid>();
             Assert.AreEqual(1, solids.Count());
 
@@ -85,7 +85,7 @@ namespace ricaun.Revit.DB.Shape.Tests
 
             var mesh1 = TessellatedShapeCreator.CreateMesh(shape.GetTriangleVertices().ToArray())
                 .OfType<Mesh>().FirstOrDefault();
-            var mesh2 = TessellatedShapeCreator.CreateMesh(shape.GetVertices().ToArray(), shape.GetIndexes().ToArray())
+            var mesh2 = TessellatedShapeCreator.CreateMesh(shape.GetVertices().ToArray(), shape.GetIndices().ToArray())
                 .OfType<Mesh>().FirstOrDefault();
 
             Assert.IsNotNull(mesh1);
@@ -101,7 +101,7 @@ namespace ricaun.Revit.DB.Shape.Tests
 
             var solid1 = TessellatedShapeCreator.CreateMesh(shape.GetTriangleVertices().ToArray())
                 .OfType<Solid>().FirstOrDefault();
-            var solid2 = TessellatedShapeCreator.CreateMesh(shape.GetVertices().ToArray(), shape.GetIndexes().ToArray())
+            var solid2 = TessellatedShapeCreator.CreateMesh(shape.GetVertices().ToArray(), shape.GetIndices().ToArray())
                 .OfType<Solid>().FirstOrDefault();
 
             Assert.IsNotNull(solid1);
