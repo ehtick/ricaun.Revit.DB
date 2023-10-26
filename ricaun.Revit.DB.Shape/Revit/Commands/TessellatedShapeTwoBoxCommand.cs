@@ -35,8 +35,17 @@ namespace ricaun.Revit.DB.Shape.Revit.Commands
                 var shape2 = ShapeCreator.CreateBox(XYZ.Zero, 1)
                     .CreateTransformed(Transform.CreateTranslation(2 * XYZ.BasisX).ScaleBasis(0.5));
 
+                var materialIds = new ElementId[] {
+                    materialRed.Id, materialRed.Id, materialRed.Id, materialRed.Id,
+                    materialBlue.Id, materialBlue.Id, materialGreen.Id, materialGreen.Id,
+                    materialBlue.Id, materialBlue.Id, materialGreen.Id, materialGreen.Id };
+
+                document.CreateDirectShape(TessellatedShapeCreator.CreateMesh(
+                    shape1.GetTriangleVertices().ToArray(), materialIds: materialIds).GetGeometricalObjects())
+                    .Location.Move(5 * XYZ.BasisX);
+
                 var tessellatedShape = TessellatedShapeCreator.CreateMesh(
-                    shape1.GetTriangleVertices().Concat(shape2.GetTriangleVertices()).ToArray(), materialIds: new[] { materialGreen.Id, materialGreen.Id, materialBlue.Id, materialBlue.Id });
+                    shape1.GetTriangleVertices().Concat(shape2.GetTriangleVertices()).ToArray(), materialIds: materialIds);
 
                 document.CreateDirectShape(tessellatedShape.GetGeometricalObjects());
 

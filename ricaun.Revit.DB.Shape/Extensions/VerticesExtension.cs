@@ -9,6 +9,75 @@ namespace ricaun.Revit.DB.Shape.Extensions
     /// </summary>
     public static class VerticesExtension
     {
+        #region Material
+        /// <summary>
+        /// GetTriangleMaterialIds
+        /// </summary>
+        /// <param name="solid"></param>
+        /// <returns></returns>
+        public static IList<ElementId> GetTriangleMaterialIds(this Solid solid)
+        {
+            var materialIds = new List<ElementId>();
+            foreach (var face in solid.GetFaces())
+            {
+                var triangles = face.Triangulate().NumTriangles;
+                var materialId = face.GetMaterialId();
+                for (int i = 0; i < triangles; i++)
+                {
+                    materialIds.Add(materialId);
+                }
+            }
+            return materialIds;
+        }
+        /// <summary>
+        /// GetTriangleMaterialIds
+        /// </summary>
+        /// <param name="mesh"></param>
+        /// <returns></returns>
+        /// <remarks>Mesh only have one material.</remarks>
+        public static IList<ElementId> GetTriangleMaterialIds(this Mesh mesh)
+        {
+            var materialIds = new List<ElementId>();
+            var triangles = mesh.NumTriangles;
+            var materialId = mesh.GetMaterialId();
+            for (int i = 0; i < triangles; i++)
+            {
+                materialIds.Add(materialId);
+            }
+            return materialIds;
+        }
+        /// <summary>
+        /// GetMaterialId
+        /// </summary>
+        /// <param name="solid"></param>
+        /// <returns></returns>
+        /// <remarks>Return the first material in the solid.</remarks>
+        public static ElementId GetMaterialId(this Solid solid)
+        {
+            foreach (var face in solid.GetFaces())
+                return face.GetMaterialId();
+            return ElementId.InvalidElementId;
+        }
+        /// <summary>
+        /// GetMaterialId
+        /// </summary>
+        /// <param name="mesh"></param>
+        /// <returns></returns>
+        public static ElementId GetMaterialId(this Mesh mesh)
+        {
+            return mesh.MaterialElementId ?? ElementId.InvalidElementId;
+        }
+        /// <summary>
+        /// GetMaterialId
+        /// </summary>
+        /// <param name="face"></param>
+        /// <returns></returns>
+        public static ElementId GetMaterialId(this Face face)
+        {
+            return face.MaterialElementId ?? ElementId.InvalidElementId;
+        }
+        #endregion
+
         #region Solid
         internal static IEnumerable<Face> GetFaces(this Solid solid) => solid.Faces.OfType<Face>();
         /// <summary>
