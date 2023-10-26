@@ -85,7 +85,85 @@ namespace ricaun.Revit.DB.Shape.Extensions
             return face.Triangulate().GetTriangleVertices();
         }
         #endregion
+        #region LevelOfDetail
+        /// <summary>
+        /// GetVertices from Solid faces
+        /// </summary>
+        /// <param name="solid"></param>
+        /// <param name="levelOfDetail"></param>
+        /// <returns></returns>
+        public static IList<XYZ> GetVertices(this Solid solid, double levelOfDetail)
+        {
+            return solid.GetFaces()
+                .SelectMany(e => e.GetVertices(levelOfDetail))
+                .ToList();
+        }
+        /// <summary>
+        /// GetIndices from Solid faces
+        /// </summary>
+        /// <param name="solid"></param>
+        /// <param name="levelOfDetail"></param>
+        /// <returns></returns>
+        public static IList<int> GetIndices(this Solid solid, double levelOfDetail)
+        {
+            var count = 0;
+            var indices = new List<int>();
+            foreach (var face in solid.GetFaces())
+            {
+                var i = face.GetIndices(levelOfDetail).Select(e => e + count);
+                indices.AddRange(i);
+                count += face.GetVertices(levelOfDetail).Count;
+            }
+            return indices;
+        }
+        /// <summary>
+        /// GetTriangleVertices from Solid faces
+        /// </summary>
+        /// <param name="solid"></param>
+        /// <param name="levelOfDetail"></param>
+        /// <returns></returns>
+        public static IList<XYZ> GetTriangleVertices(this Solid solid, double levelOfDetail)
+        {
+            var vertices = solid.GetVertices(levelOfDetail);
+            var triangleVertices = solid.GetIndices(levelOfDetail)
+                .Select(e => vertices[e])
+                .ToList();
 
+            return triangleVertices;
+        }
+        /// <summary>
+        /// GetVertices
+        /// </summary>
+        /// <param name="face"></param>
+        /// <param name="levelOfDetail"></param>
+        /// <returns></returns>
+        public static IList<XYZ> GetVertices(this Face face, double levelOfDetail)
+        {
+            return face.Triangulate(levelOfDetail).GetVertices();
+        }
+
+        /// <summary>
+        /// GetIndices
+        /// </summary>
+        /// <param name="face"></param>
+        /// <param name="levelOfDetail"></param>
+        /// <returns></returns>
+        public static IList<int> GetIndices(this Face face, double levelOfDetail)
+        {
+            return face.Triangulate(levelOfDetail).GetIndices();
+        }
+
+        /// <summary>
+        /// GetTriangleVertices
+        /// </summary>
+        /// <param name="face"></param>
+        /// <param name="levelOfDetail"></param>
+        /// <returns></returns>
+        public static IList<XYZ> GetTriangleVertices(this Face face, double levelOfDetail)
+        {
+            return face.Triangulate(levelOfDetail).GetTriangleVertices();
+        }
+        #endregion
         #region Mesh
         /// <summary>
         /// Get of Vertices in a list for each Triangles

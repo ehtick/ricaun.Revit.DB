@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [0.3.0] / 2023-10-24
 ### Shape
 - Rename `indexes` to `indices`.
+- Add `LevelOfDetail` methods to Triangulate face/solid.
 - [] GetColor, GetMaterial and GetTriangleColors
 
 ## [0.2.0] / 2023-10-01 - 2023-10-21
