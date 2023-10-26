@@ -109,5 +109,29 @@ namespace ricaun.Revit.DB.Shape.Tests
 
             AssertUtils.Solid(solid1, solid2);
         }
+
+        [TestCase(0.0)]
+        [TestCase(0.3)]
+        [TestCase(0.4)]
+        [TestCase(0.5)]
+        [TestCase(1.0)]
+        public void CreateMesh_TriangleVerticesWithDetail_ShouldBe_CreateSphere(double levelOfDetail)
+        {
+            var shape = ShapeCreator.CreateSphere(XYZ.Zero, 1);
+
+            var triangleVertices = shape.GetTriangleVertices(levelOfDetail).ToArray();
+
+            System.Console.WriteLine($"TriangleVertices: {triangleVertices.Length}");
+
+            var mesh1 = TessellatedShapeCreator.CreateMesh(triangleVertices)
+                .OfType<Mesh>().FirstOrDefault();
+            var mesh2 = TessellatedShapeCreator.CreateMesh(shape.GetVertices(levelOfDetail).ToArray(), shape.GetIndices(levelOfDetail).ToArray())
+                .OfType<Mesh>().FirstOrDefault();
+
+            Assert.IsNotNull(mesh1);
+            Assert.IsNotNull(mesh2);
+
+            AssertUtils.Mesh(mesh1, mesh2);
+        }
     }
 }
