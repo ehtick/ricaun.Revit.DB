@@ -9,10 +9,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Rename `indexes` to `indices`.
 - Add `LevelOfDetail` methods to Triangulate face/solid.
 - Update `VerticesExtension` with `GetMaterialId` and `GetTriangleMaterialIds`.
-- [] GetColor, GetMaterial and GetTriangleColors
+- Update `MaterialUtils` with `GetColor` and `GetColorWithTransparency`
 ### Shape.Tests
 - Test Triangulate Vertices `LevelOfDetail`
 - Test `GetMaterialId` and `GetTriangleMaterialIds`.
+- Test Material `ColorWithTransparency`
 
 ## [0.2.0] / 2023-10-01 - 2023-10-21
 ### Shape

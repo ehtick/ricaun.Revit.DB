@@ -65,7 +65,7 @@ namespace ricaun.Revit.DB.Shape
                 material = document.GetElement(elementId) as Material;
             }
             material.Color = new Color(red, green, blue);
-            material.Transparency = (int)((255 - alpha) / 2.55);
+            material.Transparency = (int)((double)(255 - alpha) / 2.55);
             return material;
         }
 
@@ -181,5 +181,61 @@ namespace ricaun.Revit.DB.Shape
             return FindMaterial(document, MaterialColorName(color));
         }
 
+        #region Colors
+        /// <summary>
+        /// GetColor
+        /// </summary>
+        /// <param name="material"></param>
+        /// <returns></returns>
+        public static Color GetColor(Material material)
+        {
+            return GetColor(material.Document, material.Id);
+        }
+
+        /// <summary>
+        /// GetColorWithTransparency
+        /// </summary>
+        /// <param name="material"></param>
+        /// <returns></returns>
+        public static ColorWithTransparency GetColorWithTransparency(Material material)
+        {
+            return GetColorWithTransparency(material.Document, material.Id);
+        }
+
+        /// <summary>
+        /// GetColor
+        /// </summary>
+        /// <param name="document"></param>
+        /// <param name="materialId"></param>
+        /// <returns></returns>
+        public static Color GetColor(Document document, ElementId materialId)
+        {
+            var color = Colors.Gray;
+            if (document.GetElement(materialId) is Material material)
+            {
+                color = material.Color;
+            }
+            return color;
+        }
+
+        /// <summary>
+        /// GetColorWithTransparency
+        /// </summary>
+        /// <param name="document"></param>
+        /// <param name="materialId"></param>
+        /// <returns></returns>
+        public static ColorWithTransparency GetColorWithTransparency(Document document, ElementId materialId)
+        {
+            var colorWithTransparency = new ColorWithTransparency();
+            colorWithTransparency.SetColor(Colors.Gray);
+            if (document.GetElement(materialId) is Material material)
+            {
+                var transparency = 255 - 2.55 * material.Transparency;
+                colorWithTransparency.SetColor(material.Color);
+                colorWithTransparency.SetTransparency((uint)transparency);
+            }
+            return colorWithTransparency;
+        }
+        #endregion
     }
 }

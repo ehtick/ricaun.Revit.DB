@@ -32,12 +32,37 @@ namespace ricaun.Revit.DB.Shape.Tests
         }
 
         [Test]
+        public void CreateMaterial_GetColor()
+        {
+            var color = new Color(3, 4, 5);
+            var material = MaterialUtils.CreateMaterial(document, color);
+            Assert.IsNotNull(material);
+            Assert.IsTrue(MaterialUtils.GetColor(material).ColorEquals(color));
+        }
+
+        [Test]
         public void CreateMaterial_ColorWithTransparency()
         {
             var color = new ColorWithTransparency(3, 4, 5, 6);
             var material = MaterialUtils.CreateMaterial(document, color);
             Assert.IsNotNull(material);
             Assert.IsTrue(material.Color.ColorEquals(color));
+        }
+
+        [TestCase(0)]
+        [TestCase(51)]
+        [TestCase(102)]
+        [TestCase(153)]
+        [TestCase(204)]
+        [TestCase(255)]
+        public void CreateMaterial_GetColorWithTransparency(int transparency)
+        {
+            var color = new ColorWithTransparency(3, 4, 5, (uint)transparency);
+            // the material transparency is converted to a int with value 0 to 100.
+            var material = MaterialUtils.CreateMaterial(document, color);
+            var colorWithTransparency = MaterialUtils.GetColorWithTransparency(material);
+            Assert.IsNotNull(material);
+            Assert.IsTrue(colorWithTransparency.ColorEquals(color), $"Transparency:{material.Transparency} => {colorWithTransparency.GetTransparency()}");
         }
 
         [Test]

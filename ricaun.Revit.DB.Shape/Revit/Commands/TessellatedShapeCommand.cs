@@ -22,7 +22,7 @@ namespace ricaun.Revit.DB.Shape.Revit.Commands
 
                 document.DeleteDirectShape();
 
-                var materialIds = new ElementId[] { MaterialUtils.CreateMaterial(document, Colors.Index.Color_161).Id };
+                var materialIds = new ElementId[] { MaterialUtils.CreateMaterial(document, Colors.Index.Color_161, 100).Id };
 
                 var solids = TessellatedShapeCreator.CreateMesh(verticesCube, indicesCube, materialIds).OfType<Solid>();
                 document.CreateDirectShape(solids);
