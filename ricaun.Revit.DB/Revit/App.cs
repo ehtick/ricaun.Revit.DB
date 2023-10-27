@@ -21,6 +21,12 @@ namespace ricaun.Revit.Debug.Revit
             ribbonPanel.CreatePushButton<ricaun.Revit.DB.Shape.Revit.Commands.ShapeBoxCommand>("Shape Box\rCreator")
                 .SetLargeImage("/UIFrameworkRes;component/ribbon/images/revit.ico");
 
+            ribbonPanel.CreatePushButton<ricaun.Revit.DB.Shape.Revit.Commands.ShapeArrowCommand>("Shape Arrow\rCreator")
+                .SetLargeImage("/UIFrameworkRes;component/ribbon/images/revit.ico");
+
+            ribbonPanel.CreatePushButton<ricaun.Revit.DB.Shape.Revit.Commands.ShapeGizmoCommand>("Shape Gizmo\rCreator")
+                .SetLargeImage("/UIFrameworkRes;component/ribbon/images/revit.ico");
+
             ribbonPanel.CreatePushButton<ricaun.Revit.DB.Shape.Revit.Commands.ShapeColorsCommand>("Shape\rColors")
                 .SetLargeImage("/UIFrameworkRes;component/ribbon/images/revit.ico");
             return Result.Succeeded;
