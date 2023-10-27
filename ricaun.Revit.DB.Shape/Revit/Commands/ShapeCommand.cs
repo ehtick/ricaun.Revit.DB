@@ -1,8 +1,6 @@
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
-using ricaun.Revit.DB.Shape.Extensions;
-using System;
 
 namespace ricaun.Revit.DB.Shape.Revit.Commands
 {
