@@ -1,12 +1,11 @@
 ﻿using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
-using Autodesk.Revit.UI.Selection;
 
 namespace ricaun.Revit.DB.Shape.Revit.Commands
 {
     [Transaction(TransactionMode.Manual)]
-    public class ShapeBoxCommand : IExternalCommand
+    public class ShapeArrowCommand : IExternalCommand
     {
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elementSet)
         {
@@ -17,13 +16,14 @@ namespace ricaun.Revit.DB.Shape.Revit.Commands
 
             using (Transaction transaction = new Transaction(document))
             {
-                transaction.Start("DirectShape");
+                transaction.Start("DirectShapeType");
 
                 document.DeleteDirectShape();
 
-                var scale = 0.5;
+                var material = MaterialUtils.CreateMaterial(document, Colors.Magenta);
+                var arrowType = document.CreateDirectShapeType(ShapeCreator.CreateArrow(material.Id));
 
-                var box = document.CreateDirectShape(ShapeCreator.CreateBox(XYZ.Zero, scale));
+                arrowType.Create();
 
                 transaction.Commit();
             }
@@ -31,5 +31,4 @@ namespace ricaun.Revit.DB.Shape.Revit.Commands
             return Result.Succeeded;
         }
     }
-
 }

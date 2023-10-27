@@ -24,6 +24,7 @@ namespace ricaun.Revit.DB.Shape.Revit.Commands
                 var materialGreen = MaterialUtils.CreateMaterialGreen(document);
                 var materialBlue = MaterialUtils.CreateMaterialBlue(document);
                 var materialWhite = MaterialUtils.CreateMaterialWhite(document);
+                var materialMagenta = MaterialUtils.CreateMaterial(document, Colors.Magenta);
 
                 var scale = 0.5;
 
@@ -41,6 +42,10 @@ namespace ricaun.Revit.DB.Shape.Revit.Commands
 
                 var boxLines = document.CreateDirectShape(ShapeCreator.CreateBoxLines(XYZ.Zero, scale));
                 boxLines.Location.Move(-(10 * scale) * XYZ.BasisX);
+
+                var arrowAxis = new XYZ(-1, -1, -1);
+                var arrow = document.CreateDirectShape(ShapeCreator.CreateArrow(arrowAxis, materialMagenta.Id));
+                arrow.Location.Move(arrowAxis / 10);
 
                 var gizmo = ShapeCreator.CreateGizmo(document);
                 document.CreateDirectShape(gizmo);
