@@ -70,7 +70,7 @@ namespace ricaun.Revit.DB.Shape
                 var p3 = vertices[indices[i + 2]];
 
                 var materialId = ElementId.InvalidElementId;
-                if (materialIds is ElementId[])
+                if (materialIds is ElementId[] && materialIds.Length > 0)
                 {
                     materialId = materialIds[(i / 3) % materialIds.Length];
                 }
@@ -111,7 +111,7 @@ namespace ricaun.Revit.DB.Shape
                 var normal = XYZUtils.ComputeNormal(p1, p2, p3);
 
                 var materialId = ElementId.InvalidElementId;
-                if (materialIds is ElementId[])
+                if (materialIds is ElementId[] && materialIds.Length > 0)
                     materialId = materialIds[(i / 3) % materialIds.Length];
 
                 if (lastNormal is null)

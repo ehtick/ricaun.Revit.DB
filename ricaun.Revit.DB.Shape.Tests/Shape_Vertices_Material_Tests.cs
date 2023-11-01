@@ -28,6 +28,23 @@ namespace ricaun.Revit.DB.Shape.Tests
         }
 
         [Test]
+        public void CreateBox_Material_IsEmpty()
+        {
+            var shape = ShapeCreator.CreateBox(XYZ.Zero, 1);
+
+            var materialIds = new ElementId[] { };
+
+            var tessellatedShape = TessellatedShapeCreator.CreateMesh(
+                    shape.GetTriangleVertices().ToArray(),
+                    materialIds: materialIds);
+
+            var solid = tessellatedShape.OfType<Solid>().FirstOrDefault();
+
+            Assert.IsNotNull(solid);
+            Assert.AreEqual(solid.GetMaterialId(), ElementId.InvalidElementId);
+        }
+
+        [Test]
         public void CreateBox_Material_Triangles()
         {
             var shape = ShapeCreator.CreateBox(XYZ.Zero, 1);
