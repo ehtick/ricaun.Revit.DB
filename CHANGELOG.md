@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add `LevelOfDetail` methods to Triangulate face/solid.
 - Update `VerticesExtension` with `GetMaterialId` and `GetTriangleMaterialIds`.
 - Update `MaterialUtils` with `GetColor` and `GetColorWithTransparency`
+- Add `CreatePyramid` and `CreatePrism`
+- Add internal `CreateCircleLoopVertices`
 ### Shape.Tests
 - Test Triangulate Vertices `LevelOfDetail`
 - Test `GetMaterialId` and `GetTriangleMaterialIds`.

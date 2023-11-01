@@ -1,12 +1,11 @@
 ﻿using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
-using Autodesk.Revit.UI.Selection;
 
 namespace ricaun.Revit.DB.Shape.Revit.Commands
 {
     [Transaction(TransactionMode.Manual)]
-    public class ShapeBoxCommand : IExternalCommand
+    public class ShapePrismCommand : IExternalCommand
     {
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elementSet)
         {
@@ -22,8 +21,12 @@ namespace ricaun.Revit.DB.Shape.Revit.Commands
                 document.DeleteDirectShape();
 
                 var scale = 0.5;
-
-                var box = document.CreateDirectShape(ShapeCreator.CreateBox(XYZ.Zero, scale));
+                document.CreateDirectShape(ShapeCreator.CreateBox(-XYZ.BasisY, scale));
+                for (int i = 0; i <= 12; i++)
+                {
+                    var prims = document.CreateDirectShape(ShapeCreator.CreatePrism(i + 3, i * XYZ.BasisX, scale));
+                    var pyramid = document.CreateDirectShape(ShapeCreator.CreatePyramid(i + 3, i * XYZ.BasisX + XYZ.BasisY, scale));
+                }
 
                 transaction.Commit();
             }
@@ -31,4 +34,6 @@ namespace ricaun.Revit.DB.Shape.Revit.Commands
             return Result.Succeeded;
         }
     }
+
+
 }

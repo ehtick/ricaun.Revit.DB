@@ -11,6 +11,7 @@ namespace ricaun.Revit.DB.Shape
     /// </summary>
     public static class ShapeCreator
     {
+        private const int Sides = 6;
         #region Box
         /// <summary>
         /// Creates an array of lines representing the edges of a 3D box with the specified minimum and maximum points.
@@ -228,6 +229,122 @@ namespace ricaun.Revit.DB.Shape
 
             Frame frame = new Frame(center, XYZ.BasisX, XYZ.BasisY, XYZ.BasisZ);
             Solid solid = GeometryCreationUtilities.CreateRevolvedGeometry(frame, new CurveLoop[] { curveLoop }, 0, 2 * Math.PI, solidOptions);
+
+            return solid;
+        }
+
+        /// <summary>
+        /// CreatePrism
+        /// </summary>
+        /// <param name="center"></param>
+        /// <param name="radius"></param>
+        /// <param name="height"></param>
+        /// <param name="materialId"></param>
+        /// <param name="graphicsStyleId"></param>
+        /// <returns></returns>
+        public static Solid CreatePrism(XYZ center, double radius, double height = 0,
+            ElementId materialId = null,
+            ElementId graphicsStyleId = null)
+        {
+            return CreatePrism(Sides, center, radius, height, materialId, graphicsStyleId);
+        }
+
+        /// <summary>
+        /// CreatePrism
+        /// </summary>
+        /// <param name="sides"></param>
+        /// <param name="center"></param>
+        /// <param name="radius"></param>
+        /// <param name="height"></param>
+        /// <param name="materialId"></param>
+        /// <param name="graphicsStyleId"></param>
+        /// <returns></returns>
+        public static Solid CreatePrism(int sides, XYZ center, double radius, double height = 0,
+            ElementId materialId = null,
+            ElementId graphicsStyleId = null)
+        {
+            if (sides < 3) sides = 3;
+            if (height <= 0) height = radius * 2;
+
+            var heightHalfZ = height * XYZ.BasisZ / 2.0;
+            center -= heightHalfZ;
+
+            var profileLoops = new List<CurveLoop>();
+            var curveLoop = new CurveLoop();
+            var points = XYZUtils.CreateCircleLoopVertices(center, radius, sides);
+
+            for (int i = 0; i < points.Length; i++)
+            {
+                var p1 = points[(i + 0) % points.Length];
+                var p2 = points[(i + 1) % points.Length];
+                curveLoop.Append(Line.CreateBound(p1, p2));
+            }
+
+            profileLoops.Add(curveLoop);
+            XYZ extrusionDir = XYZ.BasisZ;
+            double extrusionDist = height;
+            SolidOptions solidOptions = CreateSolidOptions(materialId, graphicsStyleId);
+            Solid solid = GeometryCreationUtilities.CreateExtrusionGeometry(profileLoops, extrusionDir, extrusionDist, solidOptions);
+
+            return solid;
+        }
+
+        /// <summary>
+        /// CreatePyramid
+        /// </summary>
+        /// <param name="center"></param>
+        /// <param name="radius"></param>
+        /// <param name="height"></param>
+        /// <param name="materialId"></param>
+        /// <param name="graphicsStyleId"></param>
+        /// <returns></returns>
+        /// <remarks>This method uses <see cref="TessellatedShapeCreator"/> and return null if fails.</remarks>
+        public static Solid CreatePyramid(XYZ center, double radius, double height = 0,
+           ElementId materialId = null,
+           ElementId graphicsStyleId = null)
+        {
+            return CreatePyramid(Sides, center, radius, height, materialId, graphicsStyleId);
+        }
+
+        /// <summary>
+        /// CreatePyramid
+        /// </summary>
+        /// <param name="sides"></param>
+        /// <param name="center"></param>
+        /// <param name="radius"></param>
+        /// <param name="height"></param>
+        /// <param name="materialId"></param>
+        /// <param name="graphicsStyleId"></param>
+        /// <returns></returns>
+        /// <remarks>This method uses <see cref="TessellatedShapeCreator"/> and return null if fails.</remarks>
+        public static Solid CreatePyramid(int sides, XYZ center, double radius, double height = 0,
+            ElementId materialId = null,
+            ElementId graphicsStyleId = null)
+        {
+            if (sides < 3) sides = 3;
+            if (height <= 0) height = radius * 2;
+
+            var heightHalfZ = height * XYZ.BasisZ / 2.0;
+            var pyramidPoint = center + heightHalfZ;
+            center -= heightHalfZ;
+
+            var points = XYZUtils.CreateCircleLoopVertices(center, radius, sides);
+
+            var solid = TessellatedShapeCreator.Create((builder) =>
+            {
+                if (materialId is null) materialId = ElementId.InvalidElementId;
+                if (graphicsStyleId is not null) builder.GraphicsStyleId = graphicsStyleId;
+
+                for (int i = 0; i < points.Length; i++)
+                {
+                    var p1 = points[(i + 0) % points.Length];
+                    var p2 = points[(i + 1) % points.Length];
+                    builder.AddFace(new List<XYZ> { p1, p2, pyramidPoint }, materialId);
+                }
+
+                builder.AddFace(points.ToList(), materialId);
+
+            }).OfType<Solid>().FirstOrDefault();
 
             return solid;
         }

@@ -25,6 +25,19 @@ namespace ricaun.Revit.DB.Shape.Revit.Commands
 
                 arrowType.Create();
 
+                var cylinderHeight = 1.0 / 4.0;
+                var cylinderRadius = 1.0 / 48.0 / 4.0;
+                var coneHeight = 1.0 / 12.0;
+                var coneRadius = 1.0 / 48.0;
+
+                var cylinderCenter = XYZ.BasisZ * (cylinderHeight) / 2;
+                var coneCenter = cylinderCenter + XYZ.BasisZ * (cylinderHeight + coneHeight) / 2;
+
+                var cylinder = ShapeCreator.CreatePrism(cylinderCenter, cylinderRadius, cylinderHeight);
+                var cone = ShapeCreator.CreatePyramid(coneCenter, coneRadius, coneHeight);
+
+                document.CreateDirectShape(ShapeCreator.CreateSolid(cone, cylinder));
+
                 transaction.Commit();
             }
 

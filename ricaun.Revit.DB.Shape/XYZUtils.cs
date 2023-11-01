@@ -45,6 +45,20 @@ namespace ricaun.Revit.DB.Shape
             return normal;
         }
 
+        internal static XYZ[] CreateCircleLoopVertices(XYZ origin, double radius, int sides = 3)
+        {
+            var loopBaseVertices = new XYZ[sides];
+            for (int i = 0; i < sides; i++)
+            {
+                var s = 2 * Math.PI * (double)i / sides;
+                var x = Math.Sin(s) * radius;
+                var y = Math.Cos(s) * radius;
+                var point = new XYZ(x, y, 0) + origin;
+                loopBaseVertices[i] = point;
+            }
+            return loopBaseVertices;
+        }
+
         internal static bool UpdateLoopWithTriangle(List<XYZ> loop, params XYZ[] values)
         {
             XYZAlmostEqualComparer comparer = new XYZAlmostEqualComparer();
