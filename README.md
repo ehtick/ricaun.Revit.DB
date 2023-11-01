@@ -5,6 +5,7 @@
 [![Nuke](https://img.shields.io/badge/Nuke-Build-blue)](https://nuke.build/)
 [![License MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Build](https://github.com/ricaun-io/ricaun.Revit.DB/actions/workflows/Build.yml/badge.svg)](https://github.com/ricaun-io/ricaun.Revit.DB/actions)
+[![Release](https://img.shields.io/nuget/v/ricaun.Revit.DB?logo=nuget&label=release&color=blue)](https://www.nuget.org/packages/ricaun.Revit.DB)
 
 [![ricaun.Revit.DB](assets/ricaun.Revit.DB.png)](https://github.com/ricaun-io/ricaun.Revit.DB)
 
