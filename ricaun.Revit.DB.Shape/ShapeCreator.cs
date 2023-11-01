@@ -159,7 +159,7 @@ namespace ricaun.Revit.DB.Shape
         #endregion
 
         /// <summary>
-        /// CreatePointer
+        /// CreateCone
         /// </summary>
         /// <param name="center"></param>
         /// <param name="radius"></param>
@@ -167,7 +167,7 @@ namespace ricaun.Revit.DB.Shape
         /// <param name="materialId"></param>
         /// <param name="graphicsStyleId"></param>
         /// <returns></returns>
-        public static Solid CreatePointer(XYZ center, double radius, double height = 0,
+        public static Solid CreateCone(XYZ center, double radius, double height = 0,
             ElementId materialId = null,
             ElementId graphicsStyleId = null)
         {
@@ -189,9 +189,9 @@ namespace ricaun.Revit.DB.Shape
             SolidOptions solidOptions = CreateSolidOptions(materialId, graphicsStyleId);
 
             Frame frame = new Frame(center, XYZ.BasisX, XYZ.BasisY, XYZ.BasisZ);
-            Solid sphere = GeometryCreationUtilities.CreateRevolvedGeometry(frame, new CurveLoop[] { curveLoop }, 0, 2 * Math.PI, solidOptions);
+            Solid solid = GeometryCreationUtilities.CreateRevolvedGeometry(frame, new CurveLoop[] { curveLoop }, 0, 2 * Math.PI, solidOptions);
 
-            return sphere;
+            return solid;
         }
 
         /// <summary>
@@ -227,9 +227,9 @@ namespace ricaun.Revit.DB.Shape
             SolidOptions solidOptions = CreateSolidOptions(materialId, graphicsStyleId);
 
             Frame frame = new Frame(center, XYZ.BasisX, XYZ.BasisY, XYZ.BasisZ);
-            Solid sphere = GeometryCreationUtilities.CreateRevolvedGeometry(frame, new CurveLoop[] { curveLoop }, 0, 2 * Math.PI, solidOptions);
+            Solid solid = GeometryCreationUtilities.CreateRevolvedGeometry(frame, new CurveLoop[] { curveLoop }, 0, 2 * Math.PI, solidOptions);
 
-            return sphere;
+            return solid;
         }
 
         private static SolidOptions CreateSolidOptions(
@@ -278,16 +278,16 @@ namespace ricaun.Revit.DB.Shape
         {
             var cylinderHeight = 1.0 / 4.0;
             var cylinderRadius = 1.0 / 48.0 / 4.0;
-            var pointerHeight = 1.0 / 12.0;
-            var pointerRadius = 1.0 / 48.0;
+            var coneHeight = 1.0 / 12.0;
+            var coneRadius = 1.0 / 48.0;
 
             var cylinderCenter = XYZ.BasisZ * (cylinderHeight) / 2;
-            var pointerCenter = cylinderCenter + XYZ.BasisZ * (cylinderHeight + pointerHeight) / 2;
+            var coneCenter = cylinderCenter + XYZ.BasisZ * (cylinderHeight + coneHeight) / 2;
 
             var cylinder = ShapeCreator.CreateCylinder(cylinderCenter, cylinderRadius, cylinderHeight, materialId, graphicsStyleId);
-            var pointer = ShapeCreator.CreatePointer(pointerCenter, pointerRadius, pointerHeight, materialId, graphicsStyleId);
+            var cone = ShapeCreator.CreateCone(coneCenter, coneRadius, coneHeight, materialId, graphicsStyleId);
 
-            var solid = ShapeCreator.CreateSolid(cylinder, pointer);
+            var solid = ShapeCreator.CreateSolid(cylinder, cone);
             return solid;
         }
 

@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [0.3.0] / 2023-10-24
 ### Shape
 - Rename `indexes` to `indices`.
+- Rename shape `Pointer` to `Cone`
 - Add `LevelOfDetail` methods to Triangulate face/solid.
 - Update `VerticesExtension` with `GetMaterialId` and `GetTriangleMaterialIds`.
 - Update `MaterialUtils` with `GetColor` and `GetColorWithTransparency`

@@ -37,8 +37,8 @@ namespace ricaun.Revit.DB.Shape.Revit.Commands
                 var cylinder = document.CreateDirectShape(ShapeCreator.CreateCylinder(XYZ.Zero, scale, materialId: materialBlue.Id));
                 cylinder.Location.Move(-(6 * scale) * XYZ.BasisX);
 
-                var pointer = document.CreateDirectShape(ShapeCreator.CreatePointer(XYZ.Zero, scale, materialId: materialWhite.Id));
-                pointer.Location.Move(-(8 * scale) * XYZ.BasisX);
+                var cone = document.CreateDirectShape(ShapeCreator.CreateCone(XYZ.Zero, scale, materialId: materialWhite.Id));
+                cone.Location.Move(-(8 * scale) * XYZ.BasisX);
 
                 var boxLines = document.CreateDirectShape(ShapeCreator.CreateBoxLines(XYZ.Zero, scale));
                 boxLines.Location.Move(-(10 * scale) * XYZ.BasisX);

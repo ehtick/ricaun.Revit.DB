@@ -139,7 +139,7 @@ namespace ricaun.Revit.DB.Shape.Tests.Utils
             AssertUtils.Solid(solid, 10, 6, volume, area, tolerance);
         }
 
-        public static void Pointer(Solid solid, double radius, double height = 0)
+        public static void Cone(Solid solid, double radius, double height = 0)
         {
             if (height == 0)
                 height = 2 * radius;

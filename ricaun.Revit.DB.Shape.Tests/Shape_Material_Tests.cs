@@ -71,16 +71,16 @@ namespace ricaun.Revit.DB.Shape.Tests
         }
 
         [Test]
-        public void CreatePointer_Material()
+        public void CreateCone_Material()
         {
-            var solid = ShapeCreator.CreatePointer(XYZ.Zero, 1, materialId: MaterialId);
+            var solid = ShapeCreator.CreateCone(XYZ.Zero, 1, materialId: MaterialId);
             AssertUtils.Material(solid, MaterialId, ElementId.InvalidElementId);
         }
 
         [Test]
-        public void CreatePointer_Material_GraphicsStyle()
+        public void CreateCone_Material_GraphicsStyle()
         {
-            var solid = ShapeCreator.CreatePointer(XYZ.Zero, 1, materialId: MaterialId, graphicsStyleId: GraphicsStyleId);
+            var solid = ShapeCreator.CreateCone(XYZ.Zero, 1, materialId: MaterialId, graphicsStyleId: GraphicsStyleId);
             AssertUtils.Material(solid, MaterialId, GraphicsStyleId);
         }
 
