@@ -49,6 +49,14 @@ namespace ricaun.Revit.DB.Shape.Tests.Utils
             }
         }
 
+        public static void Material(Solid[] solids, ElementId materialElementId, ElementId graphicsStyleId)
+        {
+            foreach (var solid in solids)
+            {
+                Material(solid, materialElementId, graphicsStyleId);
+            }
+        }
+
         public static void Material(Solid solid, ElementId[] materialElementIds, ElementId graphicsStyleId)
         {
             foreach (Face face in solid.Faces)

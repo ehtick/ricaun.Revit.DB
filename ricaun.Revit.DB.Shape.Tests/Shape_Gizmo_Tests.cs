@@ -10,9 +10,9 @@ namespace ricaun.Revit.DB.Shape.Tests
         [Test]
         public void CreateGizmo()
         {
-            var solid = ShapeCreator.CreateGizmo();
+            var gizmo = ShapeCreator.CreateGizmo();
 
-            AssertGizmo(solid);
+            AssertGizmo(gizmo);
         }
 
         [TestCase(1.0)]
@@ -38,6 +38,14 @@ namespace ricaun.Revit.DB.Shape.Tests
             var volume = VolumeArrow * scale * scale * scale;
             var surface = SurfaceArrow * scale * scale;
             AssertUtils.Solid(solid, 41, 21, volume, surface, Tolerance);
+        }
+
+        private void AssertGizmo(Solid[] solids, double scale = 1.0)
+        {
+            foreach (var solid in solids)
+            {
+                Shape_Arrow_Tests.AssertArrow(solid, scale);
+            }
         }
     }
 }

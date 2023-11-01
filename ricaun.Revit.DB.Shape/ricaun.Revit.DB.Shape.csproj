@@ -174,4 +174,8 @@
     <Page Remove="Revit\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="$(PackageId).Tests" />
+  </ItemGroup>
+
 </Project>

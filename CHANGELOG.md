@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Update `MaterialUtils` with `GetColor` and `GetColorWithTransparency`
 - Add `CreatePyramid` and `CreatePrism`
 - Add internal `CreateCircleLoopVertices`
+- Change `Gizmo` to return `Solid[]`
+- Add `Arrow` and `Gizmo` with sides options.
 ### Shape.Tests
 - Test Triangulate Vertices `LevelOfDetail`
 - Test `GetMaterialId` and `GetTriangleMaterialIds`.

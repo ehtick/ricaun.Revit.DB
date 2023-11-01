@@ -25,7 +25,6 @@ namespace ricaun.Revit.DB.Shape.Tests
         {
             document.Delete(Material.Id);
             document.Delete(GraphicsStyle.GraphicsStyleCategory.Id);
-
         }
 
         [Test]
@@ -101,15 +100,15 @@ namespace ricaun.Revit.DB.Shape.Tests
         [Test]
         public void CreateGizmo_Material()
         {
-            var solid = ShapeCreator.CreateGizmo(MaterialId, MaterialId, MaterialId);
-            AssertUtils.Material(solid, MaterialId, ElementId.InvalidElementId);
+            var gizmo = ShapeCreator.CreateGizmo(MaterialId, MaterialId, MaterialId);
+            AssertUtils.Material(gizmo, MaterialId, ElementId.InvalidElementId);
         }
 
         [Test]
         public void CreateGizmo_Material_GraphicsStyle()
         {
-            var solid = ShapeCreator.CreateGizmo(MaterialId, MaterialId, MaterialId, GraphicsStyleId);
-            AssertUtils.Material(solid, MaterialId, GraphicsStyleId);
+            var gizmo = ShapeCreator.CreateGizmo(MaterialId, MaterialId, MaterialId, GraphicsStyleId);
+            AssertUtils.Material(gizmo, MaterialId, GraphicsStyleId);
         }
 
         [Test]
@@ -119,8 +118,8 @@ namespace ricaun.Revit.DB.Shape.Tests
             var materialGreen = MaterialUtils.CreateMaterialGreen(document);
             var materialBlue = MaterialUtils.CreateMaterialBlue(document);
 
-            var solid = ShapeCreator.CreateGizmo(document);
-            AssertGizmo(solid, materialRed.Id, materialGreen.Id, materialBlue.Id, ElementId.InvalidElementId);
+            var gizmo = ShapeCreator.CreateGizmo(document);
+            AssertGizmo(gizmo, materialRed.Id, materialGreen.Id, materialBlue.Id, ElementId.InvalidElementId);
         }
 
         [Test]
@@ -130,8 +129,8 @@ namespace ricaun.Revit.DB.Shape.Tests
             var materialGreen = MaterialUtils.CreateMaterialGreen(document);
             var materialBlue = MaterialUtils.CreateMaterialBlue(document);
 
-            var solid = ShapeCreator.CreateGizmo(document, GraphicsStyleId);
-            AssertGizmo(solid, materialRed.Id, materialGreen.Id, materialBlue.Id, GraphicsStyleId);
+            var gizmo = ShapeCreator.CreateGizmo(document, GraphicsStyleId);
+            AssertGizmo(gizmo, materialRed.Id, materialGreen.Id, materialBlue.Id, GraphicsStyleId);
         }
 
         private void AssertGizmo(Solid solid,
@@ -141,6 +140,18 @@ namespace ricaun.Revit.DB.Shape.Tests
             ElementId graphicsStyleId)
         {
             AssertUtils.Material(solid, new[] { materialElementIdRed, materialElementIdGreen, materialElementIdBlue }, graphicsStyleId);
+        }
+
+        private void AssertGizmo(Solid[] solids,
+            ElementId materialElementIdRed,
+            ElementId materialElementIdGreen,
+            ElementId materialElementIdBlue,
+            ElementId graphicsStyleId)
+        {
+            foreach (var solid in solids)
+            {
+                AssertUtils.Material(solid, new[] { materialElementIdRed, materialElementIdGreen, materialElementIdBlue }, graphicsStyleId);
+            }
         }
     }
 }

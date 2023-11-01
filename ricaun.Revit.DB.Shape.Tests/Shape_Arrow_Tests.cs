@@ -30,7 +30,7 @@ namespace ricaun.Revit.DB.Shape.Tests
         }
 
 
-        private void AssertArrow(Solid solid, double scale = 1.0)
+        internal static void AssertArrow(Solid solid, double scale = 1.0)
         {
             const double Tolerance = 1e-2;
             const double VolumeArrow = 0.0000629;

@@ -1,4 +1,5 @@
 ﻿using Autodesk.Revit.DB;
+using System.Linq;
 
 namespace ricaun.Revit.DB.Shape.Extensions
 {
@@ -49,6 +50,17 @@ namespace ricaun.Revit.DB.Shape.Extensions
         public static Solid CreateTransformed(this Solid solid, Transform transform)
         {
             return SolidUtils.CreateTransformed(solid, transform);
+        }
+
+        /// <summary>
+        /// Creates a new Solid which is the transformation of the input Solid.
+        /// </summary>
+        /// <param name="solids">The solids to be transformed.</param>
+        /// <param name="transform">The transform (which must be conformal).</param>
+        /// <returns></returns>
+        public static Solid[] CreateTransformed(this Solid[] solids, Transform transform)
+        {
+            return solids.Select(solid => solid.CreateTransformed(transform)).ToArray();
         }
 
         /// <summary>

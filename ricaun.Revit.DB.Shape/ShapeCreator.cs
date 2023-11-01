@@ -159,6 +159,8 @@ namespace ricaun.Revit.DB.Shape
         }
         #endregion
 
+        #region Cone / Cylinder
+
         /// <summary>
         /// CreateCone
         /// </summary>
@@ -232,7 +234,9 @@ namespace ricaun.Revit.DB.Shape
 
             return solid;
         }
+        #endregion
 
+        #region Prism / Pyramid
         /// <summary>
         /// CreatePrism
         /// </summary>
@@ -349,6 +353,9 @@ namespace ricaun.Revit.DB.Shape
             return solid;
         }
 
+        #endregion
+
+        #region Utils
         private static SolidOptions CreateSolidOptions(
             ElementId materialId = null,
             ElementId graphicsStyleId = null)
@@ -361,12 +368,13 @@ namespace ricaun.Revit.DB.Shape
         /// </summary>
         /// <param name="solids"></param>
         /// <returns></returns>
-        public static Solid CreateSolid(params Solid[] solids)
+        internal static Solid CreateSolid(params Solid[] solids)
         {
             return solids.Aggregate((a, b) => a.Union(b));
         }
+        #endregion
 
-
+        #region Arrow / Gizmo
         /// <summary>
         /// Create Arrow pointing to axis
         /// </summary>
@@ -390,8 +398,8 @@ namespace ricaun.Revit.DB.Shape
         /// <param name="graphicsStyleId"></param>
         /// <returns></returns>
         public static Solid CreateArrow(
-        ElementId materialId = null,
-        ElementId graphicsStyleId = null)
+            ElementId materialId = null,
+            ElementId graphicsStyleId = null)
         {
             var cylinderHeight = 1.0 / 4.0;
             var cylinderRadius = 1.0 / 48.0 / 4.0;
@@ -409,13 +417,62 @@ namespace ricaun.Revit.DB.Shape
         }
 
         /// <summary>
+        /// CreateArrow
+        /// </summary>
+        /// <param name="sides"></param>
+        /// <param name="axis"></param>
+        /// <param name="materialId"></param>
+        /// <param name="graphicsStyleId"></param>
+        /// <returns></returns>
+        /// <remarks>Sides limit equal to 10.</remarks>
+        internal static Solid CreateArrow(
+            int sides,
+            XYZ axis,
+            ElementId materialId = null,
+            ElementId graphicsStyleId = null)
+        {
+            return ShapeCreator.CreateArrow(sides, materialId, graphicsStyleId)
+                .CreateTransformed(TransformUtils.CreateRotation(axis));
+        }
+
+        /// <summary>
+        /// CreateArrow
+        /// </summary>
+        /// <param name="sides"></param>
+        /// <param name="materialId"></param>
+        /// <param name="graphicsStyleId"></param>
+        /// <returns></returns>
+        /// <remarks>Sides limit equal to 10.</remarks>
+        internal static Solid CreateArrow(
+            int sides,
+            ElementId materialId = null,
+            ElementId graphicsStyleId = null)
+        {
+            if (sides > 10) sides = 10;
+
+            var cylinderHeight = 1.0 / 4.0;
+            var cylinderRadius = 1.0 / 48.0 / 4.0;
+            var coneHeight = 1.0 / 12.0;
+            var coneRadius = 1.0 / 48.0;
+
+            var cylinderCenter = XYZ.BasisZ * (cylinderHeight) / 2;
+            var coneCenter = cylinderCenter + XYZ.BasisZ * (cylinderHeight + coneHeight) / 2;
+
+            var cylinder = ShapeCreator.CreatePrism(sides, cylinderCenter, cylinderRadius, cylinderHeight, materialId, graphicsStyleId);
+            var cone = ShapeCreator.CreatePyramid(sides, coneCenter, coneRadius, coneHeight, materialId, graphicsStyleId);
+
+            var solid = ShapeCreator.CreateSolid(cylinder, cone);
+            return solid;
+        }
+
+        /// <summary>
         /// CreateGizmo with base material colors.
         /// </summary>
         /// <param name="document"></param>
         /// <param name="graphicsStyleId"></param>
         /// <returns></returns>
         /// <remarks>This method creates Material if not exist in the <paramref name="document"/></remarks>
-        public static Solid CreateGizmo(
+        public static Solid[] CreateGizmo(
             Document document,
             ElementId graphicsStyleId = null)
         {
@@ -433,7 +490,7 @@ namespace ricaun.Revit.DB.Shape
         /// <param name="materialIdZ"></param>
         /// <param name="graphicsStyleId"></param>
         /// <returns></returns>
-        public static Solid CreateGizmo(
+        public static Solid[] CreateGizmo(
             ElementId materialIdX = null,
             ElementId materialIdY = null,
             ElementId materialIdZ = null,
@@ -443,8 +500,50 @@ namespace ricaun.Revit.DB.Shape
             var solidGreen = ShapeCreator.CreateArrow(XYZ.BasisY, materialIdY, graphicsStyleId);
             var solidBlue = ShapeCreator.CreateArrow(XYZ.BasisZ, materialIdZ, graphicsStyleId);
 
-            var gizmo = ShapeCreator.CreateSolid(solidRed, solidGreen, solidBlue);
-            return gizmo;
+            return new[] { solidRed, solidGreen, solidBlue };
         }
+
+        /// <summary>
+        /// CreateGizmo with base material colors.
+        /// </summary>
+        /// <param name="document"></param>
+        /// <param name="sides"></param>
+        /// <param name="graphicsStyleId"></param>
+        /// <returns></returns>
+        /// <remarks>This method creates Material if not exist in the <paramref name="document"/></remarks>
+        internal static Solid[] CreateGizmo(
+            Document document,
+            int sides,
+            ElementId graphicsStyleId = null)
+        {
+            var materialRed = MaterialUtils.CreateMaterialRed(document);
+            var materialGreen = MaterialUtils.CreateMaterialGreen(document);
+            var materialBlue = MaterialUtils.CreateMaterialBlue(document);
+            return CreateGizmo(sides, materialRed.Id, materialGreen.Id, materialBlue.Id, graphicsStyleId);
+        }
+
+        /// <summary>
+        /// CreateGizmo
+        /// </summary>
+        /// <param name="sides"></param>
+        /// <param name="materialIdX"></param>
+        /// <param name="materialIdY"></param>
+        /// <param name="materialIdZ"></param>
+        /// <param name="graphicsStyleId"></param>
+        /// <returns></returns>
+        internal static Solid[] CreateGizmo(
+            int sides,
+            ElementId materialIdX = null,
+            ElementId materialIdY = null,
+            ElementId materialIdZ = null,
+            ElementId graphicsStyleId = null)
+        {
+            var solidRed = ShapeCreator.CreateArrow(sides, XYZ.BasisX, materialIdX, graphicsStyleId);
+            var solidGreen = ShapeCreator.CreateArrow(sides, XYZ.BasisY, materialIdY, graphicsStyleId);
+            var solidBlue = ShapeCreator.CreateArrow(sides, XYZ.BasisZ, materialIdZ, graphicsStyleId);
+
+            return new[] { solidRed, solidGreen, solidBlue };
+        }
+        #endregion
     }
 }

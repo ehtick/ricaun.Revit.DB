@@ -1,6 +1,7 @@
 ﻿using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
+using ricaun.Revit.DB.Shape.Extensions;
 
 namespace ricaun.Revit.DB.Shape.Revit.Commands
 {
@@ -20,23 +21,51 @@ namespace ricaun.Revit.DB.Shape.Revit.Commands
 
                 document.DeleteDirectShape();
 
-                var material = MaterialUtils.CreateMaterial(document, Colors.Magenta);
-                var arrowType = document.CreateDirectShapeType(ShapeCreator.CreateArrow(material.Id));
+                var arrowType = document.CreateDirectShapeType(ShapeCreator.CreateArrow());
 
                 arrowType.Create();
 
-                var cylinderHeight = 1.0 / 4.0;
-                var cylinderRadius = 1.0 / 48.0 / 4.0;
-                var coneHeight = 1.0 / 12.0;
-                var coneRadius = 1.0 / 48.0;
+                for (int i = 1; i <= 10; i++)
+                {
+                    var material2 = MaterialUtils.CreateMaterial(document, Colors.Index.Get((byte)(i)));
 
-                var cylinderCenter = XYZ.BasisZ * (cylinderHeight) / 2;
-                var coneCenter = cylinderCenter + XYZ.BasisZ * (cylinderHeight + coneHeight) / 2;
+                    // Internal CreateArrow with sides, not work very well
+                    var arrowTypeLow = document.CreateDirectShapeType(ShapeCreator.CreateArrow(i + 2, material2.Id));
+                    arrowTypeLow.Create(Transform.CreateTranslation(i * 0.1 * XYZ.BasisX));
+                }
 
-                var cylinder = ShapeCreator.CreatePrism(cylinderCenter, cylinderRadius, cylinderHeight);
-                var cone = ShapeCreator.CreatePyramid(coneCenter, coneRadius, coneHeight);
+                var materialRed = MaterialUtils.CreateMaterialRed(document);
+                var materialGreen = MaterialUtils.CreateMaterialGreen(document);
+                var materialBlue = MaterialUtils.CreateMaterialBlue(document);
 
-                document.CreateDirectShape(ShapeCreator.CreateSolid(cone, cylinder));
+                for (int sides = 3; sides <= 10; sides++)
+                {
+                    var arrowX = ShapeCreator.CreateArrow(sides, materialRed.Id)
+                        .CreateTransformed(TransformUtils.CreateRotation(XYZ.BasisX));
+
+                    var arrowY = ShapeCreator.CreateArrow(sides, materialGreen.Id)
+                        .CreateTransformed(TransformUtils.CreateRotation(XYZ.BasisY));
+
+                    var arrowZ = ShapeCreator.CreateArrow(sides, materialBlue.Id)
+                       .CreateTransformed(TransformUtils.CreateRotation(XYZ.BasisZ));
+
+                    var gizmo = document.CreateDirectShape(new[] { arrowX, arrowY, arrowZ });
+                    gizmo.Location.Move(sides * 0.1 * XYZ.BasisY);
+
+                    var gizmo2 = document.CreateDirectShape(new[] {
+                    ShapeCreator.CreateArrow(sides, XYZ.BasisX, materialRed.Id),
+                    ShapeCreator.CreateArrow(sides, XYZ.BasisY, materialGreen.Id),
+                    ShapeCreator.CreateArrow(sides, XYZ.BasisZ, materialBlue.Id) });
+
+                    gizmo2.Location.Move(sides * 0.1 * XYZ.BasisY + sides * 0.1 * XYZ.BasisX);
+                }
+
+                for (int sides = 3; sides <= 10; sides++)
+                {
+                    var gizmo = document.CreateDirectShape(ShapeCreator.CreateGizmo(document, sides));
+                    gizmo.Location.Move(sides * 0.1 * XYZ.BasisY - 0.5 * XYZ.BasisZ);
+
+                }
 
                 transaction.Commit();
             }
