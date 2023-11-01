@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Test Triangulate Vertices `LevelOfDetail`
 - Test `GetMaterialId` and `GetTriangleMaterialIds`.
 - Test Material `ColorWithTransparency`
+- Test `CreatePyramid` and `CreatePrism`
 
 ## [0.2.0] / 2023-10-01 - 2023-10-21
 ### Shape

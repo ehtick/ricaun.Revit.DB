@@ -160,5 +160,38 @@ namespace ricaun.Revit.DB.Shape.Tests.Utils
 
             AssertUtils.Solid(solid, 6, 4, volume, area, tolerance);
         }
+
+        public static void Pyramid(Solid solid, int sides, double radius, double height = 0)
+        {
+            if (height == 0)
+                height = 2 * radius;
+
+            var volume = System.Math.PI * System.Math.Pow(radius, 2) * height / 3;
+            var area = System.Math.PI * radius * System.Math.Sqrt(System.Math.Pow(radius, 2) + System.Math.Pow(height, 2)) + System.Math.PI * System.Math.Pow(radius, 2);
+
+            // Tolerance big to ignore area/volume
+            var tolerance = 1e+3;
+
+            var edges = sides * 2;
+            var faces = sides + 1;
+
+            AssertUtils.Solid(solid, edges, faces, volume, area, tolerance);
+        }
+        public static void Prism(Solid solid, int sides, double radius, double height = 0)
+        {
+            if (height == 0)
+                height = 2 * radius;
+
+            var volume = System.Math.PI * System.Math.Pow(radius, 2) * height;
+            var area = 2 * System.Math.PI * radius * height + 2 * System.Math.PI * System.Math.Pow(radius, 2);
+
+            // Tolerance big to ignore area/volume
+            var tolerance = 1e+4;
+
+            var edges = sides * 3;
+            var faces = sides + 2;
+
+            AssertUtils.Solid(solid, edges, faces, volume, area, tolerance);
+        }
     }
 }
