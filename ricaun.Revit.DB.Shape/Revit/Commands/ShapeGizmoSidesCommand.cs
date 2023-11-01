@@ -5,8 +5,9 @@ using Autodesk.Revit.UI;
 namespace ricaun.Revit.DB.Shape.Revit.Commands
 {
     [Transaction(TransactionMode.Manual)]
-    public class ShapeGizmoCommand : IExternalCommand
+    public class ShapeGizmoSidesCommand : IExternalCommand
     {
+        private static int sides = 3;
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elementSet)
         {
             UIApplication uiapp = commandData.Application;
@@ -20,7 +21,9 @@ namespace ricaun.Revit.DB.Shape.Revit.Commands
 
                 document.DeleteDirectShape();
 
-                var gizmoType = document.CreateDirectShapeType(ShapeCreator.CreateGizmo(document));
+                var gizmoType = document.CreateDirectShapeType(ShapeCreator.CreateGizmo(document, sides));
+                if (++sides == 10) sides = 3;
+
                 gizmoType.Create();
 
                 transaction.Commit();
