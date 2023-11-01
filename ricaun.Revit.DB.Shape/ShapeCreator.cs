@@ -11,7 +11,10 @@ namespace ricaun.Revit.DB.Shape
     /// </summary>
     public static class ShapeCreator
     {
-        private const int Sides = 6;
+        /// <summary>
+        /// Default Sides for Prisms and Pyramids.
+        /// </summary>
+        internal const int Sides = 3;
         #region Box
         /// <summary>
         /// Creates an array of lines representing the edges of a 3D box with the specified minimum and maximum points.
@@ -443,7 +446,7 @@ namespace ricaun.Revit.DB.Shape
         /// <param name="graphicsStyleId"></param>
         /// <returns></returns>
         /// <remarks>Sides limit equal to 10.</remarks>
-        internal static Solid CreateArrow(
+        public static Solid CreateArrow(
             int sides,
             ElementId materialId = null,
             ElementId graphicsStyleId = null)
@@ -511,7 +514,7 @@ namespace ricaun.Revit.DB.Shape
         /// <param name="graphicsStyleId"></param>
         /// <returns></returns>
         /// <remarks>This method creates Material if not exist in the <paramref name="document"/></remarks>
-        internal static Solid[] CreateGizmo(
+        public static Solid[] CreateGizmo(
             Document document,
             int sides,
             ElementId graphicsStyleId = null)
@@ -531,7 +534,7 @@ namespace ricaun.Revit.DB.Shape
         /// <param name="materialIdZ"></param>
         /// <param name="graphicsStyleId"></param>
         /// <returns></returns>
-        internal static Solid[] CreateGizmo(
+        public static Solid[] CreateGizmo(
             int sides,
             ElementId materialIdX = null,
             ElementId materialIdY = null,

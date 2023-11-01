@@ -34,38 +34,37 @@ namespace ricaun.Revit.DB.Shape.Revit.Commands
                     arrowTypeLow.Create(Transform.CreateTranslation(i * 0.1 * XYZ.BasisX));
                 }
 
-                var materialRed = MaterialUtils.CreateMaterialRed(document);
-                var materialGreen = MaterialUtils.CreateMaterialGreen(document);
-                var materialBlue = MaterialUtils.CreateMaterialBlue(document);
+                //var materialRed = MaterialUtils.CreateMaterialRed(document);
+                //var materialGreen = MaterialUtils.CreateMaterialGreen(document);
+                //var materialBlue = MaterialUtils.CreateMaterialBlue(document);
 
-                for (int sides = 3; sides <= 10; sides++)
-                {
-                    var arrowX = ShapeCreator.CreateArrow(sides, materialRed.Id)
-                        .CreateTransformed(TransformUtils.CreateRotation(XYZ.BasisX));
+                //for (int sides = 3; sides <= 10; sides++)
+                //{
+                //    var arrowX = ShapeCreator.CreateArrow(sides, materialRed.Id)
+                //        .CreateTransformed(TransformUtils.CreateRotation(XYZ.BasisX));
 
-                    var arrowY = ShapeCreator.CreateArrow(sides, materialGreen.Id)
-                        .CreateTransformed(TransformUtils.CreateRotation(XYZ.BasisY));
+                //    var arrowY = ShapeCreator.CreateArrow(sides, materialGreen.Id)
+                //        .CreateTransformed(TransformUtils.CreateRotation(XYZ.BasisY));
 
-                    var arrowZ = ShapeCreator.CreateArrow(sides, materialBlue.Id)
-                       .CreateTransformed(TransformUtils.CreateRotation(XYZ.BasisZ));
+                //    var arrowZ = ShapeCreator.CreateArrow(sides, materialBlue.Id)
+                //       .CreateTransformed(TransformUtils.CreateRotation(XYZ.BasisZ));
 
-                    var gizmo = document.CreateDirectShape(new[] { arrowX, arrowY, arrowZ });
-                    gizmo.Location.Move(sides * 0.1 * XYZ.BasisY);
+                //    var gizmo = document.CreateDirectShape(new[] { arrowX, arrowY, arrowZ });
+                //    gizmo.Location.Move(sides * 0.1 * XYZ.BasisY);
 
-                    var gizmo2 = document.CreateDirectShape(new[] {
-                    ShapeCreator.CreateArrow(sides, XYZ.BasisX, materialRed.Id),
-                    ShapeCreator.CreateArrow(sides, XYZ.BasisY, materialGreen.Id),
-                    ShapeCreator.CreateArrow(sides, XYZ.BasisZ, materialBlue.Id) });
+                //    var gizmo2 = document.CreateDirectShape(new[] {
+                //    ShapeCreator.CreateArrow(sides, XYZ.BasisX, materialRed.Id),
+                //    ShapeCreator.CreateArrow(sides, XYZ.BasisY, materialGreen.Id),
+                //    ShapeCreator.CreateArrow(sides, XYZ.BasisZ, materialBlue.Id) });
 
-                    gizmo2.Location.Move(sides * 0.1 * XYZ.BasisY + sides * 0.1 * XYZ.BasisX);
-                }
+                //    gizmo2.Location.Move(sides * 0.1 * XYZ.BasisY + sides * 0.1 * XYZ.BasisX);
+                //}
 
-                for (int sides = 3; sides <= 10; sides++)
-                {
-                    var gizmo = document.CreateDirectShape(ShapeCreator.CreateGizmo(document, sides));
-                    gizmo.Location.Move(sides * 0.1 * XYZ.BasisY - 0.5 * XYZ.BasisZ);
-
-                }
+                //for (int sides = 3; sides <= 10; sides++)
+                //{
+                //    var gizmo = document.CreateDirectShape(ShapeCreator.CreateGizmo(document, sides));
+                //    gizmo.Location.Move(sides * 0.1 * XYZ.BasisY - 0.5 * XYZ.BasisZ);
+                //}
 
                 transaction.Commit();
             }

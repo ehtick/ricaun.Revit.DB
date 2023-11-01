@@ -29,6 +29,23 @@ namespace ricaun.Revit.DB.Shape.Tests
             AssertArrow(solid, scale);
         }
 
+        [Test]
+        public void CreateArrow_Sides()
+        {
+            for (int sides = 3; sides <= 10; sides++)
+            {
+                var solid = ShapeCreator.CreateArrow(sides);
+
+                var edges = sides * 3; // Prism
+                edges += sides * 2; // Pyramid
+
+                var faces = sides + 2; // Prism
+                faces += sides + 1; // Pyramid
+                faces -= 1; // Intersection
+
+                AssertUtils.Solid(solid, edges, faces);
+            }
+        }
 
         internal static void AssertArrow(Solid solid, double scale = 1.0)
         {

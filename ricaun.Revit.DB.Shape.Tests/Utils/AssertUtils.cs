@@ -116,10 +116,15 @@ namespace ricaun.Revit.DB.Shape.Tests.Utils
             Assert.IsTrue(solid.AlmostEqual(other), $"Solid {solid} is not almost equal {other}");
         }
 
-        public static void Solid(Solid solid, int edges, int faces, double volume, double area, double tolerance)
+        public static void Solid(Solid solid, int edges, int faces)
         {
             Assert.AreEqual(edges, solid.Edges.Size, $"Edges: {solid.Edges.Size}");
             Assert.AreEqual(faces, solid.Faces.Size, $"Faces: {solid.Faces.Size}");
+        }
+
+        public static void Solid(Solid solid, int edges, int faces, double volume, double area, double tolerance)
+        {
+            Solid(solid, edges, faces);
 
             Assert.True(volume.AlmostEqual(solid.Volume, tolerance), $"Solid Volume {solid.Volume} is not {volume}");
             Assert.True(area.AlmostEqual(solid.SurfaceArea, tolerance), $"Solid Area {solid.SurfaceArea} is not {area}");
@@ -170,7 +175,7 @@ namespace ricaun.Revit.DB.Shape.Tests.Utils
             var area = System.Math.PI * radius * System.Math.Sqrt(System.Math.Pow(radius, 2) + System.Math.Pow(height, 2)) + System.Math.PI * System.Math.Pow(radius, 2);
 
             // Tolerance big to ignore area/volume
-            var tolerance = 1e+3;
+            var tolerance = 1e+4;
 
             var edges = sides * 2;
             var faces = sides + 1;

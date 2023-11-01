@@ -6,7 +6,7 @@ namespace ricaun.Revit.DB.Shape.Tests
 {
     public class Shape_Prism_Tests
     {
-        public int Sides { get; set; } = 6;
+        public int Sides { get; set; } = ShapeCreator.Sides;
         [Test]
         public void CreatePrism()
         {

@@ -15,6 +15,27 @@ namespace ricaun.Revit.DB.Shape.Tests
             AssertGizmo(gizmo);
         }
 
+        [Test]
+        public void CreateGizmo_Sides()
+        {
+            for (int sides = 3; sides <= 10; sides++)
+            {
+                var gizmo = ShapeCreator.CreateGizmo(sides);
+
+                var edges = sides * 3; // Prism
+                edges += sides * 2; // Pyramid
+
+                var faces = sides + 2; // Prism
+                faces += sides + 1; // Pyramid
+                faces -= 1; // Intersection
+
+                foreach (var solid in gizmo)
+                {
+                    AssertUtils.Solid(solid, edges, faces);
+                }
+            }
+        }
+
         [TestCase(1.0)]
         [TestCase(2.0)]
         [TestCase(3.0)]
