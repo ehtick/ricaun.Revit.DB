@@ -54,7 +54,7 @@ namespace ricaun.Revit.DB.Shape.Revit.Commands
                         shapes.AddRange(creator.GetGeometricalObjects());
                     }
                     var shape = document.CreateDirectShape(shapes);
-                    shape.Location.Move(XYZ.BasisZ * size.Z);
+                    shape.Location.Move(XYZ.BasisX * size.X);
 
                     for (double i = 0; i < 1.0; i += 0.2)
                     {
@@ -68,7 +68,7 @@ namespace ricaun.Revit.DB.Shape.Revit.Commands
                             shapesDetail.AddRange(creator.GetGeometricalObjects());
                         }
                         var shapeDetail = document.CreateDirectShape(shapesDetail);
-                        shapeDetail.Location.Move((2 + i * 5) * XYZ.BasisZ * size.Z);
+                        shapeDetail.Location.Move((2 + i * 5) * XYZ.BasisX * size.X);
                     }
                 }
 

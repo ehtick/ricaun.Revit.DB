@@ -114,4 +114,10 @@
     <ProjectReference Include="..\ricaun.Revit.DB.Shape\ricaun.Revit.DB.Shape.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Family\Box2021.rfa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
