@@ -18,7 +18,7 @@ namespace ricaun.Revit.DB.Shape.Extensions
         public static IList<ElementId> GetTriangleMaterialIds(this Solid solid)
         {
             var materialIds = new List<ElementId>();
-            foreach (var face in solid.GetFaces())
+            foreach (var face in solid.GetFacesRegions())
             {
                 var triangles = face.Triangulate().NumTriangles;
                 var materialId = face.GetMaterialId();
@@ -29,6 +29,27 @@ namespace ricaun.Revit.DB.Shape.Extensions
             }
             return materialIds;
         }
+        /// <summary>
+        /// GetTriangleMaterialIds
+        /// </summary>
+        /// <param name="solid"></param>
+        /// <param name="levelOfDetail"></param>
+        /// <returns></returns>
+        public static IList<ElementId> GetTriangleMaterialIds(this Solid solid, double levelOfDetail)
+        {
+            var materialIds = new List<ElementId>();
+            foreach (var face in solid.GetFacesRegions())
+            {
+                var triangles = face.Triangulate(levelOfDetail).NumTriangles;
+                var materialId = face.GetMaterialId();
+                for (int i = 0; i < triangles; i++)
+                {
+                    materialIds.Add(materialId);
+                }
+            }
+            return materialIds;
+        }
+
         /// <summary>
         /// GetTriangleMaterialIds
         /// </summary>
@@ -54,7 +75,7 @@ namespace ricaun.Revit.DB.Shape.Extensions
         /// <remarks>Return the first material in the solid.</remarks>
         public static ElementId GetMaterialId(this Solid solid)
         {
-            foreach (var face in solid.GetFaces())
+            foreach (var face in solid.GetFacesRegions())
                 return face.GetMaterialId();
             return ElementId.InvalidElementId;
         }
@@ -80,6 +101,9 @@ namespace ricaun.Revit.DB.Shape.Extensions
 
         #region Solid
         internal static IEnumerable<Face> GetFaces(this Solid solid) => solid.Faces.OfType<Face>();
+        internal static IEnumerable<Face> GetFacesRegions(this Solid solid) => solid.GetFaces()
+            .SelectMany(e => e.HasRegions ? e.GetRegions() : new[] { e });
+
         /// <summary>
         /// GetVertices from Solid faces
         /// </summary>
@@ -87,7 +111,7 @@ namespace ricaun.Revit.DB.Shape.Extensions
         /// <returns></returns>
         public static IList<XYZ> GetVertices(this Solid solid)
         {
-            return solid.GetFaces()
+            return solid.GetFacesRegions()
                 .SelectMany(e => e.GetVertices())
                 .ToList();
         }
@@ -100,7 +124,7 @@ namespace ricaun.Revit.DB.Shape.Extensions
         {
             var count = 0;
             var indices = new List<int>();
-            foreach (var face in solid.GetFaces())
+            foreach (var face in solid.GetFacesRegions())
             {
                 var i = face.GetIndices().Select(e => e + count);
                 indices.AddRange(i);
@@ -163,7 +187,7 @@ namespace ricaun.Revit.DB.Shape.Extensions
         /// <returns></returns>
         public static IList<XYZ> GetVertices(this Solid solid, double levelOfDetail)
         {
-            return solid.GetFaces()
+            return solid.GetFacesRegions()
                 .SelectMany(e => e.GetVertices(levelOfDetail))
                 .ToList();
         }
@@ -177,7 +201,7 @@ namespace ricaun.Revit.DB.Shape.Extensions
         {
             var count = 0;
             var indices = new List<int>();
-            foreach (var face in solid.GetFaces())
+            foreach (var face in solid.GetFacesRegions())
             {
                 var i = face.GetIndices(levelOfDetail).Select(e => e + count);
                 indices.AddRange(i);

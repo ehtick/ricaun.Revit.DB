@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add internal `CreateCircleLoopVertices`
 - Change `Gizmo` to return `Solid[]`
 - Add `Arrow` and `Gizmo` with sides options (max sides 10).
+- Update `GetFaces` to `GetFacesRegions`
 ### Shape.Tests
 - Test Triangulate Vertices `LevelOfDetail`
 - Test `GetMaterialId` and `GetTriangleMaterialIds`.
