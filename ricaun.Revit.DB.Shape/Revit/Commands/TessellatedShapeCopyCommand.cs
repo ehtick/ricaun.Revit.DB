@@ -44,6 +44,8 @@ namespace ricaun.Revit.DB.Shape.Revit.Commands
                     if (box == null) { box = new BoundingBoxXYZ() { Min = XYZ.Zero, Max = new XYZ(1, 1, 1) }; }
                     var size = (box.Max - box.Min);
 
+                    size += 0.1 * XYZ.BasisX;
+
                     var shapes = new List<GeometryObject>();
                     foreach (var solid in solids)
                     {
