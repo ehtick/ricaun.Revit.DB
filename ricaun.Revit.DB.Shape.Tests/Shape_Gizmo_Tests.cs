@@ -10,9 +10,30 @@ namespace ricaun.Revit.DB.Shape.Tests
         [Test]
         public void CreateGizmo()
         {
-            var solid = ShapeCreator.CreateGizmo();
+            var gizmo = ShapeCreator.CreateGizmo();
 
-            AssertGizmo(solid);
+            AssertGizmo(gizmo);
+        }
+
+        [Test]
+        public void CreateGizmo_Sides()
+        {
+            for (int sides = 3; sides <= 10; sides++)
+            {
+                var gizmo = ShapeCreator.CreateGizmo(sides);
+
+                var edges = sides * 3; // Prism
+                edges += sides * 2; // Pyramid
+
+                var faces = sides + 2; // Prism
+                faces += sides + 1; // Pyramid
+                faces -= 1; // Intersection
+
+                foreach (var solid in gizmo)
+                {
+                    AssertUtils.Solid(solid, edges, faces);
+                }
+            }
         }
 
         [TestCase(1.0)]
@@ -38,6 +59,14 @@ namespace ricaun.Revit.DB.Shape.Tests
             var volume = VolumeArrow * scale * scale * scale;
             var surface = SurfaceArrow * scale * scale;
             AssertUtils.Solid(solid, 41, 21, volume, surface, Tolerance);
+        }
+
+        private void AssertGizmo(Solid[] solids, double scale = 1.0)
+        {
+            foreach (var solid in solids)
+            {
+                Shape_Arrow_Tests.AssertArrow(solid, scale);
+            }
         }
     }
 }

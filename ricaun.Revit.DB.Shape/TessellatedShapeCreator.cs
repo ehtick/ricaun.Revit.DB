@@ -31,46 +31,46 @@ namespace ricaun.Revit.DB.Shape
         }
 
         /// <summary>
-        /// Create Mesh or Solid from vertices and indexes.
+        /// Create Mesh or Solid from vertices and indices.
         /// </summary>
         /// <param name="vertices"></param>
-        /// <param name="indexes"></param>
+        /// <param name="indices"></param>
         /// <param name="materialIds"></param>
         /// <param name="graphicsStyleId"></param>
         /// <returns></returns>
         public static TessellatedShapeBuilderResult CreateMesh(
             XYZ[] vertices,
-            int[] indexes = null,
+            int[] indices = null,
             ElementId[] materialIds = null,
             ElementId graphicsStyleId = null)
         {
-            var result = TessellatedShapeCreator.Create(builder => CreateJoinMesh(builder, vertices, indexes, materialIds, graphicsStyleId));
+            var result = TessellatedShapeCreator.Create(builder => CreateJoinMesh(builder, vertices, indices, materialIds, graphicsStyleId));
             if (result.AreObjectsAvailable == false)
             {
-                return TessellatedShapeCreator.Create(builder => CreateSimpleMesh(builder, vertices, indexes, materialIds, graphicsStyleId));
+                return TessellatedShapeCreator.Create(builder => CreateSimpleMesh(builder, vertices, indices, materialIds, graphicsStyleId));
             }
             return result;
         }
 
         internal static void CreateSimpleMesh(TessellatedShapeBuilder builder,
             XYZ[] vertices,
-            int[] indexes = null,
+            int[] indices = null,
             ElementId[] materialIds = null,
             ElementId graphicsStyleId = null)
         {
             if (graphicsStyleId is ElementId) builder.GraphicsStyleId = graphicsStyleId;
-            if (indexes is null) indexes = Enumerable.Range(0, vertices.Length).ToArray();
+            if (indices is null) indices = Enumerable.Range(0, vertices.Length).ToArray();
 
             var loopVertices = new List<XYZ>();
 
-            for (int i = 0; i < indexes.Length; i += 3)
+            for (int i = 0; i < indices.Length; i += 3)
             {
-                var p1 = vertices[indexes[i + 0]];
-                var p2 = vertices[indexes[i + 1]];
-                var p3 = vertices[indexes[i + 2]];
+                var p1 = vertices[indices[i + 0]];
+                var p2 = vertices[indices[i + 1]];
+                var p3 = vertices[indices[i + 2]];
 
                 var materialId = ElementId.InvalidElementId;
-                if (materialIds is ElementId[])
+                if (materialIds is ElementId[] && materialIds.Length > 0)
                 {
                     materialId = materialIds[(i / 3) % materialIds.Length];
                 }
@@ -91,27 +91,27 @@ namespace ricaun.Revit.DB.Shape
         internal static void CreateJoinMesh(
             TessellatedShapeBuilder builder,
             XYZ[] vertices,
-            int[] indexes = null,
+            int[] indices = null,
             ElementId[] materialIds = null,
             ElementId graphicsStyleId = null)
         {
 
             if (graphicsStyleId is ElementId) builder.GraphicsStyleId = graphicsStyleId;
-            if (indexes is null) indexes = Enumerable.Range(0, vertices.Length).ToArray();
+            if (indices is null) indices = Enumerable.Range(0, vertices.Length).ToArray();
 
             var loopVertices = new List<XYZ>();
             XYZ lastNormal = null;
             ElementId lastMaterialId = null;
-            for (int i = 0; i < indexes.Length; i += 3)
+            for (int i = 0; i < indices.Length; i += 3)
             {
-                var p1 = vertices[indexes[i + 0]];
-                var p2 = vertices[indexes[i + 1]];
-                var p3 = vertices[indexes[i + 2]];
+                var p1 = vertices[indices[i + 0]];
+                var p2 = vertices[indices[i + 1]];
+                var p3 = vertices[indices[i + 2]];
 
                 var normal = XYZUtils.ComputeNormal(p1, p2, p3);
 
                 var materialId = ElementId.InvalidElementId;
-                if (materialIds is ElementId[])
+                if (materialIds is ElementId[] && materialIds.Length > 0)
                     materialId = materialIds[(i / 3) % materialIds.Length];
 
                 if (lastNormal is null)

@@ -49,6 +49,14 @@ namespace ricaun.Revit.DB.Shape.Tests.Utils
             }
         }
 
+        public static void Material(Solid[] solids, ElementId materialElementId, ElementId graphicsStyleId)
+        {
+            foreach (var solid in solids)
+            {
+                Material(solid, materialElementId, graphicsStyleId);
+            }
+        }
+
         public static void Material(Solid solid, ElementId[] materialElementIds, ElementId graphicsStyleId)
         {
             foreach (Face face in solid.Faces)
@@ -108,10 +116,15 @@ namespace ricaun.Revit.DB.Shape.Tests.Utils
             Assert.IsTrue(solid.AlmostEqual(other), $"Solid {solid} is not almost equal {other}");
         }
 
-        public static void Solid(Solid solid, int edges, int faces, double volume, double area, double tolerance)
+        public static void Solid(Solid solid, int edges, int faces)
         {
             Assert.AreEqual(edges, solid.Edges.Size, $"Edges: {solid.Edges.Size}");
             Assert.AreEqual(faces, solid.Faces.Size, $"Faces: {solid.Faces.Size}");
+        }
+
+        public static void Solid(Solid solid, int edges, int faces, double volume, double area, double tolerance)
+        {
+            Solid(solid, edges, faces);
 
             Assert.True(volume.AlmostEqual(solid.Volume, tolerance), $"Solid Volume {solid.Volume} is not {volume}");
             Assert.True(area.AlmostEqual(solid.SurfaceArea, tolerance), $"Solid Area {solid.SurfaceArea} is not {area}");
@@ -139,7 +152,7 @@ namespace ricaun.Revit.DB.Shape.Tests.Utils
             AssertUtils.Solid(solid, 10, 6, volume, area, tolerance);
         }
 
-        public static void Pointer(Solid solid, double radius, double height = 0)
+        public static void Cone(Solid solid, double radius, double height = 0)
         {
             if (height == 0)
                 height = 2 * radius;
@@ -151,6 +164,39 @@ namespace ricaun.Revit.DB.Shape.Tests.Utils
             var tolerance = 1e-0;
 
             AssertUtils.Solid(solid, 6, 4, volume, area, tolerance);
+        }
+
+        public static void Pyramid(Solid solid, int sides, double radius, double height = 0)
+        {
+            if (height == 0)
+                height = 2 * radius;
+
+            var volume = System.Math.PI * System.Math.Pow(radius, 2) * height / 3;
+            var area = System.Math.PI * radius * System.Math.Sqrt(System.Math.Pow(radius, 2) + System.Math.Pow(height, 2)) + System.Math.PI * System.Math.Pow(radius, 2);
+
+            // Tolerance big to ignore area/volume
+            var tolerance = 1e+4;
+
+            var edges = sides * 2;
+            var faces = sides + 1;
+
+            AssertUtils.Solid(solid, edges, faces, volume, area, tolerance);
+        }
+        public static void Prism(Solid solid, int sides, double radius, double height = 0)
+        {
+            if (height == 0)
+                height = 2 * radius;
+
+            var volume = System.Math.PI * System.Math.Pow(radius, 2) * height;
+            var area = 2 * System.Math.PI * radius * height + 2 * System.Math.PI * System.Math.Pow(radius, 2);
+
+            // Tolerance big to ignore area/volume
+            var tolerance = 1e+4;
+
+            var edges = sides * 3;
+            var faces = sides + 2;
+
+            AssertUtils.Solid(solid, edges, faces, volume, area, tolerance);
         }
     }
 }

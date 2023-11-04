@@ -18,5 +18,13 @@ namespace ricaun.Revit.DB.Shape.Tests.Utils
         {
             return colorB.ColorEquals(colorA);
         }
+
+        public static bool ColorEquals(this ColorWithTransparency colorA, ColorWithTransparency colorB)
+        {
+            return colorA.GetRed() == colorB.GetRed() &&
+                colorA.GetGreen() == colorB.GetGreen() &&
+                colorA.GetBlue() == colorB.GetBlue() &&
+                colorA.GetTransparency() == colorB.GetTransparency();
+        }
     }
 }

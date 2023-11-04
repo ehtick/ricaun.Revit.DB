@@ -63,12 +63,12 @@ namespace ricaun.Revit.DB.Shape.Tests
         }
 
         XYZ[] verticesCube = new[] { new XYZ(0.25, -0.25, 0.25), new XYZ(0.25, 0.25, 0.25), new XYZ(-0.25, 0.25, 0.25), new XYZ(-0.25, -0.25, 0.25), new XYZ(-0.25, 0.25, -0.25), new XYZ(0.25, 0.25, -0.25), new XYZ(0.25, -0.25, -0.25), new XYZ(-0.25, -0.25, -0.25), new XYZ(-0.25, -0.25, 0.25), new XYZ(-0.25, -0.25, -0.25), new XYZ(0.25, -0.25, -0.25), new XYZ(0.25, -0.25, 0.25), new XYZ(0.25, -0.25, 0.25), new XYZ(0.25, -0.25, -0.25), new XYZ(0.25, 0.25, -0.25), new XYZ(0.25, 0.25, 0.25), new XYZ(0.25, 0.25, 0.25), new XYZ(0.25, 0.25, -0.25), new XYZ(-0.25, 0.25, -0.25), new XYZ(-0.25, 0.25, 0.25), new XYZ(-0.25, 0.25, 0.25), new XYZ(-0.25, 0.25, -0.25), new XYZ(-0.25, -0.25, -0.25), new XYZ(-0.25, -0.25, 0.25) };
-        int[] indexesCube = new[] { 0, 1, 2, 2, 3, 0, 4, 5, 6, 6, 7, 4, 8, 9, 10, 10, 11, 8, 12, 13, 14, 14, 15, 12, 16, 17, 18, 18, 19, 16, 20, 21, 22, 22, 23, 20 };
+        int[] indicesCube = new[] { 0, 1, 2, 2, 3, 0, 4, 5, 6, 6, 7, 4, 8, 9, 10, 10, 11, 8, 12, 13, 14, 14, 15, 12, 16, 17, 18, 18, 19, 16, 20, 21, 22, 22, 23, 20 };
 
         [Test]
         public void CreateMesh_Cube()
         {
-            var tessellatedShape = TessellatedShapeCreator.CreateMesh(verticesCube, indexesCube);
+            var tessellatedShape = TessellatedShapeCreator.CreateMesh(verticesCube, indicesCube);
             var solids = tessellatedShape.OfType<Solid>();
             Assert.AreEqual(1, solids.Count());
         }
@@ -78,7 +78,7 @@ namespace ricaun.Revit.DB.Shape.Tests
         {
             var material = MaterialUtils.CreateMaterialWhite(document);
             var materialIds = new[] { material.Id };
-            var tessellatedShape = TessellatedShapeCreator.CreateMesh(verticesCube, indexesCube, materialIds);
+            var tessellatedShape = TessellatedShapeCreator.CreateMesh(verticesCube, indicesCube, materialIds);
             var solid = tessellatedShape.OfType<Solid>().FirstOrDefault();
             Assert.IsNotNull(solid);
             AssertUtils.Material(solid, materialIds, ElementId.InvalidElementId);
@@ -90,7 +90,7 @@ namespace ricaun.Revit.DB.Shape.Tests
             var graphicsStyle = GraphicsStyleUtils.CreateLineColorWhite(document);
             var material = MaterialUtils.CreateMaterialWhite(document);
             var materialIds = new[] { material.Id };
-            var tessellatedShape = TessellatedShapeCreator.CreateMesh(verticesCube, indexesCube, materialIds, graphicsStyle.Id);
+            var tessellatedShape = TessellatedShapeCreator.CreateMesh(verticesCube, indicesCube, materialIds, graphicsStyle.Id);
             var solid = tessellatedShape.OfType<Solid>().FirstOrDefault();
             Assert.IsNotNull(solid);
             AssertUtils.Material(solid, materialIds, graphicsStyle.Id);
@@ -99,7 +99,7 @@ namespace ricaun.Revit.DB.Shape.Tests
         [Test]
         public void CreateMesh_Cube_CreateDirectShape()
         {
-            var tessellatedShape = TessellatedShapeCreator.CreateMesh(verticesCube, indexesCube);
+            var tessellatedShape = TessellatedShapeCreator.CreateMesh(verticesCube, indicesCube);
             var solids = tessellatedShape.OfType<Solid>();
             var directShape = document.CreateDirectShape(solids);
             AssertUtils.Geometry<Solid>(directShape, 1);

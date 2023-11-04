@@ -142,7 +142,7 @@ namespace ricaun.Revit.DB.Shape.Tests
             var gizmo = ShapeCreator.CreateGizmo(document);
             var directShape = document.CreateDirectShape(gizmo);
             Assert.IsNotNull(directShape);
-            AssertUtils.Geometry<Solid>(directShape, 1);
+            AssertUtils.Geometry<Solid>(directShape, 3);
         }
 
         [Test]
@@ -153,7 +153,7 @@ namespace ricaun.Revit.DB.Shape.Tests
 
             var directShape = document.CreateDirectShape(gizmo);
             Assert.IsNotNull(directShape);
-            AssertUtils.Geometry<Solid>(directShape, 1);
+            AssertUtils.Geometry<Solid>(directShape, 3);
         }
 
         [Test]
@@ -164,7 +164,7 @@ namespace ricaun.Revit.DB.Shape.Tests
 
             var directShape = directShapeType.Create();
             Assert.IsNotNull(directShape);
-            AssertUtils.Geometry<Solid>(directShape, 1);
+            AssertUtils.Geometry<Solid>(directShape, 3);
         }
 
         [Test]
@@ -175,7 +175,7 @@ namespace ricaun.Revit.DB.Shape.Tests
 
             var directShape = directShapeType.Create(Transform.CreateTranslation(XYZ.BasisZ));
             Assert.IsNotNull(directShape);
-            AssertUtils.Geometry<Solid>(directShape, 1);
+            AssertUtils.Geometry<Solid>(directShape, 3);
         }
 
         [Test]
