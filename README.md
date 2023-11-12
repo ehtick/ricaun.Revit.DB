@@ -7,7 +7,7 @@
 [![Build](https://github.com/ricaun-io/ricaun.Revit.DB/actions/workflows/Build.yml/badge.svg)](https://github.com/ricaun-io/ricaun.Revit.DB/actions)
 [![Release](https://img.shields.io/nuget/v/ricaun.Revit.DB?logo=nuget&label=release&color=blue)](https://www.nuget.org/packages/ricaun.Revit.DB)
 
-[![ricaun.Revit.DB](assets/ricaun.Revit.DB.png)](https://github.com/ricaun-io/ricaun.Revit.DB)
+[![ricaun.Revit.DB](https://github.com/ricaun-io/ricaun.Revit.DB/blob/master/assets/ricaun.Revit.DB.png)](https://github.com/ricaun-io/ricaun.Revit.DB)
 
 Package with some libraries for Revit API like [Quaternion](ricaun.Revit.DB.Quaternion) and [Shape](ricaun.Revit.DB.Shape).
 
