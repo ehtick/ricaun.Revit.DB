@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.3.1] / 2024-01-09 - 2024-04-13
+### Features
+- Support Revit 2025
+### Tests
+- Test in Revit 2025 / 2024
+
 ## [0.3.0] / 2023-10-24 - 2023-11-01
 ### Shape
 - Rename `indexes` to `indices`.
@@ -53,6 +59,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Create Project `ricaun.Revit.DB`
 
 [vNext]: ../../compare/0.1.0...HEAD
+[0.3.1]: ../../compare/0.3.0...0.3.1
 [0.3.0]: ../../compare/0.2.0...0.3.0
 [0.2.0]: ../../compare/0.1.0...0.2.0
 [0.1.0]: ../../compare/0.1.0
