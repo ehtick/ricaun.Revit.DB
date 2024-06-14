@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add `ColorExtension` with `ColorEquals`, `Lerp`, `ToColor` and `ToColorWithTransparency`.
 - Add `ColorExtension` with `ToHex` for `Color` and `ColorWithTransparency`
 - Update `CreateBoxLines` with `graphicsStyleId`
+- Add `CreateLines` in `ShapeCreator`
 ### Tests
 - Test all color names in `System.Windows.Media.Colors` with `Colors`.
 - Test all 9 colors in `MaterialUtils` and `GraphicsStyleUtils`.

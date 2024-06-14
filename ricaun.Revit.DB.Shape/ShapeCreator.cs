@@ -15,7 +15,59 @@ namespace ricaun.Revit.DB.Shape
         /// Default Sides for Prisms and Pyramids.
         /// </summary>
         internal const int Sides = 3;
-        #region Box
+
+        #region Lines
+        /// <summary>
+        /// Creates an array of <see cref="Line"/> objects from a collection of <see cref="Autodesk.Revit.DB.XYZ"/> points.
+        /// </summary>
+        /// <param name="points">A collection of <see cref="Autodesk.Revit.DB.XYZ"/> points to create lines from.</param>
+        /// <param name="closed">
+        /// A boolean value indicating whether the lines should form a closed loop.
+        /// If true, an additional line will be created from the last point back to the first point.
+        /// </param>
+        /// <returns>
+        /// An array of <see cref="Line"/> objects representing the lines created from the specified points.
+        /// </returns>
+        public static Line[] CreateLines(IEnumerable<XYZ> points, bool closed)
+        {
+            return CreateLines(points, null, closed);
+        }
+        /// <summary>
+        /// Creates an array of <see cref="Line"/> objects from a collection of <see cref="Autodesk.Revit.DB.XYZ"/> points.
+        /// </summary>
+        /// <param name="points">A collection of <see cref="Autodesk.Revit.DB.XYZ"/> points to create lines from.</param>
+        /// <param name="graphicsStyleId">
+        /// An optional <see cref="Autodesk.Revit.DB.ElementId"/> representing the graphics style to apply to the lines. 
+        /// If null, the default graphics style will be used.
+        /// </param>
+        /// <param name="closed">
+        /// A boolean value indicating whether the lines should form a closed loop.
+        /// If true, an additional line will be created from the last point back to the first point.
+        /// </param>
+        /// <returns>
+        /// An array of <see cref="Line"/> objects representing the lines created from the specified points.
+        /// </returns>
+        public static Line[] CreateLines(IEnumerable<XYZ> points, ElementId graphicsStyleId = null, bool closed = false)
+        {
+            var lines = new List<Line>();
+            var pointsArray = points.ToArray();
+
+            for (int i = 0; i < pointsArray.Length - 1; i++)
+            {
+                var line = CreateBound(pointsArray[i], pointsArray[i + 1], graphicsStyleId);
+                if (line is not null)
+                    lines.Add(line);
+            }
+
+            if (closed)
+            {
+                var line = CreateBound(pointsArray[0], pointsArray[pointsArray.Length - 1], graphicsStyleId);
+                if (line is not null)
+                    lines.Add(line);
+            }
+
+            return lines.ToArray();
+        }
         /// <summary>
         /// Creates an array of lines representing the edges of a 3D box with the specified minimum and maximum points.
         /// </summary>
@@ -64,7 +116,7 @@ namespace ricaun.Revit.DB.Shape
 
             return lines.OfType<Line>().ToArray();
         }
-        private static Line CreateBound(XYZ point1, XYZ point2, ElementId graphicsStyleId = null)
+        internal static Line CreateBound(XYZ point1, XYZ point2, ElementId graphicsStyleId = null)
         {
             try
             {
@@ -78,6 +130,8 @@ namespace ricaun.Revit.DB.Shape
             catch { }
             return null;
         }
+        #endregion
+        #region Box
         /// <summary>
         /// Creates a 3D box with the specified center and size.
         /// </summary>
