@@ -1,6 +1,6 @@
 <Project>
 	<PropertyGroup>
-		<Version>0.3.2-beta</Version>
+		<Version>0.3.2-rc</Version>
     <RevitVersionTests>2024</RevitVersionTests>
     <RevitVersionCoreTests>2025</RevitVersionCoreTests>
     <RevitForceOpenClose>true</RevitForceOpenClose>

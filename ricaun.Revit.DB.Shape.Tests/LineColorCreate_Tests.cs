@@ -1,6 +1,7 @@
 ﻿using Autodesk.Revit.DB;
 using NUnit.Framework;
 using ricaun.Revit.DB.Shape.Tests.Utils;
+using ricaun.Revit.DB.Shape.Extensions;
 using System.Collections.Generic;
 
 namespace ricaun.Revit.DB.Shape.Tests

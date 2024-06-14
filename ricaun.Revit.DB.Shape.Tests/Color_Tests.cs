@@ -1,6 +1,7 @@
 ﻿using Autodesk.Revit.DB;
 using NUnit.Framework;
 using ricaun.Revit.DB.Shape.Tests.Utils;
+using ricaun.Revit.DB.Shape.Extensions;
 using System.Collections.Generic;
 
 namespace ricaun.Revit.DB.Shape.Tests
@@ -45,7 +46,7 @@ namespace ricaun.Revit.DB.Shape.Tests
                 var expectedColor = new Color(color.Value.R, color.Value.G, color.Value.B);
                 if (colorsType.GetProperty(name)?.GetValue(null) is Color colorTest)
                 {
-                    Assert.IsTrue(colorTest.ColorEquals(expectedColor), 
+                    Assert.IsTrue(colorTest.ColorEquals(expectedColor),
                         $"{name} Color ({colorTest.Red},{colorTest.Green},{colorTest.Blue}) is not equal to ({expectedColor.Red},{expectedColor.Green},{expectedColor.Blue})");
                 }
                 else
@@ -93,7 +94,64 @@ namespace ricaun.Revit.DB.Shape.Tests
                 Assert.IsNotNull(Colors.Index.Get((byte)i));
             }
         }
-    }
 
+        [Test]
+        public void ColorExtension_ColorEquals_Tests()
+        {
+            for (int i = 0; i < 256; i++)
+            {
+                var color = Colors.Index.Get((byte)i);
+                Assert.IsTrue(color.ColorEquals(color));
+
+                var colorT = color.ToColorWithTransparency();
+                Assert.IsTrue(colorT.ColorEquals(colorT));
+                Assert.IsTrue(colorT.ColorEquals(color));
+                Assert.IsTrue(color.ColorEquals(colorT));
+
+                var colorT100 = color.ToColorWithTransparency(100);
+                Assert.IsFalse(colorT.ColorEquals(colorT100));
+                Assert.IsFalse(colorT100.ColorEquals(colorT));
+
+                var _color = colorT.ToColor();
+                Assert.IsTrue(color.ColorEquals(_color));
+            }
+        }
+
+        [Test]
+        public void ColorExtension_Lerp_Tests()
+        {
+            var color = Colors.Black.Lerp(Colors.Gray, 0.5);
+            var colorExpected = new Color(64, 64, 64);
+            Assert.IsTrue(color.ColorEquals(colorExpected));
+        }
+
+        [Test]
+        public void ColorExtension_ToHex_Tests()
+        {
+            var tests = new Dictionary<string, Color>()
+            {
+                { "#000000", Colors.Black },
+                { "#FF0000", Colors.Red },
+                { "#008000", Colors.Green },
+                { "#00FF00", Colors.Lime },
+                { "#0000FF", Colors.Blue },
+                { "#FFFF00", Colors.Yellow },
+                { "#00FFFF", Colors.Cyan },
+                { "#FF00FF", Colors.Magenta },
+                { "#808080", Colors.Gray },
+                { "#FFFFFF", Colors.White },
+            };
+
+            foreach (var test in tests)
+            {
+                Assert.AreEqual(test.Key, test.Value.ToHex());
+            }
+
+            foreach (var test in tests)
+            {
+                Assert.AreEqual(test.Key, test.Value.ToColorWithTransparency().ToHex());
+            }
+        }
+    }
 
 }
