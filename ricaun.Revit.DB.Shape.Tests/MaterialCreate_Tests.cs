@@ -2,7 +2,9 @@
 using Autodesk.Revit.DB;
 using NUnit.Framework;
 using ricaun.Revit.DB.Shape.Tests.Utils;
+using ricaun.Revit.DB.Shape.Extensions;
 using System;
+using System.Collections.Generic;
 
 namespace ricaun.Revit.DB.Shape.Tests
 {
@@ -66,31 +68,25 @@ namespace ricaun.Revit.DB.Shape.Tests
         }
 
         [Test]
-        public void CreateMaterialWhite()
+        public void CreateMaterialColors()
         {
-            var material = MaterialUtils.CreateMaterialWhite(document);
-            Assert.IsNotNull(material);
-        }
+            var colors = new Dictionary<Color, Material>() {
+                { Colors.White, MaterialUtils.CreateMaterialWhite(document)},
+                { Colors.Red, MaterialUtils.CreateMaterialRed(document)},
+                { Colors.Green, MaterialUtils.CreateMaterialGreen(document)},
+                { Colors.Blue, MaterialUtils.CreateMaterialBlue(document)},
+                { Colors.Yellow, MaterialUtils.CreateMaterialYellow(document)},
+                { Colors.Cyan, MaterialUtils.CreateMaterialCyan(document)},
+                { Colors.Magenta, MaterialUtils.CreateMaterialMagenta(document)},
+                { Colors.Black, MaterialUtils.CreateMaterialBlack(document)},
+                { Colors.Gray, MaterialUtils.CreateMaterialGray(document)},
+            };
 
-        [Test]
-        public void CreateMaterialRed()
-        {
-            var material = MaterialUtils.CreateMaterialRed(document);
-            Assert.IsNotNull(material);
-        }
-
-        [Test]
-        public void CreateMaterialGreen()
-        {
-            var material = MaterialUtils.CreateMaterialGreen(document);
-            Assert.IsNotNull(material);
-        }
-
-        [Test]
-        public void CreateMaterialBlue()
-        {
-            var material = MaterialUtils.CreateMaterialBlue(document);
-            Assert.IsNotNull(material);
+            foreach (var color in colors)
+            {
+                Assert.IsNotNull(color.Value);
+                Assert.IsTrue(color.Value.Color.ColorEquals(color.Key));
+            }
         }
 
         [Test]

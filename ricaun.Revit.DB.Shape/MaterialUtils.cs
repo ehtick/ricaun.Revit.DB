@@ -16,13 +16,10 @@ namespace ricaun.Revit.DB.Shape
         /// <param name="green"></param>
         /// <param name="blue"></param>
         /// <param name="alpha"></param>
-        /// <returns>Color {alpha}{red}{blue}{green} in hexa</returns>
+        /// <returns>'Color RRGGBB' or 'Color AARRGGBB'</returns>
         public static string MaterialColorName(byte red, byte green, byte blue, byte alpha = byte.MaxValue)
         {
-            if (alpha == byte.MaxValue)
-                return string.Format("Color {0:X2}{1:X2}{2:X2}", red, green, blue);
-
-            return string.Format("Color {0:X2}{1:X2}{2:X2}{3:X2}", alpha, red, green, blue);
+            return string.Format("Color {0}", Extensions.ColorExtension.ToHex(red, green, blue, alpha).Trim('#'));
         }
 
         /// <summary>
@@ -92,45 +89,62 @@ namespace ricaun.Revit.DB.Shape
             return CreateMaterial(document, (byte)color.GetRed(), (byte)color.GetGreen(), (byte)color.GetBlue(), (byte)color.GetTransparency());
         }
 
+        #region Colors
         /// <summary>
         /// CreateMaterialWhite
         /// </summary>
         /// <param name="document"></param>
         /// <returns></returns>
-        public static Material CreateMaterialWhite(Document document)
-        {
-            return CreateMaterial(document, Colors.White);
-        }
-
+        public static Material CreateMaterialWhite(Document document) => CreateMaterial(document, Colors.White);
         /// <summary>
         /// CreateMaterialRed
         /// </summary>
         /// <param name="document"></param>
         /// <returns></returns>
-        public static Material CreateMaterialRed(Document document)
-        {
-            return CreateMaterial(document, Colors.Red);
-        }
-
+        public static Material CreateMaterialRed(Document document) => CreateMaterial(document, Colors.Red);
         /// <summary>
         /// CreateMaterialGreen
         /// </summary>
         /// <param name="document"></param>
         /// <returns></returns>
-        public static Material CreateMaterialGreen(Document document)
-        {
-            return CreateMaterial(document, Colors.Green);
-        }
-
+        public static Material CreateMaterialGreen(Document document) => CreateMaterial(document, Colors.Green);
         /// <summary>
         /// CreateMaterialBlue
         /// </summary>
         /// <param name="document"></param>
         /// <returns></returns>
-        public static Material CreateMaterialBlue(Document document)
-        {
-            return CreateMaterial(document, Colors.Blue);
-        }
+        public static Material CreateMaterialBlue(Document document) => CreateMaterial(document, Colors.Blue);
+        /// <summary>
+        /// CreateMaterialYellow
+        /// </summary>
+        /// <param name="document"></param>
+        /// <returns></returns>
+        public static Material CreateMaterialYellow(Document document) => CreateMaterial(document, Colors.Yellow);
+        /// <summary>
+        /// CreateMaterialCyan
+        /// </summary>
+        /// <param name="document"></param>
+        /// <returns></returns>
+        public static Material CreateMaterialCyan(Document document) => CreateMaterial(document, Colors.Cyan);
+        /// <summary>
+        /// CreateMaterialMagenta
+        /// </summary>
+        /// <param name="document"></param>
+        /// <returns></returns>
+        public static Material CreateMaterialMagenta(Document document) => CreateMaterial(document, Colors.Magenta);
+        /// <summary>
+        /// CreateMaterialGray
+        /// </summary>
+        /// <param name="document"></param>
+        /// <returns></returns>
+        public static Material CreateMaterialGray(Document document) => CreateMaterial(document, Colors.Gray);
+        /// <summary>
+        /// CreateMaterialBlack
+        /// </summary>
+        /// <param name="document"></param>
+        /// <returns></returns>
+        public static Material CreateMaterialBlack(Document document) => CreateMaterial(document, Colors.Black);
+        #endregion
 
         /// <summary>
         /// FindMaterial

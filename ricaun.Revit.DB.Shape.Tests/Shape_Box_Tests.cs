@@ -1,5 +1,6 @@
 ﻿using Autodesk.Revit.DB;
 using NUnit.Framework;
+using ricaun.Revit.DB.Shape.Extensions;
 using ricaun.Revit.DB.Shape.Tests.Utils;
 
 namespace ricaun.Revit.DB.Shape.Tests
@@ -15,6 +16,36 @@ namespace ricaun.Revit.DB.Shape.Tests
             Solid solid = ShapeCreator.CreateBox(center, scale);
 
             AssertUtils.Box(solid, center, scale);
+        }
+
+        [Test]
+        public void CreateBox_MaterialId()
+        {
+            var scale = 1.0;
+            var center = XYZ.Zero;
+
+            Solid solid = ShapeCreator.CreateBox(center, scale, ElementIdUtils.MaterialId);
+
+            Assert.AreEqual(ElementIdUtils.MaterialId, solid.GetMaterialId());
+
+            foreach (var face in solid.GetFaces())
+            {
+                Assert.AreEqual(ElementIdUtils.MaterialId, face.MaterialElementId);
+            }
+        }
+
+        [Test]
+        public void CreateBox_GraphicsStyleId()
+        {
+            var scale = 1.0;
+            var center = XYZ.Zero;
+
+            Solid solid = ShapeCreator.CreateBox(center, scale, graphicsStyleId: ElementIdUtils.GraphicsStyleId);
+
+            foreach (var face in solid.GetFaces())
+            {
+                Assert.AreEqual(ElementIdUtils.GraphicsStyleId, face.GraphicsStyleId);
+            }
         }
 
         [Test]

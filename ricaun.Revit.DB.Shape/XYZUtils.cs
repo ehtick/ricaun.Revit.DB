@@ -18,7 +18,7 @@ namespace ricaun.Revit.DB.Shape
         /// <param name="source"></param>
         /// <param name="tolerance"></param>
         /// <returns></returns>
-        public static bool IsAlmostParallelTo(this XYZ value, XYZ source, double tolerance = Tolerance)
+        public static bool IsAlmostParallelTo(XYZ value, XYZ source, double tolerance = Tolerance)
         {
             return Math.Abs(value.DotProduct(source)) >= 1.0 - tolerance;
         }

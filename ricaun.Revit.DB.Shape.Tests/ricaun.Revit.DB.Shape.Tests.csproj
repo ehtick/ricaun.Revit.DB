@@ -3,6 +3,7 @@
 
   <PropertyGroup>
     <IsTestProject>true</IsTestProject>
+    <UseWPF>true</UseWPF>
     <OutputType>Library</OutputType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <LangVersion>Latest</LangVersion>

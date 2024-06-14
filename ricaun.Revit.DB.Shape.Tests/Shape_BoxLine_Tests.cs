@@ -1,5 +1,6 @@
 ﻿using Autodesk.Revit.DB;
 using NUnit.Framework;
+using ricaun.Revit.DB.Shape.Tests.Utils;
 
 namespace ricaun.Revit.DB.Shape.Tests
 {
@@ -13,6 +14,20 @@ namespace ricaun.Revit.DB.Shape.Tests
 
             var lines = ShapeCreator.CreateBoxLines(center, scale);
             Assert.AreEqual(12, lines.Length);
+        }
+
+        [Test]
+        public void CreateBoxLines_GraphicsStyleId()
+        {
+            var scale = 1.0;
+            var center = XYZ.Zero;
+
+            var lines = ShapeCreator.CreateBoxLines(center, scale, ElementIdUtils.GraphicsStyleId);
+
+            foreach (var line in lines)
+            {
+                Assert.AreEqual(ElementIdUtils.GraphicsStyleId, line.GraphicsStyleId);
+            }
         }
 
         [Test]

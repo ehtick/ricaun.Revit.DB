@@ -1,36 +1,33 @@
-﻿using NUnit.Framework;
+﻿using Autodesk.Revit.DB;
+using NUnit.Framework;
 using ricaun.Revit.DB.Shape.Tests.Utils;
+using ricaun.Revit.DB.Shape.Extensions;
+using System.Collections.Generic;
 
 namespace ricaun.Revit.DB.Shape.Tests
 {
     public class LineColorCreate_Tests : OneTimeOpenDocumentTransactionTest
     {
         [Test]
-        public void CreateLineColorWhite()
+        public void CreateLineColors()
         {
-            var graphicsStyle = GraphicsStyleUtils.CreateLineColorWhite(document);
-            Assert.IsNotNull(graphicsStyle);
-        }
+            var colors = new Dictionary<Color, GraphicsStyle>() {
+                { Colors.White, GraphicsStyleUtils.CreateLineColorWhite(document)},
+                { Colors.Red, GraphicsStyleUtils.CreateLineColorRed(document)},
+                { Colors.Green, GraphicsStyleUtils.CreateLineColorGreen(document)},
+                { Colors.Blue, GraphicsStyleUtils.CreateLineColorBlue(document)},
+                { Colors.Yellow, GraphicsStyleUtils.CreateLineColorYellow(document)},
+                { Colors.Cyan, GraphicsStyleUtils.CreateLineColorCyan(document)},
+                { Colors.Magenta, GraphicsStyleUtils.CreateLineColorMagenta(document)},
+                { Colors.Black, GraphicsStyleUtils.CreateLineColorBlack(document)},
+                { Colors.Gray, GraphicsStyleUtils.CreateLineColorGray(document)},
+            };
 
-        [Test]
-        public void CreateLineColorRed()
-        {
-            var graphicsStyle = GraphicsStyleUtils.CreateLineColorRed(document);
-            Assert.IsNotNull(graphicsStyle);
-        }
-
-        [Test]
-        public void CreateLineColorGreen()
-        {
-            var graphicsStyle = GraphicsStyleUtils.CreateLineColorGreen(document);
-            Assert.IsNotNull(graphicsStyle);
-        }
-
-        [Test]
-        public void CreateLineColorBlue()
-        {
-            var graphicsStyle = GraphicsStyleUtils.CreateLineColorBlue(document);
-            Assert.IsNotNull(graphicsStyle);
+            foreach (var color in colors)
+            {
+                Assert.IsNotNull(color.Value);
+                Assert.IsTrue(color.Value.GraphicsStyleCategory.LineColor.ColorEquals(color.Key));
+            }
         }
 
         [Test]
