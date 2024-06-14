@@ -77,7 +77,8 @@
   <PropertyGroup>
     <Company>ricaun</Company>
     <Authors>Luiz Henrique Cassettari</Authors>
-    <Description>$(PackageId)</Description>
+    <Description>Revit API DB library for Shapes.</Description>
+    <PackageTags>revit;revitapi;dotnet</PackageTags>
     <CopyrightYears>$([System.DateTime]::Now.ToString('yyyy'))</CopyrightYears>
   </PropertyGroup>
 
