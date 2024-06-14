@@ -10,7 +10,7 @@ namespace ricaun.Revit.DB.Shape.Tests
         Color black = new Color(0, 0, 0);
         Color red = new Color(255, 0, 0);
         Color yellow = new Color(255, 255, 0);
-        Color green = new Color(0, 255, 0);
+        Color lime = new Color(0, 255, 0);
         Color cyan = new Color(0, 255, 255);
         Color blue = new Color(0, 0, 255);
         Color magenta = new Color(255, 0, 255);
@@ -61,7 +61,7 @@ namespace ricaun.Revit.DB.Shape.Tests
             Assert.IsTrue(Colors.Index.Color_0.ColorEquals(black));
             Assert.IsTrue(Colors.Index.Color_1.ColorEquals(red));
             Assert.IsTrue(Colors.Index.Color_2.ColorEquals(yellow));
-            Assert.IsTrue(Colors.Index.Color_3.ColorEquals(green));
+            Assert.IsTrue(Colors.Index.Color_3.ColorEquals(lime));
             Assert.IsTrue(Colors.Index.Color_4.ColorEquals(cyan));
             Assert.IsTrue(Colors.Index.Color_5.ColorEquals(blue));
             Assert.IsTrue(Colors.Index.Color_6.ColorEquals(magenta));
@@ -76,7 +76,7 @@ namespace ricaun.Revit.DB.Shape.Tests
             Assert.IsTrue(Colors.Index.Get(0).ColorEquals(black));
             Assert.IsTrue(Colors.Index.Get(1).ColorEquals(red));
             Assert.IsTrue(Colors.Index.Get(2).ColorEquals(yellow));
-            Assert.IsTrue(Colors.Index.Get(3).ColorEquals(green));
+            Assert.IsTrue(Colors.Index.Get(3).ColorEquals(lime));
             Assert.IsTrue(Colors.Index.Get(4).ColorEquals(cyan));
             Assert.IsTrue(Colors.Index.Get(5).ColorEquals(blue));
             Assert.IsTrue(Colors.Index.Get(6).ColorEquals(magenta));

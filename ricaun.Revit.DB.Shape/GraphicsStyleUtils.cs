@@ -28,42 +28,63 @@ namespace ricaun.Revit.DB.Shape
 
             return subCategory;
         }
+
+        #region Colors
         /// <summary>
         /// Create LineColor Category and return GraphicsStyleType.Projection.
         /// </summary>
         /// <param name="document"></param>
         /// <returns></returns>
-        public static GraphicsStyle CreateLineColorWhite(Document document)
-        {
-            return CreateLineColor(document, Colors.White);
-        }
+        public static GraphicsStyle CreateLineColorWhite(Document document) => CreateLineColor(document, Colors.White);
         /// <summary>
         /// Create LineColor Category and return GraphicsStyleType.Projection.
         /// </summary>
         /// <param name="document"></param>
         /// <returns></returns>
-        public static GraphicsStyle CreateLineColorGreen(Document document)
-        {
-            return CreateLineColor(document, Colors.Green);
-        }
+        public static GraphicsStyle CreateLineColorGreen(Document document) => CreateLineColor(document, Colors.Green);
         /// <summary>
         /// Create LineColor Category and return GraphicsStyleType.Projection.
         /// </summary>
         /// <param name="document"></param>
         /// <returns></returns>
-        public static GraphicsStyle CreateLineColorRed(Document document)
-        {
-            return CreateLineColor(document, Colors.Red);
-        }
+        public static GraphicsStyle CreateLineColorRed(Document document) => CreateLineColor(document, Colors.Red);
         /// <summary>
         /// Create LineColor Category and return GraphicsStyleType.Projection.
         /// </summary>
         /// <param name="document"></param>
         /// <returns></returns>
-        public static GraphicsStyle CreateLineColorBlue(Document document)
-        {
-            return CreateLineColor(document, Colors.Blue);
-        }
+        public static GraphicsStyle CreateLineColorBlue(Document document) => CreateLineColor(document, Colors.Blue);
+        /// <summary>
+        /// Create LineColor Category and return GraphicsStyleType.Projection.
+        /// </summary>
+        /// <param name="document"></param>
+        /// <returns></returns>
+        public static GraphicsStyle CreateLineColorYellow(Document document) => CreateLineColor(document, Colors.Yellow);
+        /// <summary>
+        /// Create LineColor Category and return GraphicsStyleType.Projection.
+        /// </summary>
+        /// <param name="document"></param>
+        /// <returns></returns>
+        public static GraphicsStyle CreateLineColorCyan(Document document) => CreateLineColor(document, Colors.Cyan);
+        /// <summary>
+        /// Create LineColor Category and return GraphicsStyleType.Projection.
+        /// </summary>
+        /// <param name="document"></param>
+        /// <returns></returns>
+        public static GraphicsStyle CreateLineColorMagenta(Document document) => CreateLineColor(document, Colors.Magenta);
+        /// <summary>
+        /// Create LineColor Category and return GraphicsStyleType.Projection.
+        /// </summary>
+        /// <param name="document"></param>
+        /// <returns></returns>
+        public static GraphicsStyle CreateLineColorGray(Document document) => CreateLineColor(document, Colors.Gray);
+        /// <summary>
+        /// Create LineColor Category and return GraphicsStyleType.Projection.
+        /// </summary>
+        /// <param name="document"></param>
+        /// <returns></returns>
+        public static GraphicsStyle CreateLineColorBlack(Document document) => CreateLineColor(document, Colors.Black);
+#endregion
         /// <summary>
         /// Create LineColor Category and return GraphicsStyleType.Projection.
         /// </summary>

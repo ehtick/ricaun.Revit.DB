@@ -7,48 +7,6 @@ namespace ricaun.Revit.DB.Shape
     /// </summary>
     public sealed class Colors
     {
-        #region Colors
-        ///// <summary>
-        ///// Represents the color black with the hex value #000000.
-        ///// </summary>
-        //public static Color Black => new Color(0, 0, 0);
-        ///// <summary>
-        ///// Represents the color red with the hex value #FF0000.
-        ///// </summary>
-        //public static Color Red => new Color(255, 0, 0);
-        ///// <summary>
-        ///// Represents the color yellow with the hex value #FFFF00.
-        ///// </summary>
-        //public static Color Yellow => new Color(255, 255, 0);
-        ///// <summary>
-        ///// Represents the color green with the hex value #00FF00.
-        ///// </summary>
-        //public static Color Green => new Color(0, 255, 0);
-        ///// <summary>
-        ///// Represents the color cyan with the hex value #00FFFF.
-        ///// </summary>
-        //public static Color Cyan => new Color(0, 255, 255);
-        ///// <summary>
-        ///// Represents the color blue with the hex value #0000FF.
-        ///// </summary>
-        //public static Color Blue => new Color(0, 0, 255);
-        ///// <summary>
-        ///// Represents the color magenta with the hex value #FF00FF.
-        ///// </summary>
-        //public static Color Magenta => new Color(255, 0, 255);
-        ///// <summary>
-        ///// Represents the color white with the hex value #FFFFFF.
-        ///// </summary>
-        //public static Color White => new Color(255, 255, 255);
-        ///// <summary>
-        ///// Represents the color dark gray with the hex value #414141.
-        ///// </summary>
-        //public static Color DarkGray => new Color(65, 65, 65);
-        ///// <summary>
-        ///// Represents the color gray with the hex value #808080.
-        ///// </summary>
-        //public static Color Gray => new Color(128, 128, 128);
-        #endregion
         #region Media Colors
         /// <summary>
         /// Represents the color with the hex value #F0F8FF.
@@ -639,7 +597,7 @@ namespace ricaun.Revit.DB.Shape
             /// </summary>
             public static Color Color_2 => new Color(255, 255, 0);
             /// <summary>
-            /// Represents the color green with the hex value #00FF00.
+            /// Represents the color lime with the hex value #00FF00.
             /// </summary>
             public static Color Color_3 => new Color(0, 255, 0);
             /// <summary>

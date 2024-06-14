@@ -7,8 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [0.3.2] / 2024-06-14
 ### Features
 - Update Colors using the `System.Windows.Media.Colors` as reference.
+- Update `MaterialUtils` and `GraphicsStyleUtils` with default 9 colors.
 ### Tests
 - Test all color names in `System.Windows.Media.Colors` with `Colors`.
+- Test all 9 colors in `MaterialUtils` and `GraphicsStyleUtils`.
 
 ## [0.3.1] / 2024-01-09 - 2024-04-13
 ### Features
