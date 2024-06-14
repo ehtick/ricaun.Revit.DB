@@ -16,13 +16,10 @@ namespace ricaun.Revit.DB.Shape
         /// <param name="green"></param>
         /// <param name="blue"></param>
         /// <param name="alpha"></param>
-        /// <returns>Color {alpha}{red}{blue}{green} in hexa</returns>
+        /// <returns>'Color RRGGBB' or 'Color AARRGGBB'</returns>
         public static string MaterialColorName(byte red, byte green, byte blue, byte alpha = byte.MaxValue)
         {
-            if (alpha == byte.MaxValue)
-                return string.Format("Color {0:X2}{1:X2}{2:X2}", red, green, blue);
-
-            return string.Format("Color {0:X2}{1:X2}{2:X2}{3:X2}", alpha, red, green, blue);
+            return string.Format("Color {0}", Extensions.ColorExtension.ToHex(red, green, blue, alpha).Trim('#'));
         }
 
         /// <summary>
