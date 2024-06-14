@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Test all color names in `System.Windows.Media.Colors` with `Colors`.
 - Test all 9 colors in `MaterialUtils` and `GraphicsStyleUtils`.
 - Test for `ColorExternsion`
+- Test `MaterialId` and `GraphicsStyleId`.
 
 ## [0.3.1] / 2024-01-09 - 2024-04-13
 ### Features
