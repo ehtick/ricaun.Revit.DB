@@ -5,11 +5,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [0.3.2] / 2024-06-14
-### Features
+### Shapes
 - Update Colors using the `System.Windows.Media.Colors` as reference.
 - Update `MaterialUtils` and `GraphicsStyleUtils` with default 9 colors.
 - Add `ColorExtension` with `ColorEquals`, `Lerp`, `ToColor` and `ToColorWithTransparency`.
 - Add `ColorExtension` with `ToHex` for `Color` and `ColorWithTransparency`
+- Update `CreateBoxLines` with `graphicsStyleId`
 ### Tests
 - Test all color names in `System.Windows.Media.Colors` with `Colors`.
 - Test all 9 colors in `MaterialUtils` and `GraphicsStyleUtils`.
