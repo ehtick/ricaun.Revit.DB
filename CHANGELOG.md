@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [0.4.0] / 2024-09-23
 ### Shapes
-- Add `FaceExtension` convert face to solid.
+- Add `BRepBuilderExtension` with extension for face and solid.
 
 ## [0.3.2] / 2024-06-14
 ### Shapes
