@@ -120,7 +120,7 @@ namespace ricaun.Revit.DB.Shape
         /// </summary>
         /// <param name="document">The Revit document.</param>
         /// <param name="directShapeType">The DirectShapeType type for the DirectShape element.</param>
-        /// <param name="transform">The tranform location and rotation for the DirectShape element.</param>
+        /// <param name="transform">The transform location and rotation for the DirectShape element.</param>
         /// <returns>The created DirectShape element.</returns>
         public static DirectShape CreateDirectShape(this Document document,
             DirectShapeType directShapeType,
@@ -141,7 +141,7 @@ namespace ricaun.Revit.DB.Shape
         /// Create a DirectShape element with a DirectShapeType and Transform.
         /// </summary>
         /// <param name="directShapeType">The DirectShapeType type for the DirectShape element.</param>
-        /// <param name="transform">The tranform location and rotation for the DirectShape element.</param>
+        /// <param name="transform">The transform location and rotation for the DirectShape element.</param>
         /// <returns>The created DirectShape element.</returns>
         public static DirectShape Create(this DirectShapeType directShapeType,
             Transform transform = null)
