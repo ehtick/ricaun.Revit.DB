@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.4.0] / 2024-09-23 - 2025-03-22
+### Features
+- Support `SymbolPackageFormat`.
+### Shapes
+- Add `BRepBuilderExtension` with extension for face and solid.
+### Tests
+- Add `Shape_BRepBuilder_Tests` to test `BRepBuilderExtension`.
+
 ## [0.3.2] / 2024-06-14
 ### Shapes
 - Update Colors using the `System.Windows.Media.Colors` as reference.
@@ -74,6 +82,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Create Project `ricaun.Revit.DB`
 
 [vNext]: ../../compare/0.1.0...HEAD
+[0.4.0]: ../../compare/0.3.2...0.4.0
 [0.3.2]: ../../compare/0.3.1...0.3.2
 [0.3.1]: ../../compare/0.3.0...0.3.1
 [0.3.0]: ../../compare/0.2.0...0.3.0

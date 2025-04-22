@@ -17,6 +17,24 @@ namespace ricaun.Revit.DB.Shape.Tests
             return solid.GetBoundingBox().AlmostEqual(other.GetBoundingBox());
         }
 
+        public static bool AlmostEqual(this Face face, Face other)
+        {
+            if (face.EdgeLoops.Size != other.EdgeLoops.Size) return false;
+
+            if (face.Area.AlmostEqual(other.Area) == false) return false;
+
+            var faceVertices = face.Triangulate().Vertices;
+            var otherVertices = other.Triangulate().Vertices;
+
+            if (faceVertices.Count != otherVertices.Count) return false;
+            for (int i = 0; i < faceVertices.Count; i++)
+            {
+                if (faceVertices[i].IsAlmostEqualTo(otherVertices[i]) == false) return false;
+            }
+
+            return true;
+        }
+
         public static bool AlmostEqual(this BoundingBoxXYZ box, BoundingBoxXYZ other)
         {
             if (box.Min.IsAlmostEqualTo(other.Min) == false) return false;
