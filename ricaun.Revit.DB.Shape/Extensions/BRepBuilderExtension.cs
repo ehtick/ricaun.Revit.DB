@@ -198,18 +198,22 @@ namespace ricaun.Revit.DB.Shape.Extensions
             if (t1.Count != t2.Count)
                 return false;
 
-            var equalPointFirst = (t1[0] - t2[0]).IsZeroLength();
-            var equalPointLast = (t1[0] - t2[t2.Count - 1]).IsZeroLength();
+            var t1First = t1[0];
+            var t1Last = t1[t1.Count - 1];
+            var t2First = t2[0];
+            var t2Last = t2[t2.Count - 1];
 
-            if ((equalPointFirst || equalPointLast) == false)
-                return false;
+            var equalPointFirst = (t1First - t2First).IsZeroLength();
+            var equalPointLast = (t1First - t2Last).IsZeroLength();
+
+            var equalsPoints = t1First.IsAlmostEqualTo(t2First, Tolerance) && t1Last.IsAlmostEqualTo(t2Last, Tolerance);
 
             if (similarReversed == false)
-            {
-                return equalPointFirst;
-            }
+                return equalsPoints;
 
-            return true;
+            var equalsPointsInverted = t1First.IsAlmostEqualTo(t2Last, Tolerance) && t1Last.IsAlmostEqualTo(t2First, Tolerance);
+
+            return equalsPoints || equalsPointsInverted;
         }
 
         /// <summary>

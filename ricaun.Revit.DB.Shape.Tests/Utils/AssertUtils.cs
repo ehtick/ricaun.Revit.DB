@@ -116,6 +116,15 @@ namespace ricaun.Revit.DB.Shape.Tests.Utils
             Assert.IsTrue(solid.AlmostEqual(other), $"Solid {solid} is not almost equal {other}");
         }
 
+        public static void Face(Face face, Face other)
+        {
+            Assert.AreEqual(face.EdgeLoops.Size, other.EdgeLoops.Size);
+
+            Assert.IsTrue(face.Area.AlmostEqual(other.Area), $"Area {face.Area} is not {other.Area}");
+
+            Assert.IsTrue(face.AlmostEqual(other), $"Face {face} is not almost equal {other}");
+        }
+
         public static void Solid(Solid solid, int edges, int faces)
         {
             Assert.AreEqual(edges, solid.Edges.Size, $"Edges: {solid.Edges.Size}");
