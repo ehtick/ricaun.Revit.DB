@@ -112,6 +112,8 @@
 
   <PropertyGroup Condition="!$(Configuration.Contains('Debug'))">
     <DocumentationFile>$(OutputPath)\$(AssemblyName).xml</DocumentationFile>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
   <PropertyGroup Condition="$(Configuration.Contains('Debug'))">
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
