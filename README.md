@@ -23,7 +23,7 @@ For more information see [Wiki](https://github.com/ricaun-io/ricaun.Revit.DB/wik
 
 ## License
 
-This project is [licensed](LICENSE) under the [MIT Licence](https://en.wikipedia.org/wiki/MIT_License).
+This project is [licensed](LICENSE) under the [MIT License](https://en.wikipedia.org/wiki/MIT_License).
 
 ---
 
