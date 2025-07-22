@@ -8,14 +8,7 @@
     <LangVersion>latest</LangVersion>
     <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
     <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
-
-    <SuppressDependenciesWhenPacking>false</SuppressDependenciesWhenPacking>
-    <IncludeBuildOutput>false</IncludeBuildOutput>
-    <NoWarn>$(NoWarn);NU5128</NoWarn>
-    
-    <Configurations>
-      Debug; Release;
-    </Configurations>
+    <Configurations>Debug; Release</Configurations>
   </PropertyGroup>
 
   <!-- RevitVersion -->
