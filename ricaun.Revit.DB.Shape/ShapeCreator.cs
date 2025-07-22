@@ -612,11 +612,11 @@ namespace ricaun.Revit.DB.Shape
         #endregion
 
         #region Swept
-        static CurveLoop CreateCircleLoop(XYZ origin, XYZ normal, double diameter = 1.0)
+        static CurveLoop CreateCircleLoop(XYZ origin, XYZ normal, double radius = 1.0)
         {
             CurveLoop loop = new CurveLoop();
-            var arc1 = Arc.Create(Plane.CreateByNormalAndOrigin(normal, origin), diameter / 2, -Math.PI, 0);
-            var arc2 = Arc.Create(Plane.CreateByNormalAndOrigin(normal, origin), diameter / 2, 0, Math.PI);
+            var arc1 = Arc.Create(Plane.CreateByNormalAndOrigin(normal, origin), radius, -Math.PI, 0);
+            var arc2 = Arc.Create(Plane.CreateByNormalAndOrigin(normal, origin), radius, 0, Math.PI);
             loop.Append(arc1);
             loop.Append(arc2);
             return loop;
@@ -660,8 +660,8 @@ namespace ricaun.Revit.DB.Shape
         /// <param name="curves">
         /// The collection of <see cref="Curve"/> objects that define the sweep path.
         /// </param>
-        /// <param name="diameter">
-        /// Optional. The diameter of the circular profile to be swept along the path. Default is 1.0.
+        /// <param name="radius">
+        /// Optional. The radius of the circular profile to be swept along the path. Default is 1.0.
         /// </param>
         /// <param name="materialId">
         /// Optional. The <see cref="Autodesk.Revit.DB.ElementId"/> of the material to apply to the solid. 
@@ -675,12 +675,12 @@ namespace ricaun.Revit.DB.Shape
         /// A <see cref="Solid"/> representing the swept geometry created by sweeping the circular profile along the path.
         /// </returns>
         public static Solid CreateSwept(IEnumerable<Curve> curves,
-            double diameter = 1.0,
+            double radius = 1.0,
             ElementId materialId = null,
             ElementId graphicsStyleId = null)
         {
             var curve = curves.FirstOrDefault();
-            var profileLoop = CreateCircleLoop(curve.Evaluate(0, true), curve.ComputeDerivatives(0, true).BasisX, diameter);
+            var profileLoop = CreateCircleLoop(curve.Evaluate(0, true), curve.ComputeDerivatives(0, true).BasisX, radius);
             return CreateSwept(curves, profileLoop, materialId, graphicsStyleId);
         }
 
@@ -718,8 +718,8 @@ namespace ricaun.Revit.DB.Shape
         /// <param name="curve">
         /// The <see cref="Curve"/> that defines the sweep path.
         /// </param>
-        /// <param name="diameter">
-        /// Optional. The diameter of the circular profile to be swept along the path. Default is 1.0.
+        /// <param name="radius">
+        /// Optional. The radius of the circular profile to be swept along the path. Default is 1.0.
         /// </param>
         /// <param name="materialId">
         /// Optional. The <see cref="Autodesk.Revit.DB.ElementId"/> of the material to apply to the solid. 
@@ -733,11 +733,11 @@ namespace ricaun.Revit.DB.Shape
         /// A <see cref="Solid"/> representing the swept geometry created by sweeping the circular profile along the curve.
         /// </returns>
         public static Solid CreateSwept(Curve curve,
-            double diameter = 1.0,
+            double radius = 1.0,
             ElementId materialId = null,
             ElementId graphicsStyleId = null)
         {
-            return CreateSwept(new[] { curve }, diameter, materialId, graphicsStyleId);
+            return CreateSwept(new[] { curve }, radius, materialId, graphicsStyleId);
         }
         #endregion
     }
