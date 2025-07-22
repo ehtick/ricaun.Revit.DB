@@ -6,8 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [1.0.0] / 2025-07-22
 ### Features
+- `ricaun.Revit.DB` with `Select` extension for `Element` and `ElementType`.
 ### Updates
 - Remove `2017` support.
+- Add `ricaun.Revit.DB.Generator` to generate `ricaun.Revit.DB` code select extension.
+### Tests
+- Add `ricaun.Revit.DB.Tests` to test `Select` extension for `Element` and `ElementType`.
 
 ## [0.4.0] / 2024-09-23 - 2025-03-22
 ### Features

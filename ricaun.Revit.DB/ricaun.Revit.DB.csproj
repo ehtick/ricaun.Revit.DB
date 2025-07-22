@@ -174,9 +174,14 @@
     <Folder Include="Properties\" />
   </ItemGroup>
 
-  <ItemGroup>
+  <!--<ItemGroup>
     <ProjectReference Include="..\ricaun.Revit.DB.Quaternion\ricaun.Revit.DB.Quaternion.csproj" />
     <ProjectReference Include="..\ricaun.Revit.DB.Shape\ricaun.Revit.DB.Shape.csproj" />
+  </ItemGroup>-->
+
+  <ItemGroup>
+    <!-- This is the analyzer project that generates the Revit API extension -->
+    <ProjectReference Include="..\ricaun.Revit.DB.Generator\ricaun.Revit.DB.Generator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
- 
+
 </Project>
