@@ -20,14 +20,9 @@
 
   <!-- RevitVersion -->
   <PropertyGroup>
-    <TargetFrameworks>net46;net47;net48;net8.0-windows</TargetFrameworks>
+    <TargetFrameworks>net47;net48;net8.0-windows</TargetFrameworks>
   </PropertyGroup>
   <Choose>
-    <When Condition="$(TargetFramework.StartsWith('net46'))">
-      <PropertyGroup>
-        <RevitVersion>2017</RevitVersion>
-      </PropertyGroup>
-    </When>
     <When Condition="$(TargetFramework.StartsWith('net47'))">
       <PropertyGroup>
         <RevitVersion>2019</RevitVersion>
@@ -78,8 +73,6 @@
 
   <PropertyGroup>
     <PackageId>ricaun.Revit.DB</PackageId>
-    <Version Condition="'$(Version)' == ''">1.0.0</Version>
-    <ProjectGuid>{4571A534-33B8-4771-8071-A967DE651909}</ProjectGuid>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -118,6 +111,9 @@
 
   <PropertyGroup Condition="!$(Configuration.Contains('Debug'))">
     <DocumentationFile>$(OutputPath)\$(AssemblyName).xml</DocumentationFile>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <DebugType>portable</DebugType>
   </PropertyGroup>
   <PropertyGroup Condition="$(Configuration.Contains('Debug'))">
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
