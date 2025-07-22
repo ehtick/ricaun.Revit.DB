@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add `ricaun.Revit.DB.Generator` to generate `ricaun.Revit.DB` code select extension.
 ### Tests
 - Add `ricaun.Revit.DB.Tests` to test `Select` extension for `Element` and `ElementType`.
+### Shapes
+- Add `CreateSwept` to `ShapeCreator` to create a swept solid.
 
 ## [0.4.0] / 2024-09-23 - 2025-03-22
 ### Features
