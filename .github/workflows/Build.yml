@@ -21,6 +21,7 @@ jobs:
       RICAUN_REVITTEST_TESTADAPTER_NUNIT_APPLICATION: ${{ secrets.RICAUN_REVITTEST_DA_APPLICATION }}
       APS_CLIENT_ID: ${{ secrets.APS_CLIENT_ID }}
       APS_CLIENT_SECRET: ${{ secrets.APS_CLIENT_SECRET }}
+      APS_CLIENT_CUSTOM_HEADER_VALUE: ${{ secrets.APS_CLIENT_CUSTOM_HEADER_VALUE }}
 
     steps:
       - uses: actions/checkout@v1
