@@ -4,7 +4,7 @@ using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Selection;
 using System;
 
-namespace ricaun.Revit.Debug.Revit.Commands
+namespace ricaun.Revit.DB.Example.Revit.Commands
 {
     [Transaction(TransactionMode.Manual)]
     public class Command : IExternalCommand
