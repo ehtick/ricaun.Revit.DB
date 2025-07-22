@@ -32,11 +32,12 @@ namespace ricaun.Revit.DB.Generator
                         using Autodesk.Revit.DB;
                         namespace {{nameSpaceName}}
                         {
-                            /// <summary> {{className}} Generator </summary>
+                            #pragma warning disable CS1591
                             public static partial class {{className}}
                             {
                         {{action.Invoke()}}
                             }
+                            #pragma warning restore CS1591
                         }
                         """, Encoding.UTF8)));
             }
@@ -102,7 +103,6 @@ namespace ricaun.Revit.DB.Generator
                 string mainArgs = string.Join(", ", list);
                 return
                     $$"""
-                    /// <summary> Generator </summary>
                     public static {{result}} {{name}}({{mainArgs}}) {{where}}=> document.{{methodName}}({{methodArgs}}).{{methodExtension}}();
                     """;
             }

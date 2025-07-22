@@ -75,7 +75,7 @@
   </ItemGroup>
 
   <!-- Release -->
-  <ItemGroup Condition="!$(Configuration.Contains('Debug'))">
+  <ItemGroup Condition="!$(Configuration.Contains('Debug')) and $(RevitForceOpenClose) == true">
     <AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute">
       <_Parameter1>NUnit.Open</_Parameter1>
       <_Parameter2>true</_Parameter2>
