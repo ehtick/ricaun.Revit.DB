@@ -45,6 +45,24 @@ namespace ricaun.Revit.DB.Tests
                 document.Select<Element>(new ElementCategoryFilter(BuiltInCategory.INVALID));
                 document.Select<Element>(new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID));
                 document.Select<Element>([new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID)]);
+
+                document.SelectElements<Element>();
+                document.SelectElements<Element>(BuiltInCategory.INVALID);
+                document.SelectElements<Element>(BuiltInCategory.INVALID, new ElementCategoryFilter(BuiltInCategory.INVALID));
+                document.SelectElements<Element>(BuiltInCategory.INVALID, new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID));
+                document.SelectElements<Element>(BuiltInCategory.INVALID, [new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID)]);
+                document.SelectElements<Element>(new ElementCategoryFilter(BuiltInCategory.INVALID));
+                document.SelectElements<Element>(new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID));
+                document.SelectElements<Element>([new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID)]);
+
+                document.SelectElementTypes<ElementType>();
+                document.SelectElementTypes<ElementType>(BuiltInCategory.INVALID);
+                document.SelectElementTypes<ElementType>(BuiltInCategory.INVALID, new ElementCategoryFilter(BuiltInCategory.INVALID));
+                document.SelectElementTypes<ElementType>(BuiltInCategory.INVALID, new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID));
+                document.SelectElementTypes<ElementType>(BuiltInCategory.INVALID, [new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID)]);
+                document.SelectElementTypes<ElementType>(new ElementCategoryFilter(BuiltInCategory.INVALID));
+                document.SelectElementTypes<ElementType>(new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID));
+                document.SelectElementTypes<ElementType>([new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID)]);
             }
 
             {

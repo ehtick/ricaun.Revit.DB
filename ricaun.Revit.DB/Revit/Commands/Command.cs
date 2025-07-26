@@ -29,8 +29,7 @@ namespace ricaun.Revit.DB.Revit.Commands
             Debug.Assert(familyInstanceCollector.FirstElement() is null);
             Debug.Assert(familyInstanceCollector.FirstElementId() == ElementId.InvalidElementId);
 
-            document.SelectElements();
-            document.GetElements<Family>();
+            
 
 
             return Result.Succeeded;
