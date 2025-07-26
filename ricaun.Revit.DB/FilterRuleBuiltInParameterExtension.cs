@@ -171,5 +171,58 @@ namespace ricaun.Revit.DB
         {
             return builtInParameter.Rule<T>(ruleValue, epsilon).ToElementFilter();
         }
+
+        #region Equals Filters
+        /// <summary>
+        /// Creates an <see cref="ElementParameterFilter"/> that checks if the parameter value equals the specified string.
+        /// </summary>
+        /// <param name="builtInParameter">The built-in parameter to check.</param>
+        /// <param name="ruleString">The string value to compare against the parameter value.</param>
+        /// <returns>
+        /// An <see cref="ElementParameterFilter"/> that filters elements whose parameter value equals <paramref name="ruleString"/>.
+        /// </returns>
+        public static ElementParameterFilter Filter(this BuiltInParameter builtInParameter, string ruleString) => builtInParameter.Filter<FilterStringEquals>(ruleString);
+
+        /// <summary>
+        /// Creates an <see cref="ElementParameterFilter"/> that checks if the parameter value equals the specified integer.
+        /// </summary>
+        /// <param name="builtInParameter">The built-in parameter to check.</param>
+        /// <param name="ruleValue">The integer value to compare against the parameter value.</param>
+        /// <returns>
+        /// An <see cref="ElementParameterFilter"/> that filters elements whose parameter value equals <paramref name="ruleValue"/>.
+        /// </returns>
+        public static ElementParameterFilter Filter(this BuiltInParameter builtInParameter, int ruleValue) => builtInParameter.Filter<FilterNumericEquals>(ruleValue);
+
+        /// <summary>
+        /// Creates an <see cref="ElementParameterFilter"/> that checks if the parameter value equals the specified <see cref="ElementId"/>.
+        /// </summary>
+        /// <param name="builtInParameter">The built-in parameter to check.</param>
+        /// <param name="ruleValue">The <see cref="ElementId"/> value to compare against the parameter value.</param>
+        /// <returns>
+        /// An <see cref="ElementParameterFilter"/> that filters elements whose parameter value equals <paramref name="ruleValue"/>.
+        /// </returns>
+        public static ElementParameterFilter Filter(this BuiltInParameter builtInParameter, ElementId ruleValue) => builtInParameter.Filter<FilterNumericEquals>(ruleValue);
+
+        /// <summary>
+        /// Creates an <see cref="ElementParameterFilter"/> that checks if the parameter value equals the specified double.
+        /// </summary>
+        /// <param name="builtInParameter">The built-in parameter to check.</param>
+        /// <param name="ruleValue">The double value to compare against the parameter value.</param>
+        /// <returns>
+        /// An <see cref="ElementParameterFilter"/> that filters elements whose parameter value equals <paramref name="ruleValue"/>.
+        /// </returns>
+        public static ElementParameterFilter Filter(this BuiltInParameter builtInParameter, double ruleValue) => builtInParameter.Filter<FilterNumericEquals>(ruleValue);
+
+        /// <summary>
+        /// Creates an <see cref="ElementParameterFilter"/> that checks if the parameter value equals the specified double within a given tolerance.
+        /// </summary>
+        /// <param name="builtInParameter">The built-in parameter to check.</param>
+        /// <param name="ruleValue">The double value to compare against the parameter value.</param>
+        /// <param name="epsilon">The tolerance for the comparison.</param>
+        /// <returns>
+        /// An <see cref="ElementParameterFilter"/> that filters elements whose parameter value equals <paramref name="ruleValue"/> within <paramref name="epsilon"/> tolerance.
+        /// </returns>
+        public static ElementParameterFilter Filter(this BuiltInParameter builtInParameter, double ruleValue, double epsilon) => builtInParameter.Filter<FilterNumericEquals>(ruleValue, epsilon);
+        #endregion
     }
 }

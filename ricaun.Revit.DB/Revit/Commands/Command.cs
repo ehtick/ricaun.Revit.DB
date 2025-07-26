@@ -71,21 +71,28 @@ namespace ricaun.Revit.DB.Revit.Commands
             }
 
             {
-                var element = document.GetFirstElementType(new ElementCategoryFilter(BuiltInCategory.INVALID, true));
+                var element = document.GetFirstElementType();
 
                 var id = element.Id;
-                var filterId = BuiltInParameter.ID_PARAM.Filter<FilterNumericEquals>(id);
-                var elementSymbol = document.GetFirstElementType(filterId);
+                var filterId = BuiltInParameter.ID_PARAM.Filter(id);
+                var elementFilterId = document.GetFirstElementType(filterId);
                 System.Console.WriteLine(id);
 
-                Debug.Assert(element.Id == elementSymbol.Id);
+                Debug.Assert(element.Id == elementFilterId.Id);
+
+                //var typeId = element.GetTypeId();
+                //var filterTypeId = BuiltInParameter.SYMBOL_ID_PARAM.Filter(typeId);
+                //var elementFilterTypeId = document.GetFirstElementType(filterTypeId);
+                //System.Console.WriteLine(typeId);
+
+                //Debug.Assert(element.Id == elementFilterTypeId.Id);
 
                 var name = element.Name;
-                var filterFamilyName = BuiltInParameter.ALL_MODEL_TYPE_NAME.Filter<FilterStringEquals>(name);
-                var elementName = document.GetFirstElementType(filterFamilyName);
+                var filterTypeName = BuiltInParameter.ALL_MODEL_TYPE_NAME.Filter<FilterStringEquals>(name);
+                var elementFilterName = document.GetFirstElementType(filterTypeName);
                 System.Console.WriteLine(name);
 
-                Debug.Assert(element.Id == elementName.Id);
+                Debug.Assert(element.Id == elementFilterName.Id);
 
                 var buildInCategory = element.Category.Id.GetBuiltInCategory();
                 var elementCategory = document.GetFirstElementType(buildInCategory);
