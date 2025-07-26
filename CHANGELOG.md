@@ -14,6 +14,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add `ricaun.Revit.DB.Tests` to test `Select` extension for `Element` and `ElementType`.
 ### Shapes
 - Add `CreateSwept` to `ShapeCreator` to create a swept solid.
+### Generator
+- Add `SelectElements<T>` and `SelectElementTypes<T>` in the generator to generate `Select` extension methods for `Element` and `ElementType`.
 
 ## [0.4.0] / 2024-09-23 - 2025-03-22
 ### Features

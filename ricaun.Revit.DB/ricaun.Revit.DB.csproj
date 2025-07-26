@@ -148,4 +148,19 @@
     <ProjectReference Include="..\ricaun.Revit.DB.Generator\ricaun.Revit.DB.Generator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
 
+  <ItemGroup Condition="!$(Configuration.Contains('Debug'))">
+    <Compile Remove="Revit\**" />
+    <EmbeddedResource Remove="Revit\**" />
+    <None Remove="Revit\**" />
+    <Page Remove="Revit\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ricaun.Revit.UI" Version="*" Condition="$(Configuration.Contains('Debug'))" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="$(PackageId).Tests" />
+  </ItemGroup>
+
 </Project>

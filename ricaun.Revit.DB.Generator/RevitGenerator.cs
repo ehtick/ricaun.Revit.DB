@@ -65,6 +65,8 @@ namespace ricaun.Revit.DB.Generator
                 var source = SourceText.From(
                     $$"""
                     {{CreateSelect("Select<TElement>", "FilteredElementCollector", "Select", "WhereElementIs<TElement>", param, "where TElement : Element")}}
+                    {{CreateSelect("SelectElements<TElement>", "FilteredElementCollector", "Select<TElement>", "", param, "where TElement : Element")}}
+                    {{CreateSelect("SelectElementTypes<TElement>", "FilteredElementCollector", "Select<TElement>", "", param, "where TElement : ElementType")}}
                     {{CreateSelect("GetElements<TElement>", "IEnumerable<TElement>", "Select<TElement>", "ToElements<TElement>", param, "where TElement : Element")}}
                     {{CreateSelect("GetElementTypes<TElement>", "IEnumerable<TElement>", "Select<TElement>", "ToElements<TElement>", param, "where TElement : ElementType")}}
                     {{CreateSelect("GetElementIds<TElement>", "ICollection<ElementId>", "Select<TElement>", "ToElementIds", param, "where TElement : Element")}}
@@ -101,9 +103,10 @@ namespace ricaun.Revit.DB.Generator
                 list.Add("this Document document");
                 list.AddRange(args);
                 string mainArgs = string.Join(", ", list);
+                var mainMethodExtension = !string.IsNullOrWhiteSpace(methodExtension) ? $".{methodExtension}()" : string.Empty;
                 return
                     $$"""
-                    public static {{result}} {{name}}({{mainArgs}}) {{where}}=> document.{{methodName}}({{methodArgs}}).{{methodExtension}}();
+                    public static {{result}} {{name}}({{mainArgs}}) {{where}}=> document.{{methodName}}({{methodArgs}}){{mainMethodExtension}};
                     """;
             }
         }
