@@ -6,215 +6,218 @@ namespace ricaun.Revit.DB.Tests
 {
     public class RevitSelectExtensionTest : OneTimeOpenDocumentTest
     {
+        ElementCategoryFilter Filter = new(BuiltInCategory.INVALID);
+        BuiltInCategory Category = BuiltInCategory.INVALID;
+
         [Test]
         public void SelectExtensions()
         {
             {
                 document.Select();
-                document.Select(BuiltInCategory.INVALID);
-                document.Select(BuiltInCategory.INVALID, new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.Select(BuiltInCategory.INVALID, new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.Select(BuiltInCategory.INVALID, [new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID)]);
-                document.Select(new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.Select(new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.Select([new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID)]);
+                document.Select(Category);
+                document.Select(Category, Filter);
+                document.Select(Category, Filter, Filter);
+                document.Select(Category, [Filter, Filter]);
+                document.Select(Filter);
+                document.Select(Filter, Filter);
+                document.Select([Filter, Filter]);
 
                 document.SelectElements();
-                document.SelectElements(BuiltInCategory.INVALID);
-                document.SelectElements(BuiltInCategory.INVALID, new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.SelectElements(BuiltInCategory.INVALID, new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.SelectElements(BuiltInCategory.INVALID, [new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID)]);
-                document.SelectElements(new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.SelectElements(new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.SelectElements([new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID)]);
+                document.SelectElements(Category);
+                document.SelectElements(Category, Filter);
+                document.SelectElements(Category, Filter, Filter);
+                document.SelectElements(Category, [Filter, Filter]);
+                document.SelectElements(Filter);
+                document.SelectElements(Filter, Filter);
+                document.SelectElements([Filter, Filter]);
 
                 document.SelectElementTypes();
-                document.SelectElementTypes(BuiltInCategory.INVALID);
-                document.SelectElementTypes(BuiltInCategory.INVALID, new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.SelectElementTypes(BuiltInCategory.INVALID, new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.SelectElementTypes(BuiltInCategory.INVALID, [new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID)]);
-                document.SelectElementTypes(new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.SelectElementTypes(new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.SelectElementTypes([new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID)]);
+                document.SelectElementTypes(Category);
+                document.SelectElementTypes(Category, Filter);
+                document.SelectElementTypes(Category, Filter, Filter);
+                document.SelectElementTypes(Category, [Filter, Filter]);
+                document.SelectElementTypes(Filter);
+                document.SelectElementTypes(Filter, Filter);
+                document.SelectElementTypes([Filter, Filter]);
 
                 document.Select<Element>();
-                document.Select<Element>(BuiltInCategory.INVALID);
-                document.Select<Element>(BuiltInCategory.INVALID, new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.Select<Element>(BuiltInCategory.INVALID, new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.Select<Element>(BuiltInCategory.INVALID, [new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID)]);
-                document.Select<Element>(new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.Select<Element>(new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.Select<Element>([new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID)]);
+                document.Select<Element>(Category);
+                document.Select<Element>(Category, Filter);
+                document.Select<Element>(Category, Filter, Filter);
+                document.Select<Element>(Category, [Filter, Filter]);
+                document.Select<Element>(Filter);
+                document.Select<Element>(Filter, Filter);
+                document.Select<Element>([Filter, Filter]);
 
                 document.SelectElements<Element>();
-                document.SelectElements<Element>(BuiltInCategory.INVALID);
-                document.SelectElements<Element>(BuiltInCategory.INVALID, new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.SelectElements<Element>(BuiltInCategory.INVALID, new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.SelectElements<Element>(BuiltInCategory.INVALID, [new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID)]);
-                document.SelectElements<Element>(new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.SelectElements<Element>(new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.SelectElements<Element>([new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID)]);
+                document.SelectElements<Element>(Category);
+                document.SelectElements<Element>(Category, Filter);
+                document.SelectElements<Element>(Category, Filter, Filter);
+                document.SelectElements<Element>(Category, [Filter, Filter]);
+                document.SelectElements<Element>(Filter);
+                document.SelectElements<Element>(Filter, Filter);
+                document.SelectElements<Element>([Filter, Filter]);
 
                 document.SelectElementTypes<ElementType>();
-                document.SelectElementTypes<ElementType>(BuiltInCategory.INVALID);
-                document.SelectElementTypes<ElementType>(BuiltInCategory.INVALID, new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.SelectElementTypes<ElementType>(BuiltInCategory.INVALID, new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.SelectElementTypes<ElementType>(BuiltInCategory.INVALID, [new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID)]);
-                document.SelectElementTypes<ElementType>(new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.SelectElementTypes<ElementType>(new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.SelectElementTypes<ElementType>([new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID)]);
+                document.SelectElementTypes<ElementType>(Category);
+                document.SelectElementTypes<ElementType>(Category, Filter);
+                document.SelectElementTypes<ElementType>(Category, Filter, Filter);
+                document.SelectElementTypes<ElementType>(Category, [Filter, Filter]);
+                document.SelectElementTypes<ElementType>(Filter);
+                document.SelectElementTypes<ElementType>(Filter, Filter);
+                document.SelectElementTypes<ElementType>([Filter, Filter]);
             }
 
             {
                 document.GetElements();
-                document.GetElements(BuiltInCategory.INVALID);
-                document.GetElements(BuiltInCategory.INVALID, new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetElements(BuiltInCategory.INVALID, new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetElements(BuiltInCategory.INVALID, [new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID)]);
-                document.GetElements(new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetElements(new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetElements([new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID)]);
+                document.GetElements(Category);
+                document.GetElements(Category, Filter);
+                document.GetElements(Category, Filter, Filter);
+                document.GetElements(Category, [Filter, Filter]);
+                document.GetElements(Filter);
+                document.GetElements(Filter, Filter);
+                document.GetElements([Filter, Filter]);
 
                 document.GetElementTypes();
-                document.GetElementTypes(BuiltInCategory.INVALID);
-                document.GetElementTypes(BuiltInCategory.INVALID, new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetElementTypes(BuiltInCategory.INVALID, new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetElementTypes(BuiltInCategory.INVALID, [new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID)]);
-                document.GetElementTypes(new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetElementTypes(new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetElementTypes([new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID)]);
+                document.GetElementTypes(Category);
+                document.GetElementTypes(Category, Filter);
+                document.GetElementTypes(Category, Filter, Filter);
+                document.GetElementTypes(Category, [Filter, Filter]);
+                document.GetElementTypes(Filter);
+                document.GetElementTypes(Filter, Filter);
+                document.GetElementTypes([Filter, Filter]);
 
                 document.GetElements<Element>();
-                document.GetElements<Element>(BuiltInCategory.INVALID);
-                document.GetElements<Element>(BuiltInCategory.INVALID, new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetElements<Element>(BuiltInCategory.INVALID, new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetElements<Element>(BuiltInCategory.INVALID, [new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID)]);
-                document.GetElements<Element>(new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetElements<Element>(new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetElements<Element>([new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID)]);
+                document.GetElements<Element>(Category);
+                document.GetElements<Element>(Category, Filter);
+                document.GetElements<Element>(Category, Filter, Filter);
+                document.GetElements<Element>(Category, [Filter, Filter]);
+                document.GetElements<Element>(Filter);
+                document.GetElements<Element>(Filter, Filter);
+                document.GetElements<Element>([Filter, Filter]);
 
                 document.GetElementTypes<ElementType>();
-                document.GetElementTypes<ElementType>(BuiltInCategory.INVALID);
-                document.GetElementTypes<ElementType>(BuiltInCategory.INVALID, new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetElementTypes<ElementType>(BuiltInCategory.INVALID, new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetElementTypes<ElementType>(BuiltInCategory.INVALID, [new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID)]);
-                document.GetElementTypes<ElementType>(new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetElementTypes<ElementType>(new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetElementTypes<ElementType>([new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID)]);
+                document.GetElementTypes<ElementType>(Category);
+                document.GetElementTypes<ElementType>(Category, Filter);
+                document.GetElementTypes<ElementType>(Category, Filter, Filter);
+                document.GetElementTypes<ElementType>(Category, [Filter, Filter]);
+                document.GetElementTypes<ElementType>(Filter);
+                document.GetElementTypes<ElementType>(Filter, Filter);
+                document.GetElementTypes<ElementType>([Filter, Filter]);
             }
 
             {
                 document.GetElementIds();
-                document.GetElementIds(BuiltInCategory.INVALID);
-                document.GetElementIds(BuiltInCategory.INVALID, new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetElementIds(BuiltInCategory.INVALID, new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetElementIds(BuiltInCategory.INVALID, [new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID)]);
-                document.GetElementIds(new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetElementIds(new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetElementIds([new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID)]);
+                document.GetElementIds(Category);
+                document.GetElementIds(Category, Filter);
+                document.GetElementIds(Category, Filter, Filter);
+                document.GetElementIds(Category, [Filter, Filter]);
+                document.GetElementIds(Filter);
+                document.GetElementIds(Filter, Filter);
+                document.GetElementIds([Filter, Filter]);
 
                 document.GetElementTypeIds();
-                document.GetElementTypeIds(BuiltInCategory.INVALID);
-                document.GetElementTypeIds(BuiltInCategory.INVALID, new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetElementTypeIds(BuiltInCategory.INVALID, new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetElementTypeIds(BuiltInCategory.INVALID, [new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID)]);
-                document.GetElementTypeIds(new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetElementTypeIds(new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetElementTypeIds([new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID)]);
+                document.GetElementTypeIds(Category);
+                document.GetElementTypeIds(Category, Filter);
+                document.GetElementTypeIds(Category, Filter, Filter);
+                document.GetElementTypeIds(Category, [Filter, Filter]);
+                document.GetElementTypeIds(Filter);
+                document.GetElementTypeIds(Filter, Filter);
+                document.GetElementTypeIds([Filter, Filter]);
 
                 document.GetElementIds<Element>();
-                document.GetElementIds<Element>(BuiltInCategory.INVALID);
-                document.GetElementIds<Element>(BuiltInCategory.INVALID, new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetElementIds<Element>(BuiltInCategory.INVALID, new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetElementIds<Element>(BuiltInCategory.INVALID, [new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID)]);
-                document.GetElementIds<Element>(new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetElementIds<Element>(new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetElementIds<Element>([new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID)]);
+                document.GetElementIds<Element>(Category);
+                document.GetElementIds<Element>(Category, Filter);
+                document.GetElementIds<Element>(Category, Filter, Filter);
+                document.GetElementIds<Element>(Category, [Filter, Filter]);
+                document.GetElementIds<Element>(Filter);
+                document.GetElementIds<Element>(Filter, Filter);
+                document.GetElementIds<Element>([Filter, Filter]);
 
                 document.GetElementTypeIds<ElementType>();
-                document.GetElementTypeIds<ElementType>(BuiltInCategory.INVALID);
-                document.GetElementTypeIds<ElementType>(BuiltInCategory.INVALID, new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetElementTypeIds<ElementType>(BuiltInCategory.INVALID, new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetElementTypeIds<ElementType>(BuiltInCategory.INVALID, [new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID)]);
-                document.GetElementTypeIds<ElementType>(new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetElementTypeIds<ElementType>(new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetElementTypeIds<ElementType>([new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID)]);
+                document.GetElementTypeIds<ElementType>(Category);
+                document.GetElementTypeIds<ElementType>(Category, Filter);
+                document.GetElementTypeIds<ElementType>(Category, Filter, Filter);
+                document.GetElementTypeIds<ElementType>(Category, [Filter, Filter]);
+                document.GetElementTypeIds<ElementType>(Filter);
+                document.GetElementTypeIds<ElementType>(Filter, Filter);
+                document.GetElementTypeIds<ElementType>([Filter, Filter]);
             }
 
             {
                 document.GetFirstElement();
-                document.GetFirstElement(BuiltInCategory.INVALID);
-                document.GetFirstElement(BuiltInCategory.INVALID, new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetFirstElement(BuiltInCategory.INVALID, new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetFirstElement(BuiltInCategory.INVALID, [new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID)]);
-                document.GetFirstElement(new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetFirstElement(new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetFirstElement([new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID)]);
+                document.GetFirstElement(Category);
+                document.GetFirstElement(Category, Filter);
+                document.GetFirstElement(Category, Filter, Filter);
+                document.GetFirstElement(Category, [Filter, Filter]);
+                document.GetFirstElement(Filter);
+                document.GetFirstElement(Filter, Filter);
+                document.GetFirstElement([Filter, Filter]);
 
                 document.GetFirstElementType();
-                document.GetFirstElementType(BuiltInCategory.INVALID);
-                document.GetFirstElementType(BuiltInCategory.INVALID, new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetFirstElementType(BuiltInCategory.INVALID, new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetFirstElementType(BuiltInCategory.INVALID, [new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID)]);
-                document.GetFirstElementType(new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetFirstElementType(new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetFirstElementType([new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID)]);
+                document.GetFirstElementType(Category);
+                document.GetFirstElementType(Category, Filter);
+                document.GetFirstElementType(Category, Filter, Filter);
+                document.GetFirstElementType(Category, [Filter, Filter]);
+                document.GetFirstElementType(Filter);
+                document.GetFirstElementType(Filter, Filter);
+                document.GetFirstElementType([Filter, Filter]);
 
                 document.GetFirstElement<Element>();
-                document.GetFirstElement<Element>(BuiltInCategory.INVALID);
-                document.GetFirstElement<Element>(BuiltInCategory.INVALID, new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetFirstElement<Element>(BuiltInCategory.INVALID, new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetFirstElement<Element>(BuiltInCategory.INVALID, [new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID)]);
-                document.GetFirstElement<Element>(new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetFirstElement<Element>(new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetFirstElement<Element>([new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID)]);
+                document.GetFirstElement<Element>(Category);
+                document.GetFirstElement<Element>(Category, Filter);
+                document.GetFirstElement<Element>(Category, Filter, Filter);
+                document.GetFirstElement<Element>(Category, [Filter, Filter]);
+                document.GetFirstElement<Element>(Filter);
+                document.GetFirstElement<Element>(Filter, Filter);
+                document.GetFirstElement<Element>([Filter, Filter]);
 
                 document.GetFirstElementType<ElementType>();
-                document.GetFirstElementType<ElementType>(BuiltInCategory.INVALID);
-                document.GetFirstElementType<ElementType>(BuiltInCategory.INVALID, new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetFirstElementType<ElementType>(BuiltInCategory.INVALID, new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetFirstElementType<ElementType>(BuiltInCategory.INVALID, [new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID)]);
-                document.GetFirstElementType<ElementType>(new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetFirstElementType<ElementType>(new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetFirstElementType<ElementType>([new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID)]);
+                document.GetFirstElementType<ElementType>(Category);
+                document.GetFirstElementType<ElementType>(Category, Filter);
+                document.GetFirstElementType<ElementType>(Category, Filter, Filter);
+                document.GetFirstElementType<ElementType>(Category, [Filter, Filter]);
+                document.GetFirstElementType<ElementType>(Filter);
+                document.GetFirstElementType<ElementType>(Filter, Filter);
+                document.GetFirstElementType<ElementType>([Filter, Filter]);
             }
 
             {
                 document.GetFirstElementId();
-                document.GetFirstElementId(BuiltInCategory.INVALID);
-                document.GetFirstElementId(BuiltInCategory.INVALID, new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetFirstElementId(BuiltInCategory.INVALID, new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetFirstElementId(BuiltInCategory.INVALID, [new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID)]);
-                document.GetFirstElementId(new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetFirstElementId(new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetFirstElementId([new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID)]);
+                document.GetFirstElementId(Category);
+                document.GetFirstElementId(Category, Filter);
+                document.GetFirstElementId(Category, Filter, Filter);
+                document.GetFirstElementId(Category, [Filter, Filter]);
+                document.GetFirstElementId(Filter);
+                document.GetFirstElementId(Filter, Filter);
+                document.GetFirstElementId([Filter, Filter]);
 
                 document.GetFirstElementTypeId();
-                document.GetFirstElementTypeId(BuiltInCategory.INVALID);
-                document.GetFirstElementTypeId(BuiltInCategory.INVALID, new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetFirstElementTypeId(BuiltInCategory.INVALID, new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetFirstElementTypeId(BuiltInCategory.INVALID, [new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID)]);
-                document.GetFirstElementTypeId(new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetFirstElementTypeId(new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetFirstElementTypeId([new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID)]);
+                document.GetFirstElementTypeId(Category);
+                document.GetFirstElementTypeId(Category, Filter);
+                document.GetFirstElementTypeId(Category, Filter, Filter);
+                document.GetFirstElementTypeId(Category, [Filter, Filter]);
+                document.GetFirstElementTypeId(Filter);
+                document.GetFirstElementTypeId(Filter, Filter);
+                document.GetFirstElementTypeId([Filter, Filter]);
 
                 document.GetFirstElementId<Element>();
-                document.GetFirstElementId<Element>(BuiltInCategory.INVALID);
-                document.GetFirstElementId<Element>(BuiltInCategory.INVALID, new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetFirstElementId<Element>(BuiltInCategory.INVALID, new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetFirstElementId<Element>(BuiltInCategory.INVALID, [new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID)]);
-                document.GetFirstElementId<Element>(new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetFirstElementId<Element>(new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetFirstElementId<Element>([new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID)]);
+                document.GetFirstElementId<Element>(Category);
+                document.GetFirstElementId<Element>(Category, Filter);
+                document.GetFirstElementId<Element>(Category, Filter, Filter);
+                document.GetFirstElementId<Element>(Category, [Filter, Filter]);
+                document.GetFirstElementId<Element>(Filter);
+                document.GetFirstElementId<Element>(Filter, Filter);
+                document.GetFirstElementId<Element>([Filter, Filter]);
 
                 document.GetFirstElementTypeId<ElementType>();
-                document.GetFirstElementTypeId<ElementType>(BuiltInCategory.INVALID);
-                document.GetFirstElementTypeId<ElementType>(BuiltInCategory.INVALID, new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetFirstElementTypeId<ElementType>(BuiltInCategory.INVALID, new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetFirstElementTypeId<ElementType>(BuiltInCategory.INVALID, [new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID)]);
-                document.GetFirstElementTypeId<ElementType>(new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetFirstElementTypeId<ElementType>(new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID));
-                document.GetFirstElementTypeId<ElementType>([new ElementCategoryFilter(BuiltInCategory.INVALID), new ElementCategoryFilter(BuiltInCategory.INVALID)]);
+                document.GetFirstElementTypeId<ElementType>(Category);
+                document.GetFirstElementTypeId<ElementType>(Category, Filter);
+                document.GetFirstElementTypeId<ElementType>(Category, Filter, Filter);
+                document.GetFirstElementTypeId<ElementType>(Category, [Filter, Filter]);
+                document.GetFirstElementTypeId<ElementType>(Filter);
+                document.GetFirstElementTypeId<ElementType>(Filter, Filter);
+                document.GetFirstElementTypeId<ElementType>([Filter, Filter]);
             }
         }
     }

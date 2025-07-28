@@ -108,7 +108,7 @@ namespace ricaun.Revit.DB.Revit.Commands
                 var elementFiltered = document.GetFirstElement(filterTypeId);
                 System.Console.WriteLine(typeId);
 
-                Debug.Assert(element.Id == elementFiltered.Id);
+                Assert(element.Id == elementFiltered.Id);
             }
 
             {
