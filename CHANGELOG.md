@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Remove `2017` support.
 - Add `ricaun.Revit.DB.Generator` to generate `ricaun.Revit.DB` code select extension.
 - Update `FilterRuleBuiltInParameterExtension` to support `Filter` extension to `Equals`.
+- Update `FilterRuleBuiltInParameterExtension` to support `Filter` with inverted options.
+- Update `ElementIdExtension` to fix `ElementIdValue`.
 ### Tests
 - Add `ricaun.Revit.DB.Tests` to test `Select` extension for `Element` and `ElementType`.
 ### Shapes

@@ -1,4 +1,5 @@
 using Autodesk.Revit.DB;
+using Autodesk.Revit.DB.Mechanical;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -119,7 +120,9 @@ namespace ricaun.Revit.DB
             /// <returns>The value of the ElementId.</returns>
             public static long Get(ElementId elementId)
             {
-                return (long)PropertyValue.GetValue(elementId);
+                var value = PropertyValue.GetValue(elementId);
+                if (value is long l) return l;
+                return (int)value;
             }
         }
 #endif

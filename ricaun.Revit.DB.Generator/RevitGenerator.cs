@@ -83,10 +83,10 @@ namespace ricaun.Revit.DB.Generator
             {
                 var source = SourceText.From(
                     $$"""
-                            {{Create(name, result, methodName, methodExtension, where, param)}}
-                            {{Create(name, result, methodName, methodExtension, where, param, "BuiltInCategory category")}}
-                            {{Create(name, result, methodName, methodExtension, where, param, "BuiltInCategory category", "params IEnumerable<ElementFilter> filters")}}
-                            {{Create(name, result, methodName, methodExtension, where, param, "params IEnumerable<ElementFilter> filters")}}
+                    {{Create(name, result, methodName, methodExtension, where, param)}}
+                    {{Create(name, result, methodName, methodExtension, where, param, "BuiltInCategory category")}}
+                    {{Create(name, result, methodName, methodExtension, where, param, "BuiltInCategory category", "params IEnumerable<ElementFilter> filters")}}
+                    {{Create(name, result, methodName, methodExtension, where, param, "params IEnumerable<ElementFilter> filters")}}
                     """, Encoding.UTF8);
                 return source;
             }
@@ -106,7 +106,7 @@ namespace ricaun.Revit.DB.Generator
                 var mainMethodExtension = !string.IsNullOrWhiteSpace(methodExtension) ? $".{methodExtension}()" : string.Empty;
                 return
                     $$"""
-                    public static {{result}} {{name}}({{mainArgs}}) {{where}}=> document.{{methodName}}({{methodArgs}}){{mainMethodExtension}};
+                            public static {{result}} {{name}}({{mainArgs}}) {{where}}=> document.{{methodName}}({{methodArgs}}){{mainMethodExtension}};
                     """;
             }
         }
