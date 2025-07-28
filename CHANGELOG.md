@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add `RevitElementIdExtensionTest` and `RevitElementIdToElementExtensionTest` tests for `ElementIdExtension`.
 - Add `RevitFilterCategoryExtension` tests for `FilterBuiltInCategoryExtension`.
 - Add `RevitSelectElementExtensionTest` tests for select and get elements with filters.
+- Add `RevitRuleExtensionTest` test for `FilterRuleExtension`.
 ### Shapes
 - Add `CreateSwept` to `ShapeCreator` to create a swept solid.
 ### Generator
