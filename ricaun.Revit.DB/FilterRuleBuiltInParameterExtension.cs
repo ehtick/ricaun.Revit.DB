@@ -57,7 +57,7 @@ namespace ricaun.Revit.DB
         /// <param name="builtInParameter">The built-in parameter to check.</param>
         /// <param name="ruleString">The string value to evaluate.</param>
         /// <returns>A <see cref="FilterRule"/> based on the string evaluator.</returns>
-        public static FilterRule Rule<T>(this BuiltInParameter builtInParameter, string ruleString) where T : FilterStringRuleEvaluator, new()
+        public static FilterStringRule Rule<T>(this BuiltInParameter builtInParameter, string ruleString) where T : FilterStringRuleEvaluator, new()
         {
             return new T().Rule(builtInParameter, ruleString);
         }
@@ -69,7 +69,7 @@ namespace ricaun.Revit.DB
         /// <param name="builtInParameter">The built-in parameter to check.</param>
         /// <param name="ruleValue">The <see cref="Autodesk.Revit.DB.ElementId"/> value to evaluate.</param>
         /// <returns>A <see cref="FilterRule"/> based on the numeric evaluator.</returns>
-        public static FilterRule Rule<T>(this BuiltInParameter builtInParameter, ElementId ruleValue) where T : FilterNumericRuleEvaluator, new()
+        public static FilterElementIdRule Rule<T>(this BuiltInParameter builtInParameter, ElementId ruleValue) where T : FilterNumericRuleEvaluator, new()
         {
             return new T().Rule(builtInParameter, ruleValue);
         }
@@ -81,7 +81,7 @@ namespace ricaun.Revit.DB
         /// <param name="builtInParameter">The built-in parameter to check.</param>
         /// <param name="ruleValue">The integer value to evaluate.</param>
         /// <returns>A <see cref="FilterRule"/> based on the numeric evaluator.</returns>
-        public static FilterRule Rule<T>(this BuiltInParameter builtInParameter, int ruleValue) where T : FilterNumericRuleEvaluator, new()
+        public static FilterIntegerRule Rule<T>(this BuiltInParameter builtInParameter, int ruleValue) where T : FilterNumericRuleEvaluator, new()
         {
             return new T().Rule(builtInParameter, ruleValue);
         }
@@ -93,7 +93,7 @@ namespace ricaun.Revit.DB
         /// <param name="builtInParameter">The built-in parameter to check.</param>
         /// <param name="ruleValue">The double value to evaluate.</param>
         /// <returns>A <see cref="FilterRule"/> based on the numeric evaluator.</returns>
-        public static FilterRule Rule<T>(this BuiltInParameter builtInParameter, double ruleValue) where T : FilterNumericRuleEvaluator, new()
+        public static FilterDoubleRule Rule<T>(this BuiltInParameter builtInParameter, double ruleValue) where T : FilterNumericRuleEvaluator, new()
         {
             return new T().Rule(builtInParameter, ruleValue);
         }
@@ -106,7 +106,7 @@ namespace ricaun.Revit.DB
         /// <param name="ruleValue">The double value to evaluate.</param>
         /// <param name="epsilon">The tolerance for the evaluation.</param>
         /// <returns>A <see cref="FilterRule"/> based on the numeric evaluator.</returns>
-        public static FilterRule Rule<T>(this BuiltInParameter builtInParameter, double ruleValue, double epsilon) where T : FilterNumericRuleEvaluator, new()
+        public static FilterDoubleRule Rule<T>(this BuiltInParameter builtInParameter, double ruleValue, double epsilon) where T : FilterNumericRuleEvaluator, new()
         {
             return new T().Rule(builtInParameter, ruleValue, epsilon);
         }
@@ -156,14 +156,14 @@ namespace ricaun.Revit.DB
         }
 
         /// <summary>
-        /// Creates an <see cref="ElementParameterFilter"/> using a numeric-based evaluator with an <see cref="ElementId"/> value,
+        /// Creates an <see cref="ElementParameterFilter"/> using a numeric-based evaluator with an <see cref="Autodesk.Revit.DB.ElementId"/> value,
         /// and allows specifying whether the filter is inverted.
         /// </summary>
         /// <typeparam name="T">
         /// The type of the numeric rule evaluator, which must inherit from <see cref="FilterNumericRuleEvaluator"/> and have a parameterless constructor.
         /// </typeparam>
         /// <param name="builtInParameter">The built-in parameter to check.</param>
-        /// <param name="ruleValue">The <see cref="ElementId"/> value to evaluate against the parameter.</param>
+        /// <param name="ruleValue">The <see cref="Autodesk.Revit.DB.ElementId"/> value to evaluate against the parameter.</param>
         /// <param name="inverted">
         /// If <c>true</c>, the filter will be inverted, selecting elements that do not match the rule; otherwise, it will select elements that match.
         /// </param>
@@ -325,21 +325,21 @@ namespace ricaun.Revit.DB
         public static ElementParameterFilter Filter(this BuiltInParameter builtInParameter, int ruleValue, bool inverted) => builtInParameter.Filter<FilterNumericEquals>(ruleValue, inverted);
 
         /// <summary>
-        /// Creates an <see cref="ElementParameterFilter"/> that checks if the parameter value equals the specified <see cref="ElementId"/>.
+        /// Creates an <see cref="ElementParameterFilter"/> that checks if the parameter value equals the specified <see cref="Autodesk.Revit.DB.ElementId"/>.
         /// </summary>
         /// <param name="builtInParameter">The built-in parameter to check.</param>
-        /// <param name="ruleValue">The <see cref="ElementId"/> value to compare against the parameter value.</param>
+        /// <param name="ruleValue">The <see cref="Autodesk.Revit.DB.ElementId"/> value to compare against the parameter value.</param>
         /// <returns>
         /// An <see cref="ElementParameterFilter"/> that filters elements whose parameter value equals <paramref name="ruleValue"/>.
         /// </returns>
         public static ElementParameterFilter Filter(this BuiltInParameter builtInParameter, ElementId ruleValue) => builtInParameter.Filter<FilterNumericEquals>(ruleValue);
 
         /// <summary>
-        /// Creates an <see cref="ElementParameterFilter"/> that checks if the parameter value equals the specified <see cref="ElementId"/>,
+        /// Creates an <see cref="ElementParameterFilter"/> that checks if the parameter value equals the specified <see cref="Autodesk.Revit.DB.ElementId"/>,
         /// and allows specifying whether the filter is inverted.
         /// </summary>
         /// <param name="builtInParameter">The built-in parameter to check.</param>
-        /// <param name="ruleValue">The <see cref="ElementId"/> value to compare against the parameter value.</param>
+        /// <param name="ruleValue">The <see cref="Autodesk.Revit.DB.ElementId"/> value to compare against the parameter value.</param>
         /// <param name="inverted">
         /// If <c>true</c>, the filter will be inverted, selecting elements that do not match the rule; otherwise, it will select elements that match.
         /// </param>
@@ -409,7 +409,7 @@ namespace ricaun.Revit.DB
         /// <returns>
         /// A <see cref="FilterRule"/> that evaluates whether the parameter value equals <paramref name="ruleString"/>.
         /// </returns>
-        public static FilterRule Rule(this BuiltInParameter builtInParameter, string ruleString) => builtInParameter.Rule<FilterStringEquals>(ruleString);
+        public static FilterStringRule Rule(this BuiltInParameter builtInParameter, string ruleString) => builtInParameter.Rule<FilterStringEquals>(ruleString);
 
         /// <summary>
         /// Creates a <see cref="FilterRule"/> that checks if the parameter value equals the specified integer.
@@ -419,17 +419,17 @@ namespace ricaun.Revit.DB
         /// <returns>
         /// A <see cref="FilterRule"/> that evaluates whether the parameter value equals <paramref name="ruleValue"/>.
         /// </returns>
-        public static FilterRule Rule(this BuiltInParameter builtInParameter, int ruleValue) => builtInParameter.Rule<FilterNumericEquals>(ruleValue);
+        public static FilterIntegerRule Rule(this BuiltInParameter builtInParameter, int ruleValue) => builtInParameter.Rule<FilterNumericEquals>(ruleValue);
 
         /// <summary>
-        /// Creates a <see cref="FilterRule"/> that checks if the parameter value equals the specified <see cref="ElementId"/>.
+        /// Creates a <see cref="FilterRule"/> that checks if the parameter value equals the specified <see cref="Autodesk.Revit.DB.ElementId"/>.
         /// </summary>
         /// <param name="builtInParameter">The built-in parameter to check.</param>
-        /// <param name="ruleValue">The <see cref="ElementId"/> value to compare against the parameter value.</param>
+        /// <param name="ruleValue">The <see cref="Autodesk.Revit.DB.ElementId"/> value to compare against the parameter value.</param>
         /// <returns>
         /// A <see cref="FilterRule"/> that evaluates whether the parameter value equals <paramref name="ruleValue"/>.
         /// </returns>
-        public static FilterRule Rule(this BuiltInParameter builtInParameter, ElementId ruleValue) => builtInParameter.Rule<FilterNumericEquals>(ruleValue);
+        public static FilterElementIdRule Rule(this BuiltInParameter builtInParameter, ElementId ruleValue) => builtInParameter.Rule<FilterNumericEquals>(ruleValue);
 
         /// <summary>
         /// Creates a <see cref="FilterRule"/> that checks if the parameter value equals the specified double.
@@ -439,7 +439,7 @@ namespace ricaun.Revit.DB
         /// <returns>
         /// A <see cref="FilterRule"/> that evaluates whether the parameter value equals <paramref name="ruleValue"/>.
         /// </returns>
-        public static FilterRule Rule(this BuiltInParameter builtInParameter, double ruleValue) => builtInParameter.Rule<FilterNumericEquals>(ruleValue);
+        public static FilterDoubleRule Rule(this BuiltInParameter builtInParameter, double ruleValue) => builtInParameter.Rule<FilterNumericEquals>(ruleValue);
 
         /// <summary>
         /// Creates a <see cref="FilterRule"/> that checks if the parameter value equals the specified double within a given tolerance.
@@ -450,7 +450,7 @@ namespace ricaun.Revit.DB
         /// <returns>
         /// A <see cref="FilterRule"/> that evaluates whether the parameter value equals <paramref name="ruleValue"/> within <paramref name="epsilon"/> tolerance.
         /// </returns>
-        public static FilterRule Rule(this BuiltInParameter builtInParameter, double ruleValue, double epsilon) => builtInParameter.Rule<FilterNumericEquals>(ruleValue, epsilon);
+        public static FilterDoubleRule Rule(this BuiltInParameter builtInParameter, double ruleValue, double epsilon) => builtInParameter.Rule<FilterNumericEquals>(ruleValue, epsilon);
         #endregion
     }
 }
