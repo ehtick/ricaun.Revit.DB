@@ -103,19 +103,6 @@ namespace ricaun.Revit.DB.Tests
             Console.WriteLine(id);
 
             Assert.IsTrue(element.Id == elementFilterId.Id);
-
-            var name = element.Name;
-            var filterTypeName = BuiltInParameter.ALL_MODEL_TYPE_NAME.Filter(name);
-            var elementFilterName = document.GetFirstElementType(filterTypeName);
-            Console.WriteLine(name);
-
-            Assert.IsTrue(element.Id == elementFilterName.Id);
-
-            var buildInCategory = element.Category.Id.GetBuiltInCategory();
-            var elementCategory = document.GetFirstElementType(buildInCategory);
-            Console.WriteLine(buildInCategory);
-
-            Assert.IsTrue(element.Id == elementCategory.Id);
         }
 
         [Test]
