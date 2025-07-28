@@ -14,7 +14,7 @@ namespace ricaun.Revit.DB
         /// </summary>
         /// <param name="filters">The collection of <see cref="Autodesk.Revit.DB.FilterRule"/> objects.</param>
         /// <returns>An <see cref="ElementParameterFilter"/> created from the provided filter rules.</returns>
-        public static ElementParameterFilter ToElementFilter(this IEnumerable<FilterRule> filters)
+        public static ElementParameterFilter Filter(this IEnumerable<FilterRule> filters)
         {
             return new ElementParameterFilter(filters.ToList());
         }
@@ -25,7 +25,7 @@ namespace ricaun.Revit.DB
         /// <param name="filters">The collection of <see cref="Autodesk.Revit.DB.FilterRule"/> objects.</param>
         /// <param name="inverted">A boolean indicating whether the filter should be inverted.</param>
         /// <returns>An <see cref="ElementParameterFilter"/> created from the provided filter rules, with the specified inversion setting.</returns>
-        public static ElementParameterFilter ToElementFilter(this IEnumerable<FilterRule> filters, bool inverted)
+        public static ElementParameterFilter Filter(this IEnumerable<FilterRule> filters, bool inverted)
         {
             return new ElementParameterFilter(filters.ToList(), inverted);
         }
@@ -35,7 +35,7 @@ namespace ricaun.Revit.DB
         /// </summary>
         /// <param name="filter">The <see cref="Autodesk.Revit.DB.FilterRule"/> to convert.</param>
         /// <returns>An <see cref="ElementParameterFilter"/> created from the provided filter rule.</returns>
-        public static ElementParameterFilter ToElementFilter(this FilterRule filter)
+        public static ElementParameterFilter Filter(this FilterRule filter)
         {
             return new ElementParameterFilter(filter);
         }
@@ -46,7 +46,7 @@ namespace ricaun.Revit.DB
         /// <param name="filter">The <see cref="Autodesk.Revit.DB.FilterRule"/> to convert.</param>
         /// <param name="inverted">A boolean indicating whether the filter should be inverted.</param>
         /// <returns>An <see cref="ElementParameterFilter"/> created from the provided filter rule, with the specified inversion setting.</returns>
-        public static ElementParameterFilter ToElementFilter(this FilterRule filter, bool inverted)
+        public static ElementParameterFilter Filter(this FilterRule filter, bool inverted)
         {
             return new ElementParameterFilter(filter, inverted);
         }

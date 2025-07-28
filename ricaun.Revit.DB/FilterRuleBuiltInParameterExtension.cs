@@ -36,7 +36,7 @@ namespace ricaun.Revit.DB
         /// <returns>An <see cref="ElementParameterFilter"/> that checks for no value.</returns>
         public static ElementParameterFilter FilterHasNoValue(this BuiltInParameter builtInParameter)
         {
-            return builtInParameter.RuleHasNoValue().ToElementFilter();
+            return builtInParameter.RuleHasNoValue().Filter();
         }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace ricaun.Revit.DB
         /// <returns>An <see cref="ElementParameterFilter"/> that checks for a value.</returns>
         public static ElementParameterFilter FilterHasValue(this BuiltInParameter builtInParameter)
         {
-            return builtInParameter.RuleHasValue().ToElementFilter();
+            return builtInParameter.RuleHasValue().Filter();
         }
 #endif
 
@@ -120,7 +120,7 @@ namespace ricaun.Revit.DB
         /// <returns>An <see cref="ElementParameterFilter"/> based on the string evaluator.</returns>
         public static ElementParameterFilter Filter<T>(this BuiltInParameter builtInParameter, string ruleString) where T : FilterStringRuleEvaluator, new()
         {
-            return builtInParameter.Rule<T>(ruleString).ToElementFilter();
+            return builtInParameter.Rule<T>(ruleString).Filter();
         }
 
         /// <summary>
@@ -140,7 +140,7 @@ namespace ricaun.Revit.DB
         /// </returns>
         public static ElementParameterFilter Filter<T>(this BuiltInParameter builtInParameter, string ruleString, bool inverted) where T : FilterStringRuleEvaluator, new()
         {
-            return builtInParameter.Rule<T>(ruleString).ToElementFilter(inverted);
+            return builtInParameter.Rule<T>(ruleString).Filter(inverted);
         }
 
         /// <summary>
@@ -152,7 +152,7 @@ namespace ricaun.Revit.DB
         /// <returns>An <see cref="ElementParameterFilter"/> based on the numeric evaluator.</returns>
         public static ElementParameterFilter Filter<T>(this BuiltInParameter builtInParameter, ElementId ruleValue) where T : FilterNumericRuleEvaluator, new()
         {
-            return builtInParameter.Rule<T>(ruleValue).ToElementFilter();
+            return builtInParameter.Rule<T>(ruleValue).Filter();
         }
 
         /// <summary>
@@ -172,7 +172,7 @@ namespace ricaun.Revit.DB
         /// </returns>
         public static ElementParameterFilter Filter<T>(this BuiltInParameter builtInParameter, ElementId ruleValue, bool inverted) where T : FilterNumericRuleEvaluator, new()
         {
-            return builtInParameter.Rule<T>(ruleValue).ToElementFilter(inverted);
+            return builtInParameter.Rule<T>(ruleValue).Filter(inverted);
         }
 
         /// <summary>
@@ -184,7 +184,7 @@ namespace ricaun.Revit.DB
         /// <returns>An <see cref="ElementParameterFilter"/> based on the numeric evaluator.</returns>
         public static ElementParameterFilter Filter<T>(this BuiltInParameter builtInParameter, int ruleValue) where T : FilterNumericRuleEvaluator, new()
         {
-            return builtInParameter.Rule<T>(ruleValue).ToElementFilter();
+            return builtInParameter.Rule<T>(ruleValue).Filter();
         }
 
         /// <summary>
@@ -204,7 +204,7 @@ namespace ricaun.Revit.DB
         /// </returns>
         public static ElementParameterFilter Filter<T>(this BuiltInParameter builtInParameter, int ruleValue, bool inverted) where T : FilterNumericRuleEvaluator, new()
         {
-            return builtInParameter.Rule<T>(ruleValue).ToElementFilter(inverted);
+            return builtInParameter.Rule<T>(ruleValue).Filter(inverted);
         }
 
         /// <summary>
@@ -216,7 +216,7 @@ namespace ricaun.Revit.DB
         /// <returns>An <see cref="ElementParameterFilter"/> based on the numeric evaluator.</returns>
         public static ElementParameterFilter Filter<T>(this BuiltInParameter builtInParameter, double ruleValue) where T : FilterNumericRuleEvaluator, new()
         {
-            return builtInParameter.Rule<T>(ruleValue).ToElementFilter();
+            return builtInParameter.Rule<T>(ruleValue).Filter();
         }
 
         /// <summary>
@@ -236,7 +236,7 @@ namespace ricaun.Revit.DB
         /// </returns>
         public static ElementParameterFilter Filter<T>(this BuiltInParameter builtInParameter, double ruleValue, bool inverted) where T : FilterNumericRuleEvaluator, new()
         {
-            return builtInParameter.Rule<T>(ruleValue).ToElementFilter(inverted);
+            return builtInParameter.Rule<T>(ruleValue).Filter(inverted);
         }
 
         /// <summary>
@@ -249,7 +249,7 @@ namespace ricaun.Revit.DB
         /// <returns>An <see cref="ElementParameterFilter"/> based on the numeric evaluator.</returns>
         public static ElementParameterFilter Filter<T>(this BuiltInParameter builtInParameter, double ruleValue, double epsilon) where T : FilterNumericRuleEvaluator, new()
         {
-            return builtInParameter.Rule<T>(ruleValue, epsilon).ToElementFilter();
+            return builtInParameter.Rule<T>(ruleValue, epsilon).Filter();
         }
 
         /// <summary>
@@ -270,7 +270,7 @@ namespace ricaun.Revit.DB
         /// </returns>
         public static ElementParameterFilter Filter<T>(this BuiltInParameter builtInParameter, double ruleValue, double epsilon, bool inverted) where T : FilterNumericRuleEvaluator, new()
         {
-            return builtInParameter.Rule<T>(ruleValue, epsilon).ToElementFilter(inverted);
+            return builtInParameter.Rule<T>(ruleValue, epsilon).Filter(inverted);
         }
 
         #region Equals Filters

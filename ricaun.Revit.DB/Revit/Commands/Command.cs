@@ -97,7 +97,7 @@ namespace ricaun.Revit.DB.Revit.Commands
 
             {
                 var filterInverted = BuiltInParameter.SYMBOL_ID_PARAM.Rule(ElementId.InvalidElementId)
-                    .ToElementFilter(true);
+                    .Filter(true);
 
                 filterInverted = BuiltInParameter.SYMBOL_ID_PARAM.Filter(ElementId.InvalidElementId, true);
 
