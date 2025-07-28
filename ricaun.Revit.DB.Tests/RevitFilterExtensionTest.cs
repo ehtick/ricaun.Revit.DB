@@ -247,7 +247,7 @@ namespace ricaun.Revit.DB.Tests
             var filter = builtInParameter.Filter(value);
             AssertParameterFilter<FilterNumericEquals>(filter);
 
-            filter = builtInParameter.Filter<FilterNumericEquals>(value,inverted);
+            filter = builtInParameter.Filter<FilterNumericEquals>(value, inverted);
             AssertParameterFilter<FilterNumericEquals>(filter);
             filter = builtInParameter.Filter<FilterNumericGreater>(value);
             AssertParameterFilter<FilterNumericGreater>(filter);
