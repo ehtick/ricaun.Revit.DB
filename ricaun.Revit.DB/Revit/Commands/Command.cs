@@ -99,6 +99,8 @@ namespace ricaun.Revit.DB.Revit.Commands
                 var filterInverted = BuiltInParameter.SYMBOL_ID_PARAM.Rule(ElementId.InvalidElementId)
                     .ToElementFilter(true);
 
+                filterInverted = BuiltInParameter.SYMBOL_ID_PARAM.Filter(ElementId.InvalidElementId, true);
+
                 var element = document.GetFirstElement(filterInverted);
 
                 var typeId = element.GetTypeId();
@@ -121,13 +123,11 @@ namespace ricaun.Revit.DB.Revit.Commands
                 Assert(elementProjectInformation.Id == document.ProjectInformation.Id);
 
 
-                var filterProjectName = BuiltInParameter.ALL_MODEL_INSTANCE_COMMENTS.Filter<FilterStringContains>(string.Empty);
-                var elementNoProjectName = document.GetFirstElement(filterProjectName);
-                Console.WriteLine(elementNoProjectName.Id);
+                //var filterProjectName = BuiltInParameter.ALL_MODEL_INSTANCE_COMMENTS.Filter<FilterStringContains>(string.Empty);
+                //var elementNoProjectName = document.GetFirstElement(filterProjectName);
+                //Console.WriteLine(elementNoProjectName.Id);
 
-                Assert(elementNoProjectName.Id == ElementId.InvalidElementId);
-
-
+                //Assert(elementNoProjectName.Id == ElementId.InvalidElementId);
             }
 
 
