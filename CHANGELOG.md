@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Update `ElementIdExtension` to fix `ElementIdValue`.
 ### Tests
 - Add `ricaun.Revit.DB.Tests` to test `Select` extension for `Element` and `ElementType`.
+- Add `RevitFilterExtensionTest` tests for `ElementFilterExtension`.
 ### Shapes
 - Add `CreateSwept` to `ShapeCreator` to create a swept solid.
 ### Generator

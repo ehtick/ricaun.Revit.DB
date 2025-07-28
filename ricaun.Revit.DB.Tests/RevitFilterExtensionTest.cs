@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace ricaun.Revit.DB.Tests
 {
-    public class RevitFilterExtension
+    public class RevitFilterExtensionTest
     {
         const double Epsilon = 1e-6;
         const BuiltInParameter builtInParameter = BuiltInParameter.ID_PARAM;
@@ -335,5 +335,41 @@ namespace ricaun.Revit.DB.Tests
             var evaluator = GetEvaluator(firstRule);
             Assert.IsAssignableFrom<TRuleEvaluator>(evaluator);
         }
+
+#if !NET47
+        [Test]
+        public void RuleHasValue()
+        {
+            var rule = builtInParameter.RuleHasValue();
+            Assert.IsNotNull(rule);
+            Assert.IsAssignableFrom<HasValueFilterRule>(rule);
+        }
+
+        [Test]
+        public void RuleHasNoValue()
+        {
+            var rule = builtInParameter.RuleHasNoValue();
+            Assert.IsNotNull(rule);
+            Assert.IsAssignableFrom<HasNoValueFilterRule>(rule);
+        }
+
+        [Test]
+        public void FilterHasValue()
+        {
+            var filter = builtInParameter.FilterHasValue();
+            Assert.IsNotNull(filter);
+            Assert.IsAssignableFrom<ElementParameterFilter>(filter);
+            Assert.IsAssignableFrom<HasValueFilterRule>(filter.GetRules().FirstOrDefault());
+        }
+
+        [Test]
+        public void FilterHasNoValue()
+        {
+            var filter = builtInParameter.FilterHasNoValue();
+            Assert.IsNotNull(filter);
+            Assert.IsAssignableFrom<ElementParameterFilter>(filter);
+            Assert.IsAssignableFrom<HasNoValueFilterRule>(filter.GetRules().FirstOrDefault());
+        }
+#endif
     }
 }

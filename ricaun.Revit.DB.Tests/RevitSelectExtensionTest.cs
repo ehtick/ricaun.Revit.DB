@@ -4,7 +4,7 @@ using ricaun.Revit.DB.Tests.Utils;
 
 namespace ricaun.Revit.DB.Tests
 {
-    public class RevitSelectExtension : OneTimeOpenDocumentTest
+    public class RevitSelectExtensionTest : OneTimeOpenDocumentTest
     {
         [Test]
         public void SelectExtensions()
