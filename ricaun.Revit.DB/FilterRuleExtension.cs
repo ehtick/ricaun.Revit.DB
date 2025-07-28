@@ -17,7 +17,7 @@ namespace ricaun.Revit.DB
         /// </summary>
         /// <param name="filterRule">The filter rule to invert.</param>
         /// <returns>A new <see cref="Autodesk.Revit.DB.FilterInverseRule"/> that represents the inverse of the given filter rule.</returns>
-        public static FilterRule InverseRule(this FilterRule filterRule)
+        public static FilterInverseRule InverseRule(this FilterRule filterRule)
         {
             return new FilterInverseRule(filterRule);
         }

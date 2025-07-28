@@ -10,6 +10,17 @@ namespace ricaun.Revit.DB.Tests
         const BuiltInParameter builtInParameter = BuiltInParameter.ID_PARAM;
 
         [Test]
+        public void RuleInverse()
+        {
+            var rule = builtInParameter.Rule(string.Empty);
+            var inverse = rule.InverseRule();
+            Assert.IsNotNull(inverse);
+
+            Assert.IsAssignableFrom<FilterInverseRule>(inverse);
+            Assert.IsAssignableFrom(rule.GetType(), inverse.GetInnerRule());
+        }
+
+        [Test]
         public void RuleIsNotNull()
         {
             var ruleString = builtInParameter.Rule(string.Empty);
