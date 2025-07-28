@@ -157,10 +157,12 @@ namespace ricaun.Revit.DB.Tests
 
                 var elementType = document.GetFirstElementType(builtInParameter.Filter(value));
                 var elementTypes = document.GetElementTypes(builtInParameter.Filter(value));
+                var elementTypeIdLower = document.GetFirstElementTypeId(builtInParameter.Filter(value.ToLowerInvariant()));
 
                 Assert.AreEqual(1, elementTypes.Count);
                 Assert.IsTrue(elementType.Id == id);
                 Assert.IsTrue(elementTypes.First().Id == id);
+                Assert.IsTrue(elementTypeIdLower == id);
             }
 
             var beginWithComments = document.GetElementTypes(builtInParameter.Filter<FilterStringBeginsWith>(comments));
