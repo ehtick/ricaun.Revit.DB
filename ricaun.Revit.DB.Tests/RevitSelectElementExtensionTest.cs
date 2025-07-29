@@ -128,7 +128,7 @@ namespace ricaun.Revit.DB.Tests
         }
 
         [Test]
-        public void SelectTransactionComment()
+        public void SelectTransaction_String_Comment()
         {
             var comments = "Comments";
             var builtInParameter = BuiltInParameter.ALL_MODEL_TYPE_COMMENTS;
@@ -174,6 +174,56 @@ namespace ricaun.Revit.DB.Tests
 
             var containsComments = document.GetElementTypes(builtInParameter.Filter<FilterStringContains>(comments));
             Assert.AreEqual(dictionary.Count, containsComments.Count);
+        }
+
+        [Test]
+        public void SelectTransaction_Double_Cost()
+        {
+            var cost = 0.0;
+            var builtInParameter = BuiltInParameter.ALL_MODEL_COST;
+            var elements = document.GetElementTypes();
+
+            var dictionary = new Dictionary<ElementId, double>();
+            using (Transaction transaction = new Transaction(document))
+            {
+                transaction.Start("Update Cost");
+                foreach (var element in elements)
+                {
+                    if (element.get_Parameter(builtInParameter) is Parameter parameter)
+                    {
+                        if (parameter.IsReadOnly) continue;
+                        var value = cost;
+                        cost += 1.23;
+                        dictionary.Add(element.Id, value);
+                        parameter.Set(value);
+                    }
+                }
+                transaction.Commit();
+            }
+
+            Console.WriteLine($"Count: {dictionary.Count}");
+
+            foreach (var item in dictionary)
+            {
+                var id = item.Key;
+                var value = item.Value;
+
+                var elementType = document.GetFirstElementType(builtInParameter.Filter(value));
+                var elementTypes = document.GetElementTypes(builtInParameter.Filter(value));
+
+                Assert.AreEqual(1, elementTypes.Count);
+                Assert.IsTrue(elementType.Id == id);
+                Assert.IsTrue(elementTypes.First().Id == id);
+            }
+
+            var greaterOrEqualToZero = document.GetElementTypes(builtInParameter.Filter<FilterNumericGreaterOrEqual>(0.0));
+            Assert.AreEqual(dictionary.Count, greaterOrEqualToZero.Count);
+
+            var lessOrEqualToZero = document.GetElementTypes(builtInParameter.Filter<FilterNumericLessOrEqual>(0.0));
+            Assert.AreEqual(1, lessOrEqualToZero.Count);
+
+            var lessOrEqualToCost = document.GetElementTypes(builtInParameter.Filter<FilterNumericLessOrEqual>(cost));
+            Assert.AreEqual(dictionary.Count, lessOrEqualToCost.Count);
         }
     }
 }
