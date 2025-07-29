@@ -40,13 +40,17 @@ namespace ricaun.Revit.DB.Tests
         }
 
         [Test]
-        public void SelectElementFamilySymbolAndInstance()
+        public void SelectElementFamilySymbol()
         {
             var familySymbolCollector = document.Select<FamilySymbol>();
-            var familyInstanceCollector = document.Select<FamilyInstance>();
 
-            Assert.IsTrue(familySymbolCollector.FirstElement() is null);
-            Assert.IsTrue(familySymbolCollector.FirstElementId() == ElementId.InvalidElementId);
+            Assert.IsTrue(familySymbolCollector.FirstElement().Id == familySymbolCollector.FirstElementId());
+        }
+
+        [Test]
+        public void SelectElementFamilyInstance()
+        {
+            var familyInstanceCollector = document.Select<FamilyInstance>();
 
             Assert.IsTrue(familyInstanceCollector.FirstElement() is null);
             Assert.IsTrue(familyInstanceCollector.FirstElementId() == ElementId.InvalidElementId);
