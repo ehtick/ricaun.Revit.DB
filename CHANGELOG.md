@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Update `ElementIdExtension` to fix `ElementIdValue`.
 - Add `FilterBuiltInCategoryExtension` to support filter by `BuiltInCategory`.
 - Update `InverseRule` in `FilterRuleExtension`.
+- Fix `WhereElementIs` to use `IsAssignableFrom` in the correct way with `ElementType`.
 ### Tests
 - Add `ricaun.Revit.DB.Tests` to test `Select` extension for `Element` and `ElementType`.
 - Add `RevitFilterExtensionTest` tests for `ElementFilterExtension`.
@@ -22,6 +23,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add `RevitFilterCategoryExtension` tests for `FilterBuiltInCategoryExtension`.
 - Add `RevitSelectElementExtensionTest` tests for select and get elements with filters.
 - Add `RevitRuleExtensionTest` test for `FilterRuleExtension`.
+- Add `RevitSelectLevelExtensionTest` test to select `Level` and `LevelType`.
 ### Shapes
 - Add `CreateSwept` to `ShapeCreator` to create a swept solid.
 ### Generator

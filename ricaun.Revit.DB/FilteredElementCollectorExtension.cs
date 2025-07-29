@@ -37,7 +37,7 @@ namespace ricaun.Revit.DB
 
             collection.OfClass(type);
 
-            if (type.IsAssignableFrom(typeof(ElementType)))
+            if (typeof(ElementType).IsAssignableFrom(type))
                 return collection.WhereElementIsElementType();
 
             return collection.WhereElementIsNotElementType();
