@@ -45,18 +45,30 @@ namespace ricaun.Revit.DB.Shape
             return normal;
         }
 
-        internal static XYZ[] CreateCircleLoopVertices(XYZ origin, double radius, int sides = 3)
+        internal static XYZ[] CreateCircleLoopSides(XYZ origin, XYZ normal, double radius, int sides = 3)
         {
-            var loopBaseVertices = new XYZ[sides];
+            origin ??= XYZ.Zero;
+            normal ??= XYZ.BasisZ;
+
+            if (sides < 3) 
+                sides = 3;
+
+            var points = new List<XYZ>();
+            var circle = Arc.Create(Plane.CreateByNormalAndOrigin(normal, origin), radius, 0, 2.0 * Math.PI);
+
             for (int i = 0; i < sides; i++)
             {
-                var s = 2 * Math.PI * (double)i / sides;
-                var x = Math.Sin(s) * radius;
-                var y = Math.Cos(s) * radius;
-                var point = new XYZ(x, y, 0) + origin;
-                loopBaseVertices[i] = point;
+                var angle = 2.0 * Math.PI * (double)i / sides;
+                var point = circle.Evaluate(angle, false);
+                points.Add(point);
             }
-            return loopBaseVertices;
+
+            return points.ToArray();
+        }
+
+        internal static XYZ[] CreateCircleLoopSides(XYZ origin, double radius, int sides = 3)
+        {
+            return CreateCircleLoopSides(origin, XYZ.BasisZ, radius, sides);
         }
 
         internal static bool UpdateLoopWithTriangle(List<XYZ> loop, params XYZ[] values)

@@ -26,6 +26,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add `RevitSelectLevelExtensionTest` test to select `Level` and `LevelType`.
 ### Shapes
 - Add `CreateSwept` to `ShapeCreator` to create a swept solid.
+- Update `ShapeCreator` to fix `CreateLines` when `closed` to work with `CurveLoop`.
+- Add `CurveLoopUtils` to create `CurveLoop` from `XYZ` points and `Curve`.
 ### Generator
 - Add `SelectElements<T>` and `SelectElementTypes<T>` in the generator to generate `Select` extension methods for `Element` and `ElementType`.
 
