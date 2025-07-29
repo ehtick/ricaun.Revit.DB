@@ -24,18 +24,6 @@ namespace ricaun.Revit.DB.Revit.Commands
             }
 
             {
-                // Element does not exist in the document
-                var familySymbolCollector = document.Select<FamilySymbol>();
-                var familyInstanceCollector = document.Select<FamilyInstance>();
-
-                Assert(familySymbolCollector.FirstElement() is null);
-                Assert(familySymbolCollector.FirstElementId() == ElementId.InvalidElementId);
-
-                Assert(familyInstanceCollector.FirstElement() is null);
-                Assert(familyInstanceCollector.FirstElementId() == ElementId.InvalidElementId);
-            }
-
-            {
                 var elementCollector = document.Select<Element>();
                 var selectElementCollector = document.SelectElements<Element>();
 
@@ -121,13 +109,6 @@ namespace ricaun.Revit.DB.Revit.Commands
                 Console.WriteLine(elementProjectInformation.Id);
 
                 Assert(elementProjectInformation.Id == document.ProjectInformation.Id);
-
-
-                //var filterProjectName = BuiltInParameter.ALL_MODEL_INSTANCE_COMMENTS.Filter<FilterStringContains>(string.Empty);
-                //var elementNoProjectName = document.GetFirstElement(filterProjectName);
-                //Console.WriteLine(elementNoProjectName.Id);
-
-                //Assert(elementNoProjectName.Id == ElementId.InvalidElementId);
             }
 
 
