@@ -44,6 +44,26 @@ namespace ricaun.Revit.DB
         }
 
         /// <summary>
+        /// Converts a collection of Elements to a collection of ElementIds.
+        /// </summary>
+        /// <param name="elementIds">The collection of Elements to convert.</param>
+        /// <returns>
+        /// A collection of corresponding ElementIds as a <see cref="HashSet{ElementId}"/> to ensure uniqueness.
+        /// </returns>
+        /// <remarks>
+        /// Uses <see cref="HashSet{ElementId}"/> for efficient lookups and to avoid duplicate ElementIds.
+        /// </remarks>
+        public static ICollection<ElementId> ToElementIds(this IEnumerable<Element> elementIds)
+        {
+            return elementIds.Select(e => e.Id).ToHashSet();
+        }
+#if NET47
+        private static HashSet<TSource> ToHashSet<TSource>(this IEnumerable<TSource> source)
+        {
+            return new HashSet<TSource>(source);
+        }
+#endif
+        /// <summary>
         /// Converts a collection of ElementIds to a collection of a specific type of Elements.
         /// </summary>
         /// <typeparam name="TElement">The type of Elements to convert to.</typeparam>

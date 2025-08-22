@@ -1,5 +1,6 @@
 ﻿using Autodesk.Revit.DB;
 using NUnit.Framework;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace ricaun.Revit.DB.Tests
@@ -45,6 +46,28 @@ namespace ricaun.Revit.DB.Tests
 
             var element = id.ToElement<FamilyInstance>(document);
             Assert.IsNull(element);
+        }
+
+        [Test]
+        public void ProjectInformationToElementIds()
+        {
+            var projectInfos = document.GetElements<ProjectInfo>();
+            Assert.AreEqual(1, projectInfos.Count());
+
+            var projectInfoIds = projectInfos.ToElementIds();
+            Assert.AreEqual(1, projectInfoIds.Count());
+        }
+
+        [Test]
+        public void ProjectInformationToElementIds_HashSet()
+        {
+            var projectInfos = document.GetElements<ProjectInfo>();
+            var elements = new List<Element>(projectInfos);
+            elements.AddRange(projectInfos);
+
+            Assert.AreEqual(2, elements.Count);
+            var elementIds = elements.ToElementIds();
+            Assert.AreEqual(1, elementIds.Count());
         }
     }
 }
