@@ -72,7 +72,10 @@ namespace ricaun.Revit.DB
         /// <returns>A collection of corresponding Elements of type TElement.</returns>
         public static IEnumerable<TElement> ToElements<TElement>(this IEnumerable<ElementId> elementIds, Document document) where TElement : Element
         {
-            return elementIds.ToElements(document).OfType<TElement>();
+            if (elementIds is ICollection<ElementId> collectionIds)
+                return document.GetElements<TElement>(collectionIds);
+
+            return document.GetElements<TElement>(elementIds.ToArray());
         }
 
         /// <summary>

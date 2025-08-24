@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Update `InverseRule` in `FilterRuleExtension`.
 - Fix `WhereElementIs` to use `IsAssignableFrom` in the correct way with `ElementType`.
 - Update `ElementIdExtension` with method `ToElementIds` using `HashSet`.
+- Update `ElementIdExtension` with method `ToElement` to use `GetElements<T>`.
 ### Tests
 - Add `ricaun.Revit.DB.Tests` to test `Select` extension for `Element` and `ElementType`.
 - Add `RevitFilterExtensionTest` tests for `ElementFilterExtension`.
