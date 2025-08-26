@@ -32,12 +32,13 @@ namespace ricaun.Revit.DB.Generator
                         using Autodesk.Revit.DB;
                         namespace {{nameSpaceName}}
                         {
-                            #pragma warning disable CS1591
+                            /// <summary>
+                            /// Provides extension methods for the <see cref="Autodesk.Revit.DB.Document"/> class, this class is source generated.
+                            /// </summary>
                             public static partial class {{className}}
                             {
                         {{action.Invoke()}}
                             }
-                            #pragma warning restore CS1591
                         }
                         """, Encoding.UTF8)));
             }
@@ -102,12 +103,27 @@ namespace ricaun.Revit.DB.Generator
                 var list = new List<string>();
                 list.Add("this Document document");
                 list.AddRange(args);
-                string mainArgs = string.Join(", ", list);
+
+                var summary = $"{ToSummary(name)} in the Document.";
+                var mainArgs = string.Join(", ", list);
                 var mainMethodExtension = !string.IsNullOrWhiteSpace(methodExtension) ? $".{methodExtension}()" : string.Empty;
+                var methodFull = $"document.{methodName}({methodArgs}){mainMethodExtension}";
+                var remarks = $"<code>{ToSummary(methodFull)};</code>";
                 return
                     $$"""
-                            public static {{result}} {{name}}({{mainArgs}}) {{where}}=> document.{{methodName}}({{methodArgs}}){{mainMethodExtension}};
+                            /// <summary>
+                            /// {{summary}}
+                            /// </summary>
+                            /// <remarks>
+                            /// {{remarks}}
+                            /// </remarks>
+                            public static {{result}} {{name}}({{mainArgs}}) {{where}}=> {{methodFull}};
                     """;
+            }
+
+            string ToSummary(string value)
+            {
+                return value.Replace("<", "&lt;").Replace(">", "&gt;");
             }
         }
     }
