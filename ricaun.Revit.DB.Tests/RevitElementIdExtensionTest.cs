@@ -1,5 +1,6 @@
 ﻿using Autodesk.Revit.DB;
 using NUnit.Framework;
+using System;
 
 namespace ricaun.Revit.DB.Tests
 {
@@ -73,6 +74,52 @@ namespace ricaun.Revit.DB.Tests
             builtInParameter = BuiltInParameter.ID_PARAM;
             var builtInParameterId = new ElementId(builtInParameter);
             Assert.IsTrue(builtInParameterId.AreEquals(builtInParameter));
+        }
+
+        [Test]
+        public void ElementIdTryParse()
+        {
+            var elementId = ElementId.InvalidElementId;
+            Assert.IsTrue(elementId.TryParse(elementId.ToString(), out var id));
+            Assert.AreEqual(elementId, id);
+
+            elementId = new ElementId(BuiltInCategory.OST_ProjectInformation);
+            Assert.IsTrue(elementId.TryParse(elementId.ToString(), out id));
+            Assert.AreEqual(elementId, id);
+
+            elementId = new ElementId(BuiltInParameter.ALL_MODEL_INSTANCE_COMMENTS);
+            Assert.IsTrue(elementId.TryParse(elementId.ToString(), out id));
+            Assert.AreEqual(elementId, id);
+
+            Assert.IsTrue(elementId.TryParse("123456", out id));
+            Assert.IsTrue(elementId.TryParse("012345", out id));
+            Assert.IsTrue(elementId.TryParse("-12345", out id));
+
+            Assert.IsFalse(elementId.TryParse("1234.5", out id));
+            Assert.IsFalse(elementId.TryParse("1234a5", out id));
+            Assert.IsFalse(elementId.TryParse("12345a", out id));
+        }
+
+        [Test]
+        public void ElementIdParse()
+        {
+            var elementId = ElementId.InvalidElementId;
+            Assert.AreEqual(elementId, elementId.Parse(elementId.ToString()));
+
+            elementId = new ElementId(BuiltInCategory.OST_ProjectInformation);
+            Assert.AreEqual(elementId, elementId.Parse(elementId.ToString()));
+
+            elementId = new ElementId(BuiltInParameter.ALL_MODEL_INSTANCE_COMMENTS);
+            Assert.AreEqual(elementId, elementId.Parse(elementId.ToString()));
+
+            Assert.IsNotNull(elementId.Parse("123456"));
+            Assert.IsNotNull(elementId.Parse("012345"));
+            Assert.IsNotNull(elementId.Parse("-12345"));
+
+            Assert.Throws<InvalidOperationException>(() => elementId.Parse("1234.5"));
+            Assert.Throws<InvalidOperationException>(() => elementId.Parse("1234a5"));
+            Assert.Throws<InvalidOperationException>(() => elementId.Parse("12345a"));
+
         }
     }
 }

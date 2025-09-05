@@ -127,6 +127,61 @@ namespace ricaun.Revit.DB
 #endif
         }
 
+        /// <summary>
+        /// Attempts to parse a string value into an <see cref="Autodesk.Revit.DB.ElementId"/>.
+        /// </summary>
+        /// <param name="elementId">The <see cref="Autodesk.Revit.DB.ElementId"/> instance (not used, provided for extension method signature).</param>
+        /// <param name="value">The string value to parse.</param>
+        /// <param name="id">
+        /// When this method returns, contains the <see cref="Autodesk.Revit.DB.ElementId"/> value equivalent to the string contained in <paramref name="value"/>, if the conversion succeeded, or <c>null</c> if the conversion failed.
+        /// </param>
+        /// <returns>
+        /// <c>true</c> if <paramref name="value"/> was converted successfully; otherwise, <c>false</c>.
+        /// </returns>
+        public static bool TryParse(this ElementId elementId, string value, out ElementId id)
+        {
+            id = null;
+#if NET47
+            if (int.TryParse(value, out var intValue))
+            {
+                id = new ElementId(intValue);
+                return true;
+            }
+            return false;
+#elif NET48
+            if (long.TryParse(value, out var longValue))
+            {
+                id = ElementIdValue.New(longValue);
+                return true;
+            }
+            return false;
+#else
+            return ElementId.TryParse(value, out id);
+#endif
+        }
+
+        /// <summary>
+        /// Parses a string value into an <see cref="Autodesk.Revit.DB.ElementId"/>.
+        /// </summary>
+        /// <param name="elementId">
+        /// The <see cref="Autodesk.Revit.DB.ElementId"/> instance (not used, provided for extension method signature).
+        /// </param>
+        /// <param name="value">
+        /// The string value to parse into an <see cref="Autodesk.Revit.DB.ElementId"/>.
+        /// </param>
+        /// <returns>
+        /// The parsed <see cref="Autodesk.Revit.DB.ElementId"/> if successful.
+        /// </returns>
+        /// <exception cref="System.InvalidOperationException">
+        /// Thrown when <paramref name="value"/> is not a valid representation of an <see cref="Autodesk.Revit.DB.ElementId"/>.
+        /// </exception>
+        public static ElementId Parse(this ElementId elementId, string value)
+        {
+            if (elementId.TryParse(value, out var id))
+                return id;
+            throw new System.InvalidOperationException($"{value} is not a valid representation of an {nameof(ElementId)}.");
+        }
+
 #if NET48
         /// <summary>
         /// Helper class for retrieving the value of an ElementId in .NET Framework 4.8.
@@ -148,6 +203,40 @@ namespace ricaun.Revit.DB
                 var value = PropertyValue.GetValue(elementId);
                 if (value is long l) return l;
                 return (int)value;
+            }
+            /// <summary>
+            /// Stores the constructor info for <see cref="Autodesk.Revit.DB.ElementId"/> to optimize repeated instantiation.
+            /// </summary>
+            private static System.Reflection.ConstructorInfo _constructor;
+
+            /// <summary>
+            /// Stores the type of the constructor parameter for <see cref="Autodesk.Revit.DB.ElementId"/>.
+            /// </summary>
+            private static System.Type _constructorType;
+
+            /// <summary>
+            /// Creates a new <see cref="Autodesk.Revit.DB.ElementId"/> instance from the specified identifier.
+            /// </summary>
+            /// <param name="id">The identifier value.</param>
+            /// <returns>
+            /// A new <see cref="Autodesk.Revit.DB.ElementId"/> instance, or <c>null</c> if no suitable constructor is found.
+            /// </returns>
+            public static ElementId New(long id)
+            {
+                if (_constructor is not null)
+                    return _constructor.Invoke(new object[] { System.Convert.ChangeType(id, _constructorType) }) as ElementId;
+
+                var type = typeof(ElementId);
+                foreach (var constructorType in new[] { typeof(long), typeof(int) })
+                {
+                    _constructor = type.GetConstructor(new[] { constructorType });
+                    _constructorType = constructorType;
+                    if (_constructor is not null)
+                    {
+                        return New(id);
+                    }
+                }
+                return null;
             }
         }
 #endif
