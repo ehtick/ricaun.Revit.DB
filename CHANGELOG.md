@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fix `WhereElementIs` to use `IsAssignableFrom` in the correct way with `ElementType`.
 - Update `ElementIdExtension` with method `ToElementIds` using `HashSet`.
 - Update `ElementIdExtension` with method `ToElement` to use `GetElements<T>`.
+- Fix `ToElements<TElement>` when empty.
 ### Tests
 - Add `ricaun.Revit.DB.Tests` to test `Select` extension for `Element` and `ElementType`.
 - Add `RevitFilterExtensionTest` tests for `ElementFilterExtension`.
@@ -27,6 +28,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add `RevitRuleExtensionTest` tests for `FilterRuleExtension`.
 - Add `RevitSelectLevelExtensionTest` tests to select `Level` and `LevelType`.
 - Add `RevitSelectFamilyExtensionTest` tests to select `Family` and `FamilyType` by name.
+- Add `ToElements_WhenEmpty` tests for `ToElements<TElement>` when empty.
 ### Shapes
 - Add `CreateSwept` to `ShapeCreator` to create a swept solid.
 - Update `ShapeCreator` to fix `CreateLines` when `closed` to work with `CurveLoop`.

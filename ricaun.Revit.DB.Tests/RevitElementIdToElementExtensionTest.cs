@@ -1,5 +1,6 @@
 ﻿using Autodesk.Revit.DB;
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,6 +8,26 @@ namespace ricaun.Revit.DB.Tests
 {
     public class RevitElementIdToElementExtensionTest : Utils.OneTimeOpenDocumentTest
     {
+        [Test]
+        public void ToElements_WhenEmptyList()
+        {
+            var elementIds = new List<ElementId>();
+            var elements = elementIds.ToElements<Element>(document);
+            Console.WriteLine(elementIds);
+
+            Assert.AreEqual(0, elements.Count());
+        }
+
+        [Test]
+        public void ToElements_WhenEmptyEnumerable()
+        {
+            var elementIds = new List<ElementId>() { ElementId.InvalidElementId }.Where(e => e.IsValid());
+            var elements = elementIds.ToElements<Element>(document);
+            Console.WriteLine(elementIds);
+
+            Assert.AreEqual(0, elements.Count());
+        }
+
         [Test]
         public void ProjectInformation()
         {
@@ -30,7 +51,7 @@ namespace ricaun.Revit.DB.Tests
 
             var elementIds = document.GetElementIds<ProjectInfo>();
             var elements = elementIds.ToElements(document);
-            
+
             Assert.AreEqual(1, elements.Count());
 
             var projectInfos = elementIds.ToElements<ProjectInfo>(document);

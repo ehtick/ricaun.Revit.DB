@@ -36,6 +36,7 @@ namespace ricaun.Revit.DB.Tests
         [Test]
         public void ElementIdIsLessThanInvalid()
         {
+            Assert.False(((ElementId)null).IsLessThanInvalid());
             Assert.False(elementId.IsLessThanInvalid());
             Assert.True(new ElementId(BuiltInCategory.OST_ProjectInformation).IsLessThanInvalid());
             Assert.True(new ElementId(BuiltInParameter.ID_PARAM).IsLessThanInvalid());
@@ -44,6 +45,7 @@ namespace ricaun.Revit.DB.Tests
         [Test]
         public void ElementIdIsGreaterThanInvalid()
         {
+            Assert.False(((ElementId)null).IsGreaterThanInvalid());
             Assert.False(elementId.IsGreaterThanInvalid());
             Assert.False(new ElementId(BuiltInCategory.OST_ProjectInformation).IsGreaterThanInvalid());
             Assert.False(new ElementId(BuiltInParameter.ID_PARAM).IsGreaterThanInvalid());
