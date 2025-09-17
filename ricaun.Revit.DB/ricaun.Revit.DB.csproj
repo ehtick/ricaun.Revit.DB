@@ -8,26 +8,14 @@
     <LangVersion>latest</LangVersion>
     <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
     <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
-
-    <SuppressDependenciesWhenPacking>false</SuppressDependenciesWhenPacking>
-    <IncludeBuildOutput>false</IncludeBuildOutput>
-    <NoWarn>$(NoWarn);NU5128</NoWarn>
-    
-    <Configurations>
-      Debug; Release;
-    </Configurations>
+    <Configurations>Debug; Release</Configurations>
   </PropertyGroup>
 
   <!-- RevitVersion -->
   <PropertyGroup>
-    <TargetFrameworks>net46;net47;net48;net8.0-windows</TargetFrameworks>
+    <TargetFrameworks>net47;net48;net8.0-windows</TargetFrameworks>
   </PropertyGroup>
   <Choose>
-    <When Condition="$(TargetFramework.StartsWith('net46'))">
-      <PropertyGroup>
-        <RevitVersion>2017</RevitVersion>
-      </PropertyGroup>
-    </When>
     <When Condition="$(TargetFramework.StartsWith('net47'))">
       <PropertyGroup>
         <RevitVersion>2019</RevitVersion>
@@ -78,8 +66,6 @@
 
   <PropertyGroup>
     <PackageId>ricaun.Revit.DB</PackageId>
-    <Version Condition="'$(Version)' == ''">1.0.0</Version>
-    <ProjectGuid>{4571A534-33B8-4771-8071-A967DE651909}</ProjectGuid>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -118,6 +104,9 @@
 
   <PropertyGroup Condition="!$(Configuration.Contains('Debug'))">
     <DocumentationFile>$(OutputPath)\$(AssemblyName).xml</DocumentationFile>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <DebugType>portable</DebugType>
   </PropertyGroup>
   <PropertyGroup Condition="$(Configuration.Contains('Debug'))">
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
@@ -146,30 +135,6 @@
     </None>
   </ItemGroup>
 
-  <ItemGroup Condition="!$(Configuration.Contains('Debug'))">
-    <Compile Remove="Revit\**" />
-    <EmbeddedResource Remove="Revit\**" />
-    <None Remove="Revit\**" />
-    <Page Remove="Revit\**" />
-  </ItemGroup>
-
-  <ItemGroup Condition="$(Configuration.Contains('Debug'))">
-    <PackageReference Include="ricaun.Revit.UI" Version="*" />
-    <PackageReference Include="ricaun.Revit.Mvvm" Version="*" />
-  </ItemGroup>
-  
-  <!-- Fody -->
-  <ItemGroup Condition="$(Configuration.Contains('Debug'))">
-    <PackageReference Include="PropertyChanged.Fody" Version="3.*" IncludeAssets="build; compile" PrivateAssets="all" />
-  </ItemGroup>
-  <PropertyGroup>
-    <WeaverConfiguration>
-      <Weavers>
-        <PropertyChanged />
-      </Weavers>
-    </WeaverConfiguration>
-  </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Revit_All_Main_Versions_API_x64" Version="$(RevitVersion).*-*" IncludeAssets="build; compile" PrivateAssets="All" />
   </ItemGroup>
@@ -179,8 +144,23 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ricaun.Revit.DB.Quaternion\ricaun.Revit.DB.Quaternion.csproj" />
-    <ProjectReference Include="..\ricaun.Revit.DB.Shape\ricaun.Revit.DB.Shape.csproj" />
+    <!-- This is the analyzer project that generates the Revit API extension -->
+    <ProjectReference Include="..\ricaun.Revit.DB.Generator\ricaun.Revit.DB.Generator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
- 
+
+  <ItemGroup Condition="!$(Configuration.Contains('Debug'))">
+    <Compile Remove="Revit\**" />
+    <EmbeddedResource Remove="Revit\**" />
+    <None Remove="Revit\**" />
+    <Page Remove="Revit\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ricaun.Revit.UI" Version="*" Condition="$(Configuration.Contains('Debug'))" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="$(PackageId).Tests" />
+  </ItemGroup>
+
 </Project>

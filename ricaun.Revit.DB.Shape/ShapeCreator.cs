@@ -61,7 +61,7 @@ namespace ricaun.Revit.DB.Shape
 
             if (closed)
             {
-                var line = CreateBound(pointsArray[0], pointsArray[pointsArray.Length - 1], graphicsStyleId);
+                var line = CreateBound(pointsArray[pointsArray.Length - 1], pointsArray[0], graphicsStyleId);
                 if (line is not null)
                     lines.Add(line);
             }
@@ -131,6 +131,7 @@ namespace ricaun.Revit.DB.Shape
             return null;
         }
         #endregion
+
         #region Box
         /// <summary>
         /// Creates a 3D box with the specified center and size.
@@ -339,7 +340,7 @@ namespace ricaun.Revit.DB.Shape
 
             var profileLoops = new List<CurveLoop>();
             var curveLoop = new CurveLoop();
-            var points = XYZUtils.CreateCircleLoopVertices(center, radius, sides);
+            var points = XYZUtils.CreateCircleLoopSides(center, radius, sides);
 
             for (int i = 0; i < points.Length; i++)
             {
@@ -396,7 +397,7 @@ namespace ricaun.Revit.DB.Shape
             var pyramidPoint = center + heightHalfZ;
             center -= heightHalfZ;
 
-            var points = XYZUtils.CreateCircleLoopVertices(center, radius, sides);
+            var points = XYZUtils.CreateCircleLoopSides(center, radius, sides);
 
             var solid = TessellatedShapeCreator.Create((builder) =>
             {
@@ -607,6 +608,185 @@ namespace ricaun.Revit.DB.Shape
             var solidBlue = ShapeCreator.CreateArrow(sides, XYZ.BasisZ, materialIdZ, graphicsStyleId);
 
             return new[] { solidRed, solidGreen, solidBlue };
+        }
+        #endregion
+
+        #region Swept
+        /// <summary>
+        /// Creates a swept solid by sweeping a circular profile of the specified diameter along the given path of points.
+        /// </summary>
+        /// <param name="points">
+        /// The collection of <see cref="Autodesk.Revit.DB.XYZ"/> points that define the sweep path.
+        /// </param>
+        /// <param name="radius">
+        /// Optional. The radius of the circular profile to be swept along the path. Default is 1.0.
+        /// </param>
+        /// <param name="materialId">
+        /// Optional. The <see cref="Autodesk.Revit.DB.ElementId"/> of the material to apply to the solid. 
+        /// If not specified, the default material is used.
+        /// </param>
+        /// <param name="graphicsStyleId">
+        /// Optional. The <see cref="Autodesk.Revit.DB.ElementId"/> of the graphics style to apply to the solid. 
+        /// If not specified, the default graphics style is used.
+        /// </param>
+        /// <returns>
+        /// A <see cref="Autodesk.Revit.DB.Solid"/> representing the swept geometry created by sweeping the circular profile along the path.
+        /// </returns>
+        public static Solid CreateSwept(IEnumerable<XYZ> points,
+            double radius = 1.0,
+            ElementId materialId = null,
+            ElementId graphicsStyleId = null)
+        {
+            var curves = CreateLines(points);
+            var curve = curves.FirstOrDefault();
+            var profileLoop = CurveLoopUtils.CreateCircleLoop(curve.Evaluate(0, true), curve.ComputeDerivatives(0, true).BasisX, radius);
+            return CreateSwept(curves, profileLoop, materialId, graphicsStyleId);
+        }
+
+        /// <summary>
+        /// Creates a swept solid by sweeping a given profile loop along a specified path of points.
+        /// </summary>
+        /// <param name="points">
+        /// The collection of <see cref="Autodesk.Revit.DB.XYZ"/> points that define the sweep path.
+        /// </param>
+        /// <param name="profileLoop">
+        /// The <see cref="Autodesk.Revit.DB.CurveLoop"/> representing the profile to be swept along the path.
+        /// </param>
+        /// <param name="materialId">
+        /// Optional. The <see cref="Autodesk.Revit.DB.ElementId"/> of the material to apply to the solid. 
+        /// If not specified, the default material is used.
+        /// </param>
+        /// <param name="graphicsStyleId">
+        /// Optional. The <see cref="Autodesk.Revit.DB.ElementId"/> of the graphics style to apply to the solid. 
+        /// If not specified, the default graphics style is used.
+        /// </param>
+        /// <returns>
+        /// A <see cref="Autodesk.Revit.DB.Solid"/> representing the swept geometry created by sweeping the profile along the path.
+        /// </returns>
+        public static Solid CreateSwept(IEnumerable<XYZ> points,
+           CurveLoop profileLoop,
+           ElementId materialId = null,
+           ElementId graphicsStyleId = null)
+        {
+            return CreateSwept(CreateLines(points), profileLoop, materialId, graphicsStyleId);
+        }
+
+        /// <summary>
+        /// Creates a swept solid by sweeping a given profile loop along a specified path of curves.
+        /// </summary>
+        /// <param name="curves">The collection of <see cref="Curve"/> objects that define the sweep path.</param>
+        /// <param name="profileLoop">The <see cref="CurveLoop"/> representing the profile to be swept along the path.</param>
+        /// <param name="materialId">
+        /// Optional. The <see cref="Autodesk.Revit.DB.ElementId"/> of the material to apply to the solid. 
+        /// If not specified, the default material is used.
+        /// </param>
+        /// <param name="graphicsStyleId">
+        /// Optional. The <see cref="Autodesk.Revit.DB.ElementId"/> of the graphics style to apply to the solid. 
+        /// If not specified, the default graphics style is used.
+        /// </param>
+        /// <returns>
+        /// A <see cref="Solid"/> representing the swept geometry created by sweeping the profile along the path.
+        /// </returns>
+        public static Solid CreateSwept(IEnumerable<Curve> curves,
+            CurveLoop profileLoop,
+            ElementId materialId = null,
+            ElementId graphicsStyleId = null)
+        {
+            var sweepPath = new CurveLoop();
+            foreach (var curve in curves)
+                sweepPath.Append(curve);
+
+            var profileLoops = new List<CurveLoop>();
+            profileLoops.Add(profileLoop);
+
+            SolidOptions solidOptions = CreateSolidOptions(materialId, graphicsStyleId);
+            return GeometryCreationUtilities.CreateSweptGeometry(sweepPath, 0, 0, profileLoops, solidOptions);
+        }
+
+        /// <summary>
+        /// Creates a swept solid by sweeping a circular profile of the specified diameter along the given path of curves.
+        /// </summary>
+        /// <param name="curves">
+        /// The collection of <see cref="Curve"/> objects that define the sweep path.
+        /// </param>
+        /// <param name="radius">
+        /// Optional. The radius of the circular profile to be swept along the path. Default is 1.0.
+        /// </param>
+        /// <param name="materialId">
+        /// Optional. The <see cref="Autodesk.Revit.DB.ElementId"/> of the material to apply to the solid. 
+        /// If not specified, the default material is used.
+        /// </param>
+        /// <param name="graphicsStyleId">
+        /// Optional. The <see cref="Autodesk.Revit.DB.ElementId"/> of the graphics style to apply to the solid. 
+        /// If not specified, the default graphics style is used.
+        /// </param>
+        /// <returns>
+        /// A <see cref="Solid"/> representing the swept geometry created by sweeping the circular profile along the path.
+        /// </returns>
+        public static Solid CreateSwept(IEnumerable<Curve> curves,
+            double radius = 1.0,
+            ElementId materialId = null,
+            ElementId graphicsStyleId = null)
+        {
+            var curve = curves.FirstOrDefault();
+            var profileLoop = CurveLoopUtils.CreateCircleLoop(curve.Evaluate(0, true), curve.ComputeDerivatives(0, true).BasisX, radius);
+            return CreateSwept(curves, profileLoop, materialId, graphicsStyleId);
+        }
+
+        /// <summary>
+        /// Creates a swept solid by sweeping a given profile loop along a specified curve.
+        /// </summary>
+        /// <param name="curve">
+        /// The <see cref="Curve"/> that defines the sweep path.
+        /// </param>
+        /// <param name="profileLoop">
+        /// The <see cref="CurveLoop"/> representing the profile to be swept along the path.
+        /// </param>
+        /// <param name="materialId">
+        /// Optional. The <see cref="Autodesk.Revit.DB.ElementId"/> of the material to apply to the solid. 
+        /// If not specified, the default material is used.
+        /// </param>
+        /// <param name="graphicsStyleId">
+        /// Optional. The <see cref="Autodesk.Revit.DB.ElementId"/> of the graphics style to apply to the solid. 
+        /// If not specified, the default graphics style is used.
+        /// </param>
+        /// <returns>
+        /// A <see cref="Solid"/> representing the swept geometry created by sweeping the profile along the curve.
+        /// </returns>
+        public static Solid CreateSwept(Curve curve,
+            CurveLoop profileLoop,
+            ElementId materialId = null,
+            ElementId graphicsStyleId = null)
+        {
+            return CreateSwept(new[] { curve }, profileLoop, materialId, graphicsStyleId);
+        }
+
+        /// <summary>
+        /// Creates a swept solid by sweeping a circular profile of the specified diameter along the given curve.
+        /// </summary>
+        /// <param name="curve">
+        /// The <see cref="Curve"/> that defines the sweep path.
+        /// </param>
+        /// <param name="radius">
+        /// Optional. The radius of the circular profile to be swept along the path. Default is 1.0.
+        /// </param>
+        /// <param name="materialId">
+        /// Optional. The <see cref="Autodesk.Revit.DB.ElementId"/> of the material to apply to the solid. 
+        /// If not specified, the default material is used.
+        /// </param>
+        /// <param name="graphicsStyleId">
+        /// Optional. The <see cref="Autodesk.Revit.DB.ElementId"/> of the graphics style to apply to the solid. 
+        /// If not specified, the default graphics style is used.
+        /// </param>
+        /// <returns>
+        /// A <see cref="Solid"/> representing the swept geometry created by sweeping the circular profile along the curve.
+        /// </returns>
+        public static Solid CreateSwept(Curve curve,
+            double radius = 1.0,
+            ElementId materialId = null,
+            ElementId graphicsStyleId = null)
+        {
+            return CreateSwept(new[] { curve }, radius, materialId, graphicsStyleId);
         }
         #endregion
     }

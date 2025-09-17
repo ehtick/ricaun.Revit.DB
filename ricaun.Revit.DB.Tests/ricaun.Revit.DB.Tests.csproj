@@ -3,20 +3,38 @@
 
   <PropertyGroup>
     <IsTestProject>true</IsTestProject>
-    <UseWPF>true</UseWPF>
     <OutputType>Library</OutputType>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <LangVersion>Latest</LangVersion>
+    <LangVersion>latest</LangVersion>
+    <TargetFrameworks>net47;net48;net481;net8.0-windows</TargetFrameworks>
     <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
     <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
-    <Configurations>Debug;Release</Configurations>
   </PropertyGroup>
 
   <!-- RevitVersion -->
-  <PropertyGroup>
-    <TargetFrameworks>net48;net8.0-windows</TargetFrameworks>
-  </PropertyGroup>
-
+  <Choose>
+    <When Condition="$(TargetFramework.StartsWith('net47'))">
+      <PropertyGroup>
+        <RevitVersion>2019</RevitVersion>
+      </PropertyGroup>
+    </When>
+    <When Condition="$(TargetFramework.StartsWith('net481'))">
+      <PropertyGroup>
+        <RevitVersion>2024</RevitVersion>
+      </PropertyGroup>
+    </When>
+    <When Condition="$(TargetFramework.StartsWith('net48'))">
+      <PropertyGroup>
+        <RevitVersion>2021</RevitVersion>
+      </PropertyGroup>
+    </When>
+    <Otherwise>
+      <PropertyGroup>
+        <RevitVersion>2025</RevitVersion>
+      </PropertyGroup>
+    </Otherwise>
+  </Choose>
+  
   <!-- Net Core -->
   <PropertyGroup Condition="!$(TargetFramework.StartsWith('net4'))">
     <EnableDynamicLoading>true</EnableDynamicLoading>
@@ -24,43 +42,32 @@
     <GenerateDependencyFile>false</GenerateDependencyFile>
   </PropertyGroup>
 
-  <Choose>
-    <When Condition="$(TargetFramework.StartsWith('net4'))">
-      <PropertyGroup>
-        <RevitVersion>$(RevitVersionTests)</RevitVersion>
-      </PropertyGroup>
-    </When>
-    <Otherwise>
-      <PropertyGroup>
-        <RevitVersion>$(RevitVersionCoreTests)</RevitVersion>
-      </PropertyGroup>
-    </Otherwise>
-  </Choose>
-
   <!-- Release -->
   <PropertyGroup Condition="!$(Configuration.Contains('Debug'))">
+    <Optimize>true</Optimize>
     <OutputPath>bin\Release\$(RevitVersion)</OutputPath>
-    <DefineConstants>REVIT$(RevitVersion)</DefineConstants>
+    <DefineConstants>$(DefineConstants);REVIT$(RevitVersion)</DefineConstants>
     <NoWarn>MSB3052</NoWarn>
+    <DebugType>None</DebugType>
   </PropertyGroup>
 
   <!-- Debug -->
   <PropertyGroup Condition="$(Configuration.Contains('Debug'))">
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;REVIT$(RevitVersion)</DefineConstants>
-  </PropertyGroup>
-
-  <!-- Test Debug -->
-  <PropertyGroup>
-    <IsTestProject>true</IsTestProject>
     <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\$(RevitVersion)</OutputPath>
+    <DefineConstants>$(DefineConstants);DEBUG;TRACE;REVIT$(RevitVersion)</DefineConstants>
     <DebugType>Full</DebugType>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="RevitTest.cs" />
+    <None Include="Utils\OneTimeOpenDocumentTest.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="NUnit" Version="3.13.3" />
     <PackageReference Include="ricaun.RevitTest.TestAdapter" Version="*" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" Condition="!$(TargetFramework.StartsWith('net4'))"/>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="*" Condition="!$(TargetFramework.StartsWith('net4'))" />
   </ItemGroup>
 
   <ItemGroup>
@@ -84,13 +91,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ricaun.Revit.DB.Shape\ricaun.Revit.DB.Shape.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Family\Box2021.rfa">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <ProjectReference Include="..\ricaun.Revit.DB\ricaun.Revit.DB.csproj" />
   </ItemGroup>
 
 </Project>

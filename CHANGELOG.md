@@ -4,6 +4,41 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [1.0.0] / 2025-07-22
+### Features
+- `ricaun.Revit.DB` with `Select` extension for `Element` and `ElementType`.
+### Updates
+- Remove `2017` support.
+- Add `ricaun.Revit.DB.Generator` to generate `ricaun.Revit.DB` code select extension.
+- Update `FilterRuleBuiltInParameterExtension` to support `Filter` extension to `Equals`.
+- Update `FilterRuleBuiltInParameterExtension` to support `Filter` with inverted options.
+- Update `ElementIdExtension` to fix `ElementIdValue`.
+- Add `FilterBuiltInCategoryExtension` to support filter by `BuiltInCategory`.
+- Update `InverseRule` in `FilterRuleExtension`.
+- Fix `WhereElementIs` to use `IsAssignableFrom` in the correct way with `ElementType`.
+- Update `ElementIdExtension` with method `ToElementIds` using `HashSet`.
+- Update `ElementIdExtension` with method `ToElement` to use `GetElements<T>`.
+- Fix `ToElements<TElement>` when empty.
+- Update `ElementIdExtension` with method `Parse` and `TryParse`.
+### Tests
+- Add `ricaun.Revit.DB.Tests` to test `Select` extension for `Element` and `ElementType`.
+- Add `RevitFilterExtensionTest` tests for `ElementFilterExtension`.
+- Add `RevitElementIdExtensionTest` and `RevitElementIdToElementExtensionTest` tests for `ElementIdExtension`.
+- Add `RevitFilterCategoryExtension` tests for `FilterBuiltInCategoryExtension`.
+- Add `RevitSelectElementExtensionTest` tests for select and get elements with filters.
+- Add `RevitRuleExtensionTest` tests for `FilterRuleExtension`.
+- Add `RevitSelectLevelExtensionTest` tests to select `Level` and `LevelType`.
+- Add `RevitSelectFamilyExtensionTest` tests to select `Family` and `FamilyType` by name.
+- Add `ToElements_WhenEmpty` tests for `ToElements<TElement>` when empty.
+- Add `ElementIdParse` and `ElementIdTryParse` tests for `ElementIdExtension`.
+### Shapes
+- Add `CreateSwept` to `ShapeCreator` to create a swept solid.
+- Update `ShapeCreator` to fix `CreateLines` when `closed` to work with `CurveLoop`.
+- Add `CurveLoopUtils` to create `CurveLoop` from `XYZ` points and `Curve`.
+### Generator
+- Add `SelectElements<T>` and `SelectElementTypes<T>` in the generator to generate `Select` extension methods for `Element` and `ElementType`.
+- Update `Generator` with summary comments for `Select` extension methods.
+
 ## [0.4.0] / 2024-09-23 - 2025-03-22
 ### Features
 - Support `SymbolPackageFormat`.
@@ -82,6 +117,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Create Project `ricaun.Revit.DB`
 
 [vNext]: ../../compare/0.1.0...HEAD
+[1.0.0]: ../../compare/0.4.0...1.0.0
 [0.4.0]: ../../compare/0.3.2...0.4.0
 [0.3.2]: ../../compare/0.3.1...0.3.2
 [0.3.1]: ../../compare/0.3.0...0.3.1
